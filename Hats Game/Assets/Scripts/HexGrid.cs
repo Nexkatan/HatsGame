@@ -57,8 +57,12 @@ public class HexGrid : MonoBehaviour
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
-        HexCell cell = cells[index];
-        return cell;
+        if (index < width * height)
+        {
+            HexCell cell = cells[index];
+            return cell;
+        }
+        return null;
     }
 
 
@@ -78,7 +82,33 @@ public class HexGrid : MonoBehaviour
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
         cell.color = defaultColor;
 
-        
+
+        Debug.Log(i);
+        if (x > 0)
+        {
+            cell.SetNeighbor(HexDirection.W, cells[i-1]);
+        }
+        if (z > 0)
+        {
+            if ((z & 1) == 0)
+            {
+                cell.SetNeighbor(HexDirection.SE, cells[i - width]);
+                if (x > 0)
+                {
+                    cell.SetNeighbor(HexDirection.SW, cells[i - width - 1]);
+                }
+            }
+            else
+            {
+                cell.SetNeighbor(HexDirection.SW, cells[i - width]);
+                if (x < width - 1)
+                {
+                    cell.SetNeighbor(HexDirection.SE, cells[i - width + 1]);
+                }
+            }
+        }
+
+
         TextMeshProUGUI label = Instantiate<TextMeshProUGUI>(cellLabelPrefab);
        
         label.rectTransform.SetParent(gridCanvas.transform, false);

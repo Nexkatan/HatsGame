@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6507569009415865171
 MonoBehaviour:
@@ -49,3 +49,11 @@ MonoBehaviour:
     z: 0
   color: {r: 0, g: 0, b: 0, a: 0}
   inlaySize: 1.001
+  hasHat: 0
+  neighbors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
