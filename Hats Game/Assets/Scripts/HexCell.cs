@@ -7,6 +7,8 @@ public class HexCell : MonoBehaviour
     public float inlaySize;
 
     public bool hasHat;
+    public bool hasReverseHat;
+    public float hatRot;
 
     [SerializeField]
     HexCell[] neighbors;

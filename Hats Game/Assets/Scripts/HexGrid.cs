@@ -83,7 +83,6 @@ public class HexGrid : MonoBehaviour
         cell.color = defaultColor;
 
 
-        Debug.Log(i);
         if (x > 0)
         {
             cell.SetNeighbor(HexDirection.W, cells[i-1]);
