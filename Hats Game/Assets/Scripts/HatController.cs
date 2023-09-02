@@ -21,7 +21,11 @@ public class HatController : MonoBehaviour
 
     public int hatHits = 0;
 
+    public HexCell currentCell;
     public HexCell landCell;
+
+    private Vector3 thisHatRot;
+
     [SerializeField] HexCoordinates cellCo;
 
     private bool isValid = true;
@@ -48,17 +52,14 @@ public class HatController : MonoBehaviour
     {
         if (isSelected)
         { 
-            Move();
+            MouseMove();
         }
-        else
-        {
-
-        }
-
     }
 
     private void Update()
     {
+        HexMove();
+        HexSpin();
         if (isSelected)
         {
             Spin();
@@ -70,7 +71,7 @@ public class HatController : MonoBehaviour
             }
     }
 
-    void Move()
+    void MouseMove()
     {
             mousePos = Input.mousePosition;
 
@@ -90,6 +91,337 @@ public class HatController : MonoBehaviour
         }   
     }
 
+    void HexMove()
+    {
+        thisHatRot = transform.eulerAngles;
+        if (Input.GetKeyDown(KeyCode.U) || Input.GetKeyDown(KeyCode.W))
+        {
+            currentCell.hasHat = false;
+            currentCell.hasReverseHat = false;
+            landCell = currentCell.GetNeighbor(HexDirection.NW);
+
+            if (!landCell.hasHat && !landCell.hasReverseHat)
+            {
+                IsPlacementValid();
+
+                if (isValid)
+                {
+                    this.transform.position = landCell.transform.position;
+                    currentCell = landCell;
+                    if (this.CompareTag("Hat"))
+                    {
+                        landCell.hasHat = true;
+                    }
+                    else if (this.CompareTag("Reverse Hat"))
+                    {
+                        landCell.hasReverseHat = true;
+                    }
+                    landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
+                }
+                else
+                {
+                    Debug.Log("Invalid");
+                    if (CompareTag("Hat"))
+                    {
+                        currentCell.hasHat = true;
+                    }
+                    else if (CompareTag("Reverse Hat"))
+                    {
+                        currentCell.hasReverseHat = true;
+                    }
+                }
+            }
+            else if (landCell.hasHat || landCell.hasReverseHat)
+            {
+                Debug.Log("Invalid");
+                if (CompareTag("Hat"))
+                {
+                    currentCell.hasHat = true;
+                }
+                else if (CompareTag("Reverse Hat"))
+                {
+                    currentCell.hasReverseHat = true;
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.E))
+        {
+
+
+            currentCell.hasHat = false;
+            currentCell.hasReverseHat = false;
+            landCell = currentCell.GetNeighbor(HexDirection.NE);
+
+            if (!landCell.hasHat && !landCell.hasReverseHat)
+            {
+                IsPlacementValid();
+
+                if (isValid)
+                {
+                    this.transform.position = landCell.transform.position;
+                    currentCell = landCell;
+                    if (this.CompareTag("Hat"))
+                    {
+                        landCell.hasHat = true;
+                    }
+                    else if (this.CompareTag("Reverse Hat"))
+                    {
+                        landCell.hasReverseHat = true;
+                    }
+                    landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
+                }
+                else
+                {
+                    Debug.Log("Invalid");
+                    if (CompareTag("Hat"))
+                    {
+                        currentCell.hasHat = true;
+                    }
+                    else if (CompareTag("Reverse Hat"))
+                    {
+                        currentCell.hasReverseHat = true;
+                    }
+                }
+            }
+            else if (landCell.hasHat || landCell.hasReverseHat)
+            {
+                Debug.Log("Invalid");
+                if (CompareTag("Hat"))
+                {
+                    currentCell.hasHat = true;
+                }
+                else if (CompareTag("Reverse Hat"))
+                {
+                    currentCell.hasReverseHat = true;
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.D))
+        {
+
+            currentCell.hasHat = false;
+            currentCell.hasReverseHat = false;
+            landCell = currentCell.GetNeighbor(HexDirection.E);
+
+            if (!landCell.hasHat && !landCell.hasReverseHat)
+            {
+                IsPlacementValid();
+
+                if (isValid)
+                {
+                    this.transform.position = landCell.transform.position;
+                    currentCell = landCell;
+                    if (this.CompareTag("Hat"))
+                    {
+                        landCell.hasHat = true;
+                    }
+                    else if (this.CompareTag("Reverse Hat"))
+                    {
+                        landCell.hasReverseHat = true;
+                    }
+                    landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
+                }
+                else
+                {
+                    Debug.Log("Invalid");
+                    if (CompareTag("Hat"))
+                    {
+                        currentCell.hasHat = true;
+                    }
+                    else if (CompareTag("Reverse Hat"))
+                    {
+                        currentCell.hasReverseHat = true;
+                    }
+                }
+            }
+            else if (landCell.hasHat || landCell.hasReverseHat)
+            {
+                Debug.Log("Invalid");
+                if (CompareTag("Hat"))
+                {
+                    currentCell.hasHat = true;
+                }
+                else if (CompareTag("Reverse Hat"))
+                {
+                    currentCell.hasReverseHat = true;
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.X))
+        {
+
+            currentCell.hasHat = false;
+            currentCell.hasReverseHat = false;
+            landCell = currentCell.GetNeighbor(HexDirection.SE);
+
+            if (!landCell.hasHat && !landCell.hasReverseHat)
+            {
+                IsPlacementValid();
+
+                if (isValid)
+                {
+                    this.transform.position = landCell.transform.position;
+                    currentCell = landCell;
+                    if (this.CompareTag("Hat"))
+                    {
+                        landCell.hasHat = true;
+                    }
+                    else if (this.CompareTag("Reverse Hat"))
+                    {
+                        landCell.hasReverseHat = true;
+                    }
+                    landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
+                }
+                else
+                {
+                    Debug.Log("Invalid");
+                    if (CompareTag("Hat"))
+                    {
+                        currentCell.hasHat = true;
+                    }
+                    else if (CompareTag("Reverse Hat"))
+                    {
+                        currentCell.hasReverseHat = true;
+                    }
+                }
+            }
+            else if (landCell.hasHat || landCell.hasReverseHat)
+            {
+                Debug.Log("Invalid");
+                if (CompareTag("Hat"))
+                {
+                    currentCell.hasHat = true;
+                }
+                else if (CompareTag("Reverse Hat"))
+                {
+                    currentCell.hasReverseHat = true;
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.N) || Input.GetKeyDown(KeyCode.Z))
+        {
+            currentCell.hasHat = false;
+            currentCell.hasReverseHat = false;
+            landCell = currentCell.GetNeighbor(HexDirection.SW);
+
+            if (!landCell.hasHat && !landCell.hasReverseHat)
+            {
+                IsPlacementValid();
+
+                if (isValid)
+                {
+                    this.transform.position = landCell.transform.position;
+                    currentCell = landCell;
+                    if (this.CompareTag("Hat"))
+                    {
+                        landCell.hasHat = true;
+                    }
+                    else if (this.CompareTag("Reverse Hat"))
+                    {
+                        landCell.hasReverseHat = true;
+                    }
+                    landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
+                }
+                else
+                {
+                    Debug.Log("Invalid");
+                    if (CompareTag("Hat"))
+                    {
+                        currentCell.hasHat = true;
+                    }
+                    else if (CompareTag("Reverse Hat"))
+                    {
+                        currentCell.hasReverseHat = true;
+                    }
+                }
+            }
+            else if (landCell.hasHat || landCell.hasReverseHat)
+            {
+                Debug.Log("Invalid");
+                if (CompareTag("Hat"))
+                {
+                    currentCell.hasHat = true;
+                }
+                else if (CompareTag("Reverse Hat"))
+                {
+                    currentCell.hasReverseHat = true;
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.A))
+        {
+            currentCell.hasHat = false;
+            currentCell.hasReverseHat = false;
+            landCell = currentCell.GetNeighbor(HexDirection.W);
+
+            if (!landCell.hasHat && !landCell.hasReverseHat)
+            {
+                IsPlacementValid();
+
+                if (isValid)
+                {
+                    this.transform.position = landCell.transform.position;
+                    currentCell = landCell;
+                    if (this.CompareTag("Hat"))
+                    {
+                        landCell.hasHat = true;
+                    }
+                    else if (this.CompareTag("Reverse Hat"))
+                    {
+                        landCell.hasReverseHat = true;
+                    }
+                    landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
+                }
+                else
+                {
+                    Debug.Log("Invalid");
+                    if (CompareTag("Hat"))
+                    {
+                        currentCell.hasHat = true;
+                    }
+                    else if (CompareTag("Reverse Hat"))
+                    {
+                        currentCell.hasReverseHat = true;
+                    }
+                }
+            }
+            else if (landCell.hasHat || landCell.hasReverseHat)
+            {
+                Debug.Log("Invalid");
+                if (CompareTag("Hat"))
+                {
+                    currentCell.hasHat = true;
+                }
+                else if (CompareTag("Reverse Hat"))
+                {
+                    currentCell.hasReverseHat = true;
+                }
+            }
+        }
+    }
+
+    void HexSpin()
+    {
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.J)) 
+        {
+            Vector3 m_EulerAngleVelocity = new Vector3(0, 60, 0);
+            Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity);
+            thisHatRot += m_EulerAngleVelocity;
+            Debug.Log(thisHatRot);
+
+            IsPlacementValid();
+
+            if (isValid)
+            {
+                this.transform.rotation *= deltaRotation;
+            }
+            else
+            {
+                thisHatRot -= m_EulerAngleVelocity;
+            }
+
+        }
+    }
     void Spin()
     {
         if (Input.GetMouseButtonDown((1)))
@@ -123,6 +455,7 @@ public class HatController : MonoBehaviour
     private void Deselect()
     {
         landCell = hexGrid.GetCell(transform.position);
+        currentCell = landCell;
         if (!landCell.hasHat && !landCell.hasReverseHat)
         {
             cellCo = landCell.coordinates;
@@ -192,8 +525,11 @@ public class HatController : MonoBehaviour
         HexCell neighborLong;
         HexCell neighborLongReverse1;
         HexCell neighborLongReverse2;
+
         
-        if (Mathf.Round(transform.eulerAngles.y) == 0)
+
+
+        if (Mathf.Round(thisHatRot.y) == 0 || Mathf.Round(thisHatRot.y) == 360)
         {
             if (this.CompareTag("Hat"))
             {
@@ -596,7 +932,7 @@ public class HatController : MonoBehaviour
             
         }
 
-        else if (Mathf.Round(transform.eulerAngles.y) == 60)
+        else if (Mathf.Round(thisHatRot.y) == 60)
         {
             if (this.CompareTag("Hat"))
             {
@@ -989,7 +1325,7 @@ public class HatController : MonoBehaviour
             
         }
 
-        else if (Mathf.Round(transform.eulerAngles.y) == 120)
+        else if (Mathf.Round(thisHatRot.y) == 120)
         {
             if(this.CompareTag("Hat"))
             {
@@ -1361,7 +1697,7 @@ public class HatController : MonoBehaviour
                 neighborLongReverse1 = neighborSW.GetNeighbor(HexDirection.W);
                 if (neighborLongReverse1.hasHat)
                 {
-                    if (neighborLongReverse1.hatRot == 60)
+                    if (neighborLongReverse1.hatRot == 120)
                     {
                         long1Valid = false;
                     }
@@ -1386,7 +1722,7 @@ public class HatController : MonoBehaviour
             
         }
 
-        else if (Mathf.Round(transform.eulerAngles.y) == 180)
+        else if (Mathf.Round(thisHatRot.y) == 180)
         {
             if (this.CompareTag("Hat"))
             {
@@ -1550,7 +1886,7 @@ public class HatController : MonoBehaviour
                 }
                 else if (neighborLong.hasReverseHat)
                 {
-                    if (neighborLong.hatRot == 0 || neighborLong.hatRot == 60)
+                    if (neighborLong.hatRot == 180 || neighborLong.hatRot == 240)
                     {
                         longValid = false;
                     }
@@ -1559,10 +1895,10 @@ public class HatController : MonoBehaviour
                         longValid = true;
                     }
                 }
-                neighborLongReverse1 = neighborE.GetNeighbor(HexDirection.SE);
+                neighborLongReverse1 = neighborNE.GetNeighbor(HexDirection.E);
                 if (neighborLongReverse1.hasReverseHat)
                 {
-                    if (neighborLongReverse1.hatRot == 180 || neighborLongReverse1.hatRot == 240)
+                    if (neighborLongReverse1.hatRot == 180)
                     {
                         long1Valid = false;
                     }
@@ -1747,7 +2083,7 @@ public class HatController : MonoBehaviour
                 }
                 else if (neighborLong.hasHat)
                 {
-                    if (neighborLong.hatRot == 60 || neighborLong.hatRot == 180)
+                    if (neighborLong.hatRot == 120 || neighborLong.hatRot == 180)
                     {
                         longValid = false;
                     }
@@ -1785,7 +2121,7 @@ public class HatController : MonoBehaviour
             
         }
 
-        else if (Mathf.Round(transform.eulerAngles.y) == 240)
+        else if (Mathf.Round(thisHatRot.y) == 240)
         {
             if (this.CompareTag("Hat"))
             {
@@ -1828,7 +2164,7 @@ public class HatController : MonoBehaviour
             if (neighborNE.hasHat)
             {
                     Debug.Log("NE Hit");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 120 || neighborNE.hatRot == 300)
+                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 120 || neighborNE.hatRot == 180 || neighborNE.hatRot == 300)
                 {
                     NEValid = true;
                 }
@@ -1916,7 +2252,7 @@ public class HatController : MonoBehaviour
                 }
             if (neighborSE.hasReverseHat)
                 {
-                    if (neighborSE.hatRot == 60)
+                    if (neighborSE.hatRot == 60 || neighborSE.hatRot == 120)
                     {
                         SEValid = true;
                     }
@@ -2175,7 +2511,7 @@ public class HatController : MonoBehaviour
             
         }
 
-        else if (Mathf.Round(transform.eulerAngles.y) == 300)
+        else if (Mathf.Round(thisHatRot.y) == 300)
         {
             if (this.CompareTag("Hat"))
             {
