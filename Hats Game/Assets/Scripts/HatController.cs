@@ -28,7 +28,7 @@ public class HatController : MonoBehaviour
 
     [SerializeField] HexCoordinates cellCo;
 
-    private bool isValid = true;
+    public bool isValid = true;
     private bool SWValid = true;
     private bool WValid = true;
     private bool NWValid = true;
@@ -46,13 +46,16 @@ public class HatController : MonoBehaviour
         hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
         screenCamera = Camera.main;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        landCell = hexGrid.GetCell(transform.position);
+        currentCell = landCell;
+        StartCoroutine(CheckValid());
     }
 
     void FixedUpdate()
     {
         if (isSelected)
         { 
-            MouseMove();
+            //MouseMove();
         }
     }
 
@@ -458,8 +461,6 @@ public class HatController : MonoBehaviour
         currentCell = landCell;
         if (!landCell.hasHat && !landCell.hasReverseHat)
         {
-            cellCo = landCell.coordinates;
-
             IsPlacementValid();
 
             if (isValid)
@@ -513,7 +514,7 @@ public class HatController : MonoBehaviour
         isSelected = true;
     }
 
-    void IsPlacementValid()
+    public void IsPlacementValid()
     {
         HexCell neighborNE = landCell.GetNeighbor(HexDirection.NE);
         HexCell neighborE = landCell.GetNeighbor(HexDirection.E);
@@ -611,7 +612,7 @@ public class HatController : MonoBehaviour
                 if (neighborSW.hasReverseHat)
                 {
                     Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 0 || neighborSW.hatRot == 60 || neighborSW.hatRot == 120 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240)
+                    if (neighborSW.hatRot == 0 || neighborSW.hatRot == 60 || neighborSW.hatRot == 120 || neighborSW.hatRot == 180)
                     {
                         SWValid = true;
                     }
@@ -641,7 +642,7 @@ public class HatController : MonoBehaviour
                     }
                     else
                     {
-                        isValid = false;
+                        NWValid = false;
                     }
                 }
                 if (neighborNE.hasReverseHat)
@@ -1072,7 +1073,7 @@ public class HatController : MonoBehaviour
             if (neighborSE.hasReverseHat)
             {
                 Debug.Log("SE hat");
-                if (neighborSE.hatRot == 0 || neighborSE.hatRot == 60 || neighborSE.hatRot == 120 || neighborSE.hatRot == 180 || neighborSE.hatRot == 240)
+                if (neighborSE.hatRot == 0 || neighborSE.hatRot == 60 || neighborSE.hatRot == 120 || neighborSE.hatRot == 180)
                 {
                     SEValid = true;
                 }
@@ -1105,10 +1106,17 @@ public class HatController : MonoBehaviour
                         longValid = true;
                     }
                 }
-                neighborLongReverse1 = neighborNW.GetNeighbor(HexDirection.NE);
+                neighborLongReverse1 = neighborNE.GetNeighbor(HexDirection.NE);
                 if (neighborLongReverse1.hasReverseHat)
                 {
-                    
+                    if (neighborLongReverse1.hatRot == 180)
+                    {
+                        longValid = false;
+                    }
+                    else
+                    {
+                        longValid = true;
+                    }
                 }
                 neighborLongReverse2 = neighborNW.GetNeighbor(HexDirection.W);
                 if (neighborLongReverse2.hasReverseHat)
@@ -1488,7 +1496,7 @@ public class HatController : MonoBehaviour
                 }
                 else if (neighborLong.hasReverseHat)
                 {
-                    if (neighborLong.hatRot == 180)
+                    if (neighborLong.hatRot == 120 || neighborLong.hatRot == 180)
                     {
                         longValid = false;
                     }
@@ -2200,7 +2208,15 @@ public class HatController : MonoBehaviour
 
             if (neighborSW.hasReverseHat)
                 {
-                    SWValid = false;
+                    Debug.Log("SW Hat");
+                    if (neighborSW.hatRot == 240)
+                    {
+                        SWValid = true;
+                    }
+                    else
+                    {
+                        SWValid = false;
+                    }
                 }
             if (neighborW.hasReverseHat)
                 {
@@ -2942,5 +2958,14 @@ public class HatController : MonoBehaviour
 
     }
 
-    
+    private IEnumerator CheckValid()
+    {
+        while (!gameManager.gameOver)
+        {
+            yield return new WaitForSeconds(.5f);
+
+            IsPlacementValid();
+        }
+    }
+
 }

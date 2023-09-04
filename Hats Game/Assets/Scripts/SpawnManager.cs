@@ -11,13 +11,18 @@ public class SpawnManager : MonoBehaviour
     private Vector3 buttonPos;
 
     private GameManager gameManager;
+    public GameObject wallPrefab;
 
 
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         buttonPos = transform.position;
+        SpawnWall();
     }
+
+   
+
 
     private void OnMouseDown()
     {
@@ -47,4 +52,20 @@ public class SpawnManager : MonoBehaviour
         }
         return null;
     }
+
+    public void SpawnWall()
+    {
+        if (!gameManager.gameOver)
+        {
+            GameObject wall = Instantiate(wallPrefab, wallPrefab.transform.position, wallPrefab.transform.rotation);
+            StartCoroutine(SpawnSpeed());
+        }
+    }
+    IEnumerator SpawnSpeed() 
+    {
+        yield return new WaitForSeconds(8);
+        SpawnWall();
+        
+    }
+    
 }

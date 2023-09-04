@@ -5,4 +5,5 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public bool tileSelected;
+    public bool gameOver = false;
 }
