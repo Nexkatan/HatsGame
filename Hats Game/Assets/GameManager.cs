@@ -6,4 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public bool tileSelected;
     public bool gameOver = false;
+    public int difficulty = 2;
+
+   
 }

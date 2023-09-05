@@ -12,13 +12,18 @@ public class SpawnManager : MonoBehaviour
 
     private GameManager gameManager;
     public GameObject wallPrefab;
+    public float timeBetweenWaves;
 
 
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         buttonPos = transform.position;
-        SpawnWall();
+        timeBetweenWaves = gameManager.difficulty;
+        if (wallPrefab != null)
+        {
+            SpawnWall();
+        }
     }
 
    
@@ -34,8 +39,9 @@ public class SpawnManager : MonoBehaviour
     {
         if (!isSelected) 
         {
-            Instantiate(hat, buttonPos, hat.transform.rotation);
-            hat.gameObject.GetComponent<HatController>().isSelected = true;
+            Vector3 mousePos = Input.mousePosition;
+            Instantiate(hat, mousePos, hat.transform.rotation);
+            hat.gameObject.GetComponent<HatPlacer>().isSelected = true;
             gameManager.tileSelected = true;
         }
         
@@ -58,12 +64,12 @@ public class SpawnManager : MonoBehaviour
         if (!gameManager.gameOver)
         {
             GameObject wall = Instantiate(wallPrefab, wallPrefab.transform.position, wallPrefab.transform.rotation);
-            StartCoroutine(SpawnSpeed());
+            StartCoroutine(SpawnSpeed((1 / timeBetweenWaves) * 16));
         }
     }
-    IEnumerator SpawnSpeed() 
+    IEnumerator SpawnSpeed(float waveTime) 
     {
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(waveTime);
         SpawnWall();
         
     }

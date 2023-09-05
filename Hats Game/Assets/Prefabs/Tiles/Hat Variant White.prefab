@@ -434,9 +434,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8782374004999383759}
-  - component: {fileID: 3278067839366229800}
+  - component: {fileID: 5251171890639293380}
   m_Layer: 3
-  m_Name: Hat Variant Brown
+  m_Name: Hat Variant White
   m_TagString: Hat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -459,7 +459,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &3278067839366229800
+--- !u!114 &5251171890639293380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -468,14 +468,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2148898314600543438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37aa94619a2dbdf41a5c02c7461cea6e, type: 3}
+  m_Script: {fileID: 11500000, guid: b6e364648fcb6ed46b7c542da7593b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colors:
-  - {r: 0.9245283, g: 0.07413671, b: 0.07413671, a: 0}
-  colliders: {fileID: 6858596080601368596}
-  isSelected: 1
+  colors: []
+  colliders: {fileID: 0}
+  isSelected: 0
   hatHits: 0
+  currentCell: {fileID: 0}
+  landCell: {fileID: 0}
+  cellCo:
+    x: 0
+    z: 0
+  isValid: 1
 --- !u!1 &2172810319345085898
 GameObject:
   m_ObjectHideFlags: 0

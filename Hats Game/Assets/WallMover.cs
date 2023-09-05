@@ -5,8 +5,11 @@ using UnityEngine;
 public class WallMover : MonoBehaviour
 {
     public bool isMoving;
+
+    private GameManager gameManager;
     private void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         List<GameObject> hats = new List<GameObject>();
         foreach (Transform t in transform)
         { 

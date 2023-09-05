@@ -6033,7 +6033,7 @@ Transform:
   - {fileID: 1307409080625644717}
   - {fileID: 742549305037444880}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1565453500683328965
 MonoBehaviour:
@@ -6048,6 +6048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMoving: 1
+  downSpeed: 0.25
 --- !u!1 &853003714067842493
 GameObject:
   m_ObjectHideFlags: 0

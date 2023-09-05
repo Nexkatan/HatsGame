@@ -16,6 +16,9 @@ public class WallHat : MonoBehaviour
     private bool alternate;
 
     private bool gameOver = false;
+    private float difficulty;
+
+
     private void Start()
     {
         wallMover = this.GetComponentInParent<WallMover>();
@@ -25,7 +28,7 @@ public class WallHat : MonoBehaviour
         currentCell = hexGrid.GetCell(transform.position);
         SetHex();
         currentCell.hatRot = Mathf.Round(transform.eulerAngles.y);
-        
+        difficulty = gameManager.difficulty;
     }
 
     void Update()
@@ -55,10 +58,9 @@ public class WallHat : MonoBehaviour
                 SetHex();
                 alternate = true;
                 }
-
-                moveTime = false;
-            
-                StartCoroutine(MoveDown());
+                    
+                    StartCoroutine(MoveDown(1 / difficulty));
+                    moveTime = false;
                 }
 
             }
@@ -76,7 +78,6 @@ public class WallHat : MonoBehaviour
 
     public void SetHex()
     {
-        Debug.Log("Set");
         if (this.CompareTag("Hat"))
         {
             currentCell.hasHat = true;
@@ -90,7 +91,6 @@ public class WallHat : MonoBehaviour
 
     public void ResetHex()
     {
-        Debug.Log("Reset");
         if (this.CompareTag("Hat"))
         {
             currentCell.hasHat = false;
@@ -100,9 +100,9 @@ public class WallHat : MonoBehaviour
             currentCell.hasReverseHat = false;
         }
     }
-   IEnumerator MoveDown()
+   IEnumerator MoveDown(float downSpeed)
     {
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(downSpeed);
             moveTime = true;
     }
 }
