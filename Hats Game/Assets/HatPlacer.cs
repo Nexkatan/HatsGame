@@ -113,6 +113,7 @@ public class HatPlacer : MonoBehaviour
             landCell.hasReverseHat = false;
             landCell.hatRot = 0;
             StartCoroutine(TrueSelecta());
+            gameManager.selectedTile = this.gameObject; 
             Destroy(this.GetComponent<Rigidbody>());
         }
         else
@@ -148,6 +149,7 @@ public class HatPlacer : MonoBehaviour
                 rb = GetComponent<Rigidbody>();
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 gameManager.tileSelected = false;
+                gameManager.selectedTile = null;
             }
             else
             {

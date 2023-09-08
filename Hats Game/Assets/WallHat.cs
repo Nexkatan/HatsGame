@@ -18,13 +18,22 @@ public class WallHat : MonoBehaviour
     private bool gameOver = false;
     private float difficulty;
 
+    public bool isPlayer = false;
+    public bool isWallMover = false;
 
     private void Start()
     {
-        wallMover = this.GetComponentInParent<WallMover>();
+        
         hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        playerHat = GameObject.Find("PlayerHat").GetComponent<HatController>();
+        if (isPlayer)
+        {
+            playerHat = GameObject.Find("PlayerHat").GetComponent<HatController>();
+        }
+        if (isWallMover)
+        {
+            wallMover = this.GetComponentInParent<WallMover>();
+        }
         currentCell = hexGrid.GetCell(transform.position);
         SetHex();
         currentCell.hatRot = Mathf.Round(transform.eulerAngles.y);
@@ -33,43 +42,47 @@ public class WallHat : MonoBehaviour
 
     void Update()
     {
-        if (wallMover.isMoving && !gameManager.gameOver)
+        if (isWallMover)
         {
-            if (playerHat.isValid)
+            if (wallMover.isMoving && !gameManager.gameOver)
             {
+                if (playerHat.isValid)
+                {
 
-            currentCell = hexGrid.GetCell(transform.position);
-                if (moveTime)
-                {
-                     ResetHex();
-                if (alternate)
-                {
-                moveCell = currentCell.GetNeighbor(HexDirection.SE);
-                currentCell = moveCell;
-                transform.position = currentCell.transform.position;
-                alternate = false;
-                SetHex();
+                    currentCell = hexGrid.GetCell(transform.position);
+                    if (moveTime)
+                    {
+                        ResetHex();
+                        if (alternate)
+                        {
+                            moveCell = currentCell.GetNeighbor(HexDirection.SE);
+                            currentCell = moveCell;
+                            transform.position = currentCell.transform.position;
+                            alternate = false;
+                            SetHex();
+                        }
+                        else
+                        {
+                            moveCell = currentCell.GetNeighbor(HexDirection.SW);
+                            currentCell = moveCell;
+                            transform.position = currentCell.transform.position;
+                            SetHex();
+                            alternate = true;
+                        }
+
+                        StartCoroutine(MoveDown(1 / difficulty));
+                        moveTime = false;
+                    }
+
                 }
                 else
                 {
-                moveCell = currentCell.GetNeighbor(HexDirection.SW);
-                currentCell = moveCell;
-                transform.position = currentCell.transform.position;
-                SetHex();
-                alternate = true;
+                    Debug.Log("Gameover");
+                    gameManager.gameOver = true;
                 }
-                    
-                    StartCoroutine(MoveDown(1 / difficulty));
-                    moveTime = false;
-                }
-
-            }
-            else
-            {
-                Debug.Log("Gameover");
-                gameManager.gameOver = true;
             }
         }
+       
         if (currentCell.coordinates.Z < 1)
         {
             Destroy(gameObject);

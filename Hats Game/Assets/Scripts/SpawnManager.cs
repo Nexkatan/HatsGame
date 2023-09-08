@@ -43,6 +43,7 @@ public class SpawnManager : MonoBehaviour
             Instantiate(hat, mousePos, hat.transform.rotation);
             hat.gameObject.GetComponent<HatPlacer>().isSelected = true;
             gameManager.tileSelected = true;
+            gameManager.selectedTile = hat.gameObject;
         }
         
     }

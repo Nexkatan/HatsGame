@@ -473,7 +473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colors: []
   colliders: {fileID: 0}
-  isSelected: 0
+  isSelected: 1
   hatHits: 0
   currentCell: {fileID: 0}
   landCell: {fileID: 0}

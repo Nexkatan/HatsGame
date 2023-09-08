@@ -897,6 +897,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &116006932987369211
 GameObject:
   m_ObjectHideFlags: 0
@@ -3526,6 +3528,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &437306968394912497
 GameObject:
   m_ObjectHideFlags: 0
@@ -6048,7 +6052,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMoving: 1
-  downSpeed: 0.25
 --- !u!1 &853003714067842493
 GameObject:
   m_ObjectHideFlags: 0
@@ -6127,6 +6130,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &871688781211691666
 GameObject:
   m_ObjectHideFlags: 0
@@ -8170,6 +8175,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &1244667669259966610
 GameObject:
   m_ObjectHideFlags: 0
@@ -10256,6 +10263,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &1584666578945271655
 GameObject:
   m_ObjectHideFlags: 0
@@ -11428,6 +11437,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &1686464609765639326
 GameObject:
   m_ObjectHideFlags: 0
@@ -13953,6 +13964,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &2103319735354141452
 GameObject:
   m_ObjectHideFlags: 0
@@ -14031,6 +14044,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &2127502974379263220
 GameObject:
   m_ObjectHideFlags: 0
@@ -17678,6 +17693,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &2678088805814222219
 GameObject:
   m_ObjectHideFlags: 0
@@ -21169,6 +21186,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &3133967050116501475
 GameObject:
   m_ObjectHideFlags: 0
@@ -21653,6 +21672,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &3214774808677576270
 GameObject:
   m_ObjectHideFlags: 0
@@ -22040,6 +22061,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &3297372069583933529
 GameObject:
   m_ObjectHideFlags: 0
@@ -24997,6 +25020,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &3665082452814011831
 GameObject:
   m_ObjectHideFlags: 0
@@ -25431,6 +25456,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &3750480712260871420
 GameObject:
   m_ObjectHideFlags: 0
@@ -27461,6 +27488,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &4013108043924461919
 GameObject:
   m_ObjectHideFlags: 0
@@ -55602,6 +55631,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &7745632735208911609
 GameObject:
   m_ObjectHideFlags: 0
@@ -60351,6 +60382,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &8295864050615099295
 GameObject:
   m_ObjectHideFlags: 0
@@ -63631,6 +63664,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &8677028344911653418
 GameObject:
   m_ObjectHideFlags: 0
@@ -65831,6 +65866,8 @@ MonoBehaviour:
   playerHat: {fileID: 0}
   moveCell: {fileID: 0}
   moveTime: 1
+  isPlayer: 1
+  isWallMover: 1
 --- !u!1 &8996776270304150047
 GameObject:
   m_ObjectHideFlags: 0
