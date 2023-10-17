@@ -1107,7 +1107,7 @@ PrefabInstance:
     - target: {fileID: 781377554559471115, guid: e19bf0698b2b330479f5cef3c6b37992, type: 3}
       propertyPath: hat
       value: 
-      objectReference: {fileID: 6976308663357077067, guid: 310acb581a617964fb16aed53ba5909a, type: 3}
+      objectReference: {fileID: 8274786543726306922, guid: ed0eb3daca7e1da47891e354519fb1e1, type: 3}
     - target: {fileID: 781377554559471115, guid: e19bf0698b2b330479f5cef3c6b37992, type: 3}
       propertyPath: wallPrefab
       value: 
@@ -1199,7 +1199,7 @@ PrefabInstance:
     - target: {fileID: 1793409536533389850, guid: e19bf0698b2b330479f5cef3c6b37992, type: 3}
       propertyPath: hat
       value: 
-      objectReference: {fileID: 6976308663357077067, guid: 310acb581a617964fb16aed53ba5909a, type: 3}
+      objectReference: {fileID: 8274786543726306922, guid: ed0eb3daca7e1da47891e354519fb1e1, type: 3}
     - target: {fileID: 1793409536533389850, guid: e19bf0698b2b330479f5cef3c6b37992, type: 3}
       propertyPath: wallPrefab
       value: 
@@ -1207,7 +1207,7 @@ PrefabInstance:
     - target: {fileID: 1925715662862385492, guid: e19bf0698b2b330479f5cef3c6b37992, type: 3}
       propertyPath: hat
       value: 
-      objectReference: {fileID: 6976308663357077067, guid: 310acb581a617964fb16aed53ba5909a, type: 3}
+      objectReference: {fileID: 8274786543726306922, guid: ed0eb3daca7e1da47891e354519fb1e1, type: 3}
     - target: {fileID: 1925715662862385492, guid: e19bf0698b2b330479f5cef3c6b37992, type: 3}
       propertyPath: wallPrefab
       value: 
@@ -1231,7 +1231,7 @@ PrefabInstance:
     - target: {fileID: 2788568990288923591, guid: e19bf0698b2b330479f5cef3c6b37992, type: 3}
       propertyPath: hat
       value: 
-      objectReference: {fileID: 6976308663357077067, guid: 310acb581a617964fb16aed53ba5909a, type: 3}
+      objectReference: {fileID: 8274786543726306922, guid: ed0eb3daca7e1da47891e354519fb1e1, type: 3}
     - target: {fileID: 2788568990288923591, guid: e19bf0698b2b330479f5cef3c6b37992, type: 3}
       propertyPath: wallPrefab
       value: 
@@ -1251,7 +1251,7 @@ PrefabInstance:
     - target: {fileID: 3856251540971666092, guid: e19bf0698b2b330479f5cef3c6b37992, type: 3}
       propertyPath: hat
       value: 
-      objectReference: {fileID: 6976308663357077067, guid: 310acb581a617964fb16aed53ba5909a, type: 3}
+      objectReference: {fileID: 8274786543726306922, guid: ed0eb3daca7e1da47891e354519fb1e1, type: 3}
     - target: {fileID: 3856251540971666092, guid: e19bf0698b2b330479f5cef3c6b37992, type: 3}
       propertyPath: wallPrefab
       value: 
@@ -1307,7 +1307,7 @@ PrefabInstance:
     - target: {fileID: 8770675048155501518, guid: e19bf0698b2b330479f5cef3c6b37992, type: 3}
       propertyPath: hat
       value: 
-      objectReference: {fileID: 6976308663357077067, guid: 310acb581a617964fb16aed53ba5909a, type: 3}
+      objectReference: {fileID: 8274786543726306922, guid: ed0eb3daca7e1da47891e354519fb1e1, type: 3}
     - target: {fileID: 8770675048155501518, guid: e19bf0698b2b330479f5cef3c6b37992, type: 3}
       propertyPath: wallPrefab
       value: 
