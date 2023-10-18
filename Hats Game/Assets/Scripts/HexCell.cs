@@ -9,6 +9,7 @@ public class HexCell : MonoBehaviour
     public bool hasHat;
     public bool hasReverseHat;
     public float hatRot;
+    public int hatRotInt;
 
     [SerializeField]
     HexCell[] neighbors;

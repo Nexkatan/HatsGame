@@ -25,6 +25,7 @@ public class HatController : MonoBehaviour
     public HexCell landCell;
 
     private Vector3 thisHatRot;
+    private int thisHatRotInt;
 
     [SerializeField] HexCoordinates cellCo;
 
@@ -448,6 +449,7 @@ public class HatController : MonoBehaviour
             landCell.hasHat = false;
             landCell.hasReverseHat = false;
             landCell.hatRot = 0;
+            landCell.hatRotInt = 0;
             StartCoroutine(TrueSelecta());
             gameManager.selectedTile = this.gameObject;
             Destroy(this.GetComponent<Rigidbody>());
@@ -479,6 +481,15 @@ public class HatController : MonoBehaviour
                 }
                 
                 landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
+                if (landCell.hatRot == 360)
+                {
+                    landCell.hatRotInt = 0;
+                }
+                else
+                {
+                    landCell.hatRotInt = Mathf.RoundToInt(landCell.hatRot / 60);
+                }
+                
                 isSelected = false;
                 this.AddComponent<Rigidbody>();
                 rb = GetComponent<Rigidbody>();
@@ -542,7 +553,7 @@ public class HatController : MonoBehaviour
                 if (neighborSW.hasHat)
                 {
                     Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 0 || neighborSW.hatRot == 120 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240 || neighborSW.hatRot == 300)
+                    if (neighborSW.hatRot == 0 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240 || neighborSW.hatRot == 300)
                     {
                         SWValid = true;
                     }
@@ -554,7 +565,7 @@ public class HatController : MonoBehaviour
                 if (neighborW.hasHat)
                 {
                     Debug.Log("W Hat");
-                    if (neighborW.hatRot == 120 || neighborW.hatRot == 300)
+                    if (neighborW.hatRot == 300)
                     {
                         WValid = true;
                     }
@@ -1405,7 +1416,7 @@ public class HatController : MonoBehaviour
             if (neighborSE.hasHat)
             {
                 Debug.Log("SE Hat");
-                if (neighborSE.hatRot == 180 || neighborSE.hatRot == 120 || neighborSE.hatRot == 240 || neighborSE.hatRot == 300)
+                if (neighborSE.hatRot == 120 || neighborSE.hatRot == 180 || neighborSE.hatRot == 240 || neighborSE.hatRot == 300)
                 {
                     SEValid = true;
                 }

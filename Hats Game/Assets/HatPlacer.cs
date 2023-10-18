@@ -24,7 +24,8 @@ public class HatPlacer : MonoBehaviour
     public HexCell currentCell;
     public HexCell landCell;
 
-    private Vector3 thisHatRot;
+    public Vector3 thisHatRot;
+    public int thisHatRotInt;
 
     [SerializeField] HexCoordinates cellCo;
 
@@ -99,6 +100,14 @@ public class HatPlacer : MonoBehaviour
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity);
             this.transform.rotation *= deltaRotation;
             thisHatRot = transform.eulerAngles;
+            if (thisHatRot.y == 360)
+            {
+                thisHatRotInt = 0;
+            }
+            else
+            {
+                thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60);
+            }
         }
     }
 
@@ -112,6 +121,7 @@ public class HatPlacer : MonoBehaviour
             landCell.hasHat = false;
             landCell.hasReverseHat = false;
             landCell.hatRot = 0;
+            landCell.hatRotInt = 0;
             StartCoroutine(TrueSelecta());
             gameManager.selectedTile = this.gameObject; 
             Destroy(this.GetComponent<Rigidbody>());
@@ -126,6 +136,15 @@ public class HatPlacer : MonoBehaviour
     private void Deselect()
     {
         thisHatRot = transform.eulerAngles;
+        if (thisHatRot.y == 360)
+        {
+            thisHatRotInt = 0;
+        }
+        else
+        {
+            thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60);
+        }
+
         landCell = hexGrid.GetCell(transform.position);
         currentCell = landCell;
         if (!landCell.hasHat && !landCell.hasReverseHat)
@@ -184,6 +203,11 @@ public class HatPlacer : MonoBehaviour
         isSelected = true;
     }
 
+    public void IsPlacementValidBetter()
+    {
+       
+    }
+
     public void IsPlacementValid()
     {
         HexCell neighborNE = landCell.GetNeighbor(HexDirection.NE);
@@ -196,9 +220,6 @@ public class HatPlacer : MonoBehaviour
         HexCell neighborLong;
         HexCell neighborLongReverse1;
         HexCell neighborLongReverse2;
-
-
-
 
         if (Mathf.Round(thisHatRot.y) == 0 || Mathf.Round(thisHatRot.y) == 360)
         {
