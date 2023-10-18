@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEngine;
@@ -8,6 +10,12 @@ using UnityEngine;
 public class HatPlacer : MonoBehaviour
 {
     public Color[] colors;
+
+    private int[][] cribsHatHat = { new int[] { 0, 3, 4, 5 }, new int[] { 5 }, new int[] { 1 }, new int[] { 0, 1, 2, 3 }, new int[] {  1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 } };
+    private int[][] cribsHatReverseHat = { new int[] { 0, 1, 2, 3 }, new int[] { 4 }, new int[] { 0 }, new int[] { 0, 1, 4, 5 }, new int[] { 0, 1, 2, 5 }, new int[] { 0, 1, 2, 3, 4 } };
+    private int[][] cribsReverseHatHat = { new int[] { 0, 2, 3, 4, 5 }, new int[] { 0, 1, 4, 5 }, new int[] { 0, 1, 2, 5 }, new int[] { 0 }, new int[] { 2 }, new int[] { 0, 3, 4, 5 } };
+    private int[][] cribsReverseHatReverseHat = { new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 0, 3, 4, 5 }, new int[] { 5 }, new int[] { 1 }, new int[] { 0, 1, 2, 3 } };
+
 
     private HexGrid hexGrid;
     private Rigidbody rb;
@@ -40,6 +48,10 @@ public class HatPlacer : MonoBehaviour
     private bool long1Valid = true;
     private bool long2Valid = true;
 
+    private bool[] NeighboursBool = { true, true, true, true, true, true };
+
+    public HexCell[] Neighbours;
+
     private GameManager gameManager;
 
     private float checkTime;
@@ -50,6 +62,8 @@ public class HatPlacer : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         landCell = hexGrid.GetCell(transform.position);
         currentCell = landCell;
+
+       
     }
 
     void FixedUpdate()
@@ -163,7 +177,8 @@ public class HatPlacer : MonoBehaviour
                 }
 
                 landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
-                isSelected = false;
+                landCell.hatRotInt = Mathf.RoundToInt(landCell.hatRot / 60) % 6;
+            isSelected = false;
                 this.AddComponent<Rigidbody>();
                 rb = GetComponent<Rigidbody>();
                 rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -205,17 +220,133 @@ public class HatPlacer : MonoBehaviour
 
     public void IsPlacementValidBetter()
     {
-       
+        HexCell neighborSW = landCell.GetNeighbor(HexDirection.SW);
+        HexCell neighborW = landCell.GetNeighbor(HexDirection.W);
+        HexCell neighborNW = landCell.GetNeighbor(HexDirection.NW);
+        HexCell neighborNE = landCell.GetNeighbor(HexDirection.NE);
+        HexCell neighborE = landCell.GetNeighbor(HexDirection.E);
+        HexCell neighborSE = landCell.GetNeighbor(HexDirection.SE);
+
+        Neighbours[0] = neighborSW;
+        Neighbours[1] = neighborW;
+        Neighbours[2] = neighborNW;
+        Neighbours[3] = neighborNE;
+        Neighbours[4] = neighborE;
+        Neighbours[5] = neighborSE;
+
+
+        for (int j = 0; j < NeighboursBool.Length; j++)
+        {
+            NeighboursBool[j] = true;
+        }
+
+        if (this.CompareTag("Hat"))
+        {
+            for (int i = 0; i < Neighbours.Length; i++)
+            {
+                if (Neighbours[(i + thisHatRotInt) % 6].hasHat)
+                {
+                    int calc = ((Neighbours[(i + thisHatRotInt) % 6].hatRotInt + 6 - thisHatRotInt) % 6);
+                    List<int> cribsList = new List<int>();
+                    foreach (int c in cribsHatHat[i])
+                    {
+                        if (c == calc)
+                        {
+                            cribsList.Add(1);
+                        }
+                    }
+                    if (cribsList.Count == 0)
+                    {
+                        NeighboursBool[i] = false;
+                    }
+                }
+                else if (Neighbours[(i + thisHatRotInt) % 6].hasReverseHat)
+                {
+                    int calc = ((Neighbours[(i + thisHatRotInt) % 6].hatRotInt + 6 - thisHatRotInt) % 6);
+                    List<int> cribsList = new List<int>();
+                    foreach (int c in cribsHatReverseHat[i])
+                    {
+                        if (c == calc)
+                        {
+                            cribsList.Add(1);
+                        }
+                    }
+                    if (cribsList.Count == 0)
+                    {
+                        NeighboursBool[i] = false;
+                    }
+                }
+            }
+
+        }
+        else if (this.CompareTag("Reverse Hat"))
+        {
+            for (int i = 0; i < Neighbours.Length; i++)
+            {
+                if (Neighbours[(i + thisHatRotInt) % 6].hasHat)
+                {
+                    int calc = ((Neighbours[(i + thisHatRotInt) % 6].hatRotInt + 6 - thisHatRotInt) % 6);
+                    List<int> cribsList = new List<int>();
+                    foreach (int c in cribsReverseHatHat[i])
+                    {
+                        if (c == calc)
+                        {
+                            cribsList.Add(1);
+                        }
+                    }
+                    if (cribsList.Count == 0)
+                    {
+                        NeighboursBool[i] = false;
+                    }
+                }
+                else if (Neighbours[(i + thisHatRotInt) % 6].hasReverseHat)
+                {
+                    int calc = ((Neighbours[(i + thisHatRotInt) % 6].hatRotInt + 6 - thisHatRotInt) % 6);
+                    List<int> cribsList = new List<int>();
+                    foreach (int c in cribsReverseHatReverseHat[i])
+                    {
+                        if (c == calc)
+                        {
+                            cribsList.Add(1);
+                        }
+                    }
+                    if (cribsList.Count == 0)
+                    {
+                        NeighboursBool[i] = false;
+                    }
+                }
+            }
+        }
+        if (AllNeighboursValid())
+        {
+            isValid = true;
+        }
+        else
+        {
+            isValid = false;
+        }
+    }
+
+    public bool AllNeighboursValid()
+    {
+        for (int i = 0; i < NeighboursBool.Length; i++)
+            if (!NeighboursBool[i])
+            {
+                Debug.Log(i);
+                return false;
+            }
+        return true;
     }
 
     public void IsPlacementValid()
     {
-        HexCell neighborNE = landCell.GetNeighbor(HexDirection.NE);
-        HexCell neighborE = landCell.GetNeighbor(HexDirection.E);
-        HexCell neighborSE = landCell.GetNeighbor(HexDirection.SE);
         HexCell neighborSW = landCell.GetNeighbor(HexDirection.SW);
         HexCell neighborW = landCell.GetNeighbor(HexDirection.W);
         HexCell neighborNW = landCell.GetNeighbor(HexDirection.NW);
+        HexCell neighborNE = landCell.GetNeighbor(HexDirection.NE);
+        HexCell neighborE = landCell.GetNeighbor(HexDirection.E);
+        HexCell neighborSE = landCell.GetNeighbor(HexDirection.SE);
+       
 
         HexCell neighborLong;
         HexCell neighborLongReverse1;
@@ -888,7 +1019,7 @@ public class HatPlacer : MonoBehaviour
                 if (neighborSE.hasHat)
                 {
                     Debug.Log("SE Hat");
-                    if (neighborSE.hatRot == 120 || neighborSE.hatRot == 180 || neighborSE.hatRot == 240 || neighborSE.hatRot == 300)
+                    if (neighborSE.hatRot == 180)
                     {
                         SEValid = true;
                     }

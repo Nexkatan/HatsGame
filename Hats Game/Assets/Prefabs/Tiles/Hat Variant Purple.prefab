@@ -1847,10 +1847,19 @@ MonoBehaviour:
   hatHits: 0
   currentCell: {fileID: 0}
   landCell: {fileID: 0}
+  thisHatRot: {x: 0, y: 0, z: 0}
+  thisHatRotInt: 0
   cellCo:
     x: 0
     z: 0
   isValid: 1
+  Neighbours:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &4364476013612624931
 GameObject:
   m_ObjectHideFlags: 0
