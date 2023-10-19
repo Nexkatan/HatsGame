@@ -841,6 +841,7 @@ GameObject:
   m_Component:
   - component: {fileID: 284966490061019837}
   - component: {fileID: 6208934001104732692}
+  - component: {fileID: 3925741228918358876}
   m_Layer: 3
   m_Name: Hat Variant Grey
   m_TagString: Reverse Hat
@@ -878,7 +879,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colors: []
-  colliders: {fileID: 0}
   isSelected: 1
   hatHits: 0
   currentCell: {fileID: 0}
@@ -888,7 +888,18 @@ MonoBehaviour:
   cellCo:
     x: 0
     z: 0
-  isValid: 1
+--- !u!114 &3925741228918358876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2497193374472645108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05fef83603abc9e44b842e3bf77dc9c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   Neighbours:
   - {fileID: 0}
   - {fileID: 0}
@@ -909,6 +920,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  isValid: 1
+  currentCell: {fileID: 0}
+  thisHatRot: {x: 0, y: 0, z: 0}
+  thisHatRotInt: 0
 --- !u!1 &2717389018373438765
 GameObject:
   m_ObjectHideFlags: 0

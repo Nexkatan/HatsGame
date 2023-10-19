@@ -5,85 +5,37 @@ using UnityEngine;
 
 public class WallHat : MonoBehaviour
 {
-    private WallMover wallMover;
+    public HexCell moveCell;
     public HexCell currentCell;
-    public HatController playerHat;
     private GameManager gameManager;
     private HexGrid hexGrid;
-    public HexCell moveCell;
 
     public bool moveTime;
-    private bool alternate;
+    public bool alternate;
 
     private bool gameOver = false;
-    private float difficulty;
 
     public bool isPlayer = false;
-    public bool isWallMover = false;
+
+    public ChecksValid validityCheck;
 
     private void Start()
     {
-        
+        validityCheck = this.GetComponent<ChecksValid>();
         hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        if (isPlayer)
-        {
-            playerHat = GameObject.Find("PlayerHat").GetComponent<HatController>();
-        }
-        if (isWallMover)
-        {
-            wallMover = this.GetComponentInParent<WallMover>();
-        }
+      
         currentCell = hexGrid.GetCell(transform.position);
         SetHex();
         currentCell.hatRot = Mathf.Round(transform.eulerAngles.y);
-        difficulty = gameManager.difficulty;
     }
 
-    void Update()
+    private void Update()
     {
-        if (isWallMover)
+        if (hexGrid.GetCell(transform.position).coordinates.Z < 1)
         {
-            if (wallMover.isMoving && !gameManager.gameOver)
-            {
-                if (playerHat.isValid)
-                {
-                    currentCell = hexGrid.GetCell(transform.position);
-                    if (moveTime)
-                    {
-                        ResetHex();
-                        if (alternate)
-                        {
-                            moveCell = currentCell.GetNeighbor(HexDirection.SE);
-                            currentCell = moveCell;
-                            transform.position = currentCell.transform.position;
-                            alternate = false;
-                            SetHex();
-                        }
-                        else
-                        {
-                            moveCell = currentCell.GetNeighbor(HexDirection.SW);
-                            currentCell = moveCell;
-                            transform.position = currentCell.transform.position;
-                            SetHex();
-                            alternate = true;
-                        }
-                        StartCoroutine(MoveDown(1 / difficulty));
-                        moveTime = false;
-                    }
-
-                }
-                else
-                {
-                    Debug.Log("Gameover");
-                    gameManager.gameOver = true;
-                }
-            }
-        }
-       
-        if (currentCell.coordinates.Z < 1)
-        {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
+            ResetHex(currentCell);
         }
     }
 
@@ -101,7 +53,7 @@ public class WallHat : MonoBehaviour
         currentCell.hatRotInt = Mathf.RoundToInt(currentCell.hatRot / 60) % 6;
     }
 
-    public void ResetHex()
+    public void ResetHex(HexCell currentCell)
     {
         if (this.CompareTag("Hat"))
         {
@@ -114,9 +66,5 @@ public class WallHat : MonoBehaviour
         currentCell.hatRot = 0;
         currentCell.hatRotInt = 0;
     }
-   IEnumerator MoveDown(float downSpeed)
-    {
-            yield return new WaitForSeconds(downSpeed);
-            moveTime = true;
-    }
+   
 }

@@ -2251,6 +2251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6964894390856849096}
   - component: {fileID: 2513045917665373370}
+  - component: {fileID: 9037219619436830581}
   m_Layer: 3
   m_Name: PlayerHat
   m_TagString: Hat
@@ -2294,6 +2295,7 @@ MonoBehaviour:
   hatHits: 0
   currentCell: {fileID: 0}
   landCell: {fileID: 0}
+  thisHatRotInt: 0
   cellCo:
     x: 0
     z: 0
@@ -2318,6 +2320,41 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   isValid: 1
+--- !u!114 &9037219619436830581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4511516999353920804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05fef83603abc9e44b842e3bf77dc9c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Neighbours:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Longbois:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isValid: 1
+  currentCell: {fileID: 0}
+  thisHatRotInt: 0
 --- !u!1 &4568367803332945979
 GameObject:
   m_ObjectHideFlags: 0

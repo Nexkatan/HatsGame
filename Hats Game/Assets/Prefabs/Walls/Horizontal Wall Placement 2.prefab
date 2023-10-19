@@ -4069,6 +4069,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2000893977851815712}
   - component: {fileID: 3261513160429959854}
+  - component: {fileID: 3001006606506207192}
   m_Layer: 3
   m_Name: Hat Variant Grey(Clone)
   m_TagString: Reverse Hat
@@ -4105,12 +4106,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4cd4ac0eefb3440bc22297cae88134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentCell: {fileID: 0}
-  playerHat: {fileID: 0}
   moveCell: {fileID: 0}
+  currentCell: {fileID: 0}
   moveTime: 0
+  alternate: 0
   isPlayer: 0
   isWallMover: 0
+  validityCheck: {fileID: 0}
+--- !u!114 &3001006606506207192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3015953504641175030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05fef83603abc9e44b842e3bf77dc9c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Neighbours:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Longbois:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isValid: 1
+  currentCell: {fileID: 0}
+  thisHatRotInt: 0
 --- !u!1 &3018520621749196938
 GameObject:
   m_ObjectHideFlags: 0
@@ -5215,6 +5252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4036224775664752620}
   - component: {fileID: 4098418114360729219}
+  - component: {fileID: 7285431609326281210}
   m_Layer: 3
   m_Name: Hat Variant Grey(Clone)
   m_TagString: Reverse Hat
@@ -5251,12 +5289,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4cd4ac0eefb3440bc22297cae88134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentCell: {fileID: 0}
-  playerHat: {fileID: 0}
   moveCell: {fileID: 0}
+  currentCell: {fileID: 0}
   moveTime: 0
+  alternate: 0
   isPlayer: 0
   isWallMover: 0
+  validityCheck: {fileID: 0}
+--- !u!114 &7285431609326281210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558036138289392453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05fef83603abc9e44b842e3bf77dc9c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Neighbours:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Longbois:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isValid: 1
+  currentCell: {fileID: 0}
+  thisHatRotInt: 0
 --- !u!1 &3644606870329286650
 GameObject:
   m_ObjectHideFlags: 0
@@ -8599,6 +8673,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3953016123108168232}
   - component: {fileID: 1608788289607236866}
+  - component: {fileID: 3534156436020289683}
   m_Layer: 3
   m_Name: Hat Variant Grey(Clone)
   m_TagString: Reverse Hat
@@ -8635,12 +8710,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4cd4ac0eefb3440bc22297cae88134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentCell: {fileID: 0}
-  playerHat: {fileID: 0}
   moveCell: {fileID: 0}
+  currentCell: {fileID: 0}
   moveTime: 0
+  alternate: 0
   isPlayer: 0
   isWallMover: 0
+  validityCheck: {fileID: 0}
+--- !u!114 &3534156436020289683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6149075944423219274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05fef83603abc9e44b842e3bf77dc9c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Neighbours:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Longbois:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isValid: 1
+  currentCell: {fileID: 0}
+  thisHatRotInt: 0
 --- !u!1 &6297860569999748735
 GameObject:
   m_ObjectHideFlags: 0
@@ -10997,6 +11108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8779506112722667106}
   - component: {fileID: 7198005154457823352}
+  - component: {fileID: 6960314038896474315}
   m_Layer: 3
   m_Name: Hat Variant Grey(Clone)
   m_TagString: Reverse Hat
@@ -11033,12 +11145,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4cd4ac0eefb3440bc22297cae88134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentCell: {fileID: 0}
-  playerHat: {fileID: 0}
   moveCell: {fileID: 0}
+  currentCell: {fileID: 0}
   moveTime: 0
+  alternate: 0
   isPlayer: 0
   isWallMover: 0
+  validityCheck: {fileID: 0}
+--- !u!114 &6960314038896474315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7949982463553765332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05fef83603abc9e44b842e3bf77dc9c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Neighbours:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Longbois:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isValid: 1
+  currentCell: {fileID: 0}
+  thisHatRotInt: 0
 --- !u!1 &8051652064346990384
 GameObject:
   m_ObjectHideFlags: 0
@@ -11299,6 +11447,7 @@ GameObject:
   - component: {fileID: 5138341295545514796}
   - component: {fileID: 6179525406813662255}
   - component: {fileID: 947285274544222907}
+  - component: {fileID: 786936339701401944}
   m_Layer: 3
   m_Name: Hat Variant Grey(Clone)
   m_TagString: Reverse Hat
@@ -11336,9 +11485,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colors: []
-  Neighbours: []
-  Longbois: []
-  isValid: 1
   isSelected: 0
   hatHits: 0
   currentCell: {fileID: 0}
@@ -11360,12 +11506,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4cd4ac0eefb3440bc22297cae88134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentCell: {fileID: 0}
-  playerHat: {fileID: 0}
   moveCell: {fileID: 0}
+  currentCell: {fileID: 0}
   moveTime: 0
+  alternate: 0
   isPlayer: 0
   isWallMover: 0
+  validityCheck: {fileID: 0}
+--- !u!114 &786936339701401944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8263870095722933955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05fef83603abc9e44b842e3bf77dc9c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Neighbours:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Longbois:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isValid: 1
+  currentCell: {fileID: 0}
+  thisHatRotInt: 0
 --- !u!1 &8274786543726306922
 GameObject:
   m_ObjectHideFlags: 0
@@ -11376,6 +11558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6292531456703363373}
   - component: {fileID: 4180123986552029766}
+  - component: {fileID: 2389163409103485249}
   m_Layer: 3
   m_Name: Horizontal Wall Placement 2
   m_TagString: Reverse Hat
@@ -11418,6 +11601,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colors: []
+  isSelected: 1
+  hatHits: 0
+  currentCell: {fileID: 0}
+  landCell: {fileID: 0}
+  thisHatRot: {x: 0, y: 0, z: 0}
+  thisHatRotInt: 0
+  cellCo:
+    x: 0
+    z: 0
+--- !u!114 &2389163409103485249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274786543726306922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05fef83603abc9e44b842e3bf77dc9c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   Neighbours:
   - {fileID: 0}
   - {fileID: 0}
@@ -11439,15 +11643,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   isValid: 1
-  isSelected: 1
-  hatHits: 0
   currentCell: {fileID: 0}
-  landCell: {fileID: 0}
-  thisHatRot: {x: 0, y: 0, z: 0}
   thisHatRotInt: 0
-  cellCo:
-    x: 0
-    z: 0
 --- !u!1 &8331920760967232492
 GameObject:
   m_ObjectHideFlags: 0
