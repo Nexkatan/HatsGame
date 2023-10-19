@@ -25,20 +25,27 @@ public class HatController : MonoBehaviour
     public HexCell landCell;
 
     private Vector3 thisHatRot;
-    private int thisHatRotInt;
+    public int thisHatRotInt;
 
     [SerializeField] HexCoordinates cellCo;
+    
+    public HexCell[] Neighbours;
+    public HexCell[] Longbois;
+
+    private int[][] cribsHatHat = { new int[] { 0, 3, 4, 5 }, new int[] { 5 }, new int[] { 1 }, new int[] { 0, 1, 2, 3 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 } };
+    private int[][] cribsHatReverseHat = { new int[] { 0, 1, 2, 3 }, new int[] { 4 }, new int[] { 0 }, new int[] { 0, 1, 4, 5 }, new int[] { 0, 1, 2, 5 }, new int[] { 0, 1, 2, 3, 4 } };
+    private int[][] cribsReverseHatHat = { new int[] { 0, 2, 3, 4, 5 }, new int[] { 0, 1, 4, 5 }, new int[] { 0, 1, 2, 5 }, new int[] { 0 }, new int[] { 2 }, new int[] { 0, 3, 4, 5 } };
+    private int[][] cribsReverseHatReverseHat = { new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 0, 3, 4, 5 }, new int[] { 5 }, new int[] { 1 }, new int[] { 0, 1, 2, 3 } };
+
+    private int[][] cribsLongboisHatHat = { new int[] { }, new int[] { }, new int[] { }, new int[] { 3 }, new int[] { }, new int[] { }, new int[] { }, new int[] { }, new int[] { }, new int[] { }, new int[] { }, new int[] { } };
+    private int[][] cribsLongboisHatReverseHat = { new int[] { }, new int[] { 0 }, new int[] { }, new int[] { 0, 1 }, new int[] { 2 }, new int[] { }, new int[] { }, new int[] { }, new int[] { }, new int[] { }, new int[] { }, new int[] { } };
+    private int[][] cribsLongboisReverseHatHat = { new int[] { }, new int[] { }, new int[] { }, new int[] { }, new int[] { }, new int[] { }, new int[] { 4 }, new int[] { 0, 5 }, new int[] { }, new int[] { 0 }, new int[] { }, new int[] { } };
+    private int[][] cribsLongboisReverseHatReverseHat = { new int[] { }, new int[] { }, new int[] { }, new int[] { }, new int[] { }, new int[] { }, new int[] { }, new int[] { 3 }, new int[] { }, new int[] { }, new int[] { }, new int[] { } };
+
+    private bool[] NeighboursBool = { true, true, true, true, true, true };
+    private bool[] LongboisBool = { true, true, true, true, true, true, true, true, true, true, true, true };
 
     public bool isValid = true;
-    private bool SWValid = true;
-    private bool WValid = true;
-    private bool NWValid = true;
-    private bool NEValid = true;
-    private bool EValid = true;
-    private bool SEValid = true;
-    private bool longValid = true;
-    private bool long1Valid = true;
-    private bool long2Valid = true;
 
     private GameManager gameManager;
 
@@ -53,54 +60,19 @@ public class HatController : MonoBehaviour
         checkTime = gameManager.difficulty;
         Debug.Log((1 / checkTime )/ 2);
         StartCoroutine(CheckValid(1 / checkTime));
-    }
-
-    void FixedUpdate()
-    {
-        if (isSelected)
-        { 
-            //MouseMove();
-        }
+        thisHatRot = transform.eulerAngles;
+        thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
     }
 
     private void Update()
     {
         HexMove();
         HexSpin();
-        if (isSelected)
-        {
-            Spin();
-        }
-        if (Input.GetMouseButtonDown(0))
-            if (isSelected)
-            {
-                Deselect();
-            }
     }
 
-    void MouseMove()
-    {
-            mousePos = Input.mousePosition;
-
-        if (GetCellUnderCursor() != null)
-        {
-
-            HexCell currentCell = GetCellUnderCursor();
-            HexCell stayCell = hexGrid.GetCell(transform.position);
-            if (isSelected)
-            {
-                this.transform.position = (currentCell.transform.position);
-            }
-            else
-            {
-                this.transform.position = (stayCell.transform.position);
-            }
-        }   
-    }
 
     void HexMove()
     {
-        thisHatRot = transform.eulerAngles;
         if (Input.GetKeyDown(KeyCode.U) || Input.GetKeyDown(KeyCode.W))
         {
             currentCell.hasHat = false;
@@ -124,6 +96,7 @@ public class HatController : MonoBehaviour
                         landCell.hasReverseHat = true;
                     }
                     landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
+                    landCell.hatRotInt = Mathf.RoundToInt(landCell.hatRot / 60) % 6;
                 }
                 else
                 {
@@ -414,6 +387,7 @@ public class HatController : MonoBehaviour
             Vector3 m_EulerAngleVelocity = new Vector3(0, 60, 0);
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity);
             thisHatRot += m_EulerAngleVelocity;
+            thisHatRotInt += 1 % 6;
             Debug.Log(thisHatRot);
 
             IsPlacementValid();
@@ -427,15 +401,6 @@ public class HatController : MonoBehaviour
                 thisHatRot -= m_EulerAngleVelocity;
             }
 
-        }
-    }
-    void Spin()
-    {
-        if (Input.GetMouseButtonDown((1)))
-        {
-            Vector3 m_EulerAngleVelocity = new Vector3(0, 60, 0);
-            Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity);
-            this.transform.rotation *= deltaRotation;
         }
     }
 
@@ -532,2446 +497,207 @@ public class HatController : MonoBehaviour
 
     public void IsPlacementValid()
     {
-        HexCell neighborNE = landCell.GetNeighbor(HexDirection.NE);
-        HexCell neighborE = landCell.GetNeighbor(HexDirection.E);
-        HexCell neighborSE = landCell.GetNeighbor(HexDirection.SE);
-        HexCell neighborSW = landCell.GetNeighbor(HexDirection.SW);
-        HexCell neighborW = landCell.GetNeighbor(HexDirection.W);
-        HexCell neighborNW = landCell.GetNeighbor(HexDirection.NW);
+        Neighbours[0] = landCell.GetNeighbor(HexDirection.SW);
+        Neighbours[1] = landCell.GetNeighbor(HexDirection.W);
+        Neighbours[2] = landCell.GetNeighbor(HexDirection.NW);
+        Neighbours[3] = landCell.GetNeighbor(HexDirection.NE);
+        Neighbours[4] = landCell.GetNeighbor(HexDirection.E);
+        Neighbours[5] = landCell.GetNeighbor(HexDirection.SE);
 
-        HexCell neighborLong;
-        HexCell neighborLongReverse1;
-        HexCell neighborLongReverse2;
+        Longbois[0] = landCell.GetNeighbor(HexDirection.SW).GetNeighbor(HexDirection.SW);
+        Longbois[1] = landCell.GetNeighbor(HexDirection.SW).GetNeighbor(HexDirection.W);
+        Longbois[2] = landCell.GetNeighbor(HexDirection.W).GetNeighbor(HexDirection.W);
+        Longbois[3] = landCell.GetNeighbor(HexDirection.W).GetNeighbor(HexDirection.NW);
+        Longbois[4] = landCell.GetNeighbor(HexDirection.NW).GetNeighbor(HexDirection.NW);
+        Longbois[5] = landCell.GetNeighbor(HexDirection.NW).GetNeighbor(HexDirection.NE);
+        Longbois[6] = landCell.GetNeighbor(HexDirection.NE).GetNeighbor(HexDirection.NE);
+        Longbois[7] = landCell.GetNeighbor(HexDirection.NE).GetNeighbor(HexDirection.E);
+        Longbois[8] = landCell.GetNeighbor(HexDirection.E).GetNeighbor(HexDirection.E);
+        Longbois[9] = landCell.GetNeighbor(HexDirection.E).GetNeighbor(HexDirection.SE);
+        Longbois[10] = landCell.GetNeighbor(HexDirection.SE).GetNeighbor(HexDirection.SE);
+        Longbois[11] = landCell.GetNeighbor(HexDirection.SE).GetNeighbor(HexDirection.SW);
 
-        
-
-
-        if (Mathf.Round(thisHatRot.y) == 0 || Mathf.Round(thisHatRot.y) == 360)
+        for (int j = 0; j < NeighboursBool.Length; j++)
         {
-            if (this.CompareTag("Hat"))
-            {
-                if (neighborSW.hasHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 0 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240 || neighborSW.hatRot == 300)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-                if (neighborW.hasHat)
-                {
-                    Debug.Log("W Hat");
-                    if (neighborW.hatRot == 300)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-                if (neighborNW.hasHat)
-                {
-                    Debug.Log("NW hat");
-                    if (neighborNW.hatRot == 60)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-                if (neighborNE.hasHat)
-                {
-                    Debug.Log("NE Hat");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 120 || neighborNE.hatRot == 180)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-                if (neighborE.hasHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 60 || neighborE.hatRot == 120 || neighborE.hatRot == 180 || neighborE.hatRot == 240 || neighborE.hatRot == 300)
-                    {
-                        Debug.Log("Accept");
-                        EValid = true;
-                    }
-                    else
-                    {
-                        Debug.Log("else");
-                        EValid = false;
-                    }
-                }
-                if (neighborSE.hasHat)
-                {
-                    Debug.Log("SE Hit");
-                    if (neighborSE.hatRot == 60 || neighborSE.hatRot == 120 || neighborSE.hatRot == 180 || neighborSE.hatRot == 240 || neighborSE.hatRot == 300)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-                if (neighborSW.hasReverseHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 0 || neighborSW.hatRot == 60 || neighborSW.hatRot == 120 || neighborSW.hatRot == 180)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-                if (neighborW.hasReverseHat)
-                {
-                    Debug.Log("W Hat");
-                    if (neighborW.hatRot == 240)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-                if (neighborNW.hasReverseHat)
-                {
-                    Debug.Log("NW hat");
-                    if (neighborNW.hatRot == 0)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-                if (neighborNE.hasReverseHat)
-                {
-                    Debug.Log("NE Hat");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 240 || neighborNE.hatRot == 300)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-                if (neighborE.hasReverseHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 0 || neighborE.hatRot == 60 || neighborE.hatRot == 120 || neighborE.hatRot == 300)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-                if (neighborSE.hasReverseHat)
-                {
-                    if (neighborSE.hatRot == 0 || neighborSE.hatRot == 60 || neighborSE.hatRot == 120 || neighborSE.hatRot == 180 || neighborSE.hatRot == 240)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-                neighborLong = neighborNW.GetNeighbor(HexDirection.W);
-                if (neighborLong.hasHat)
-                {
-                    if (neighborLong.hatRot == 180)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                else if (neighborLong.hasReverseHat)
-                {
-                    if (neighborLong.hatRot == 0 || neighborLong.hatRot == 60)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                neighborLongReverse1 = neighborNW.GetNeighbor(HexDirection.NW);
-                if (neighborLongReverse1.hasReverseHat)
-                {
-                    if (neighborLongReverse1.hatRot == 120)
-                    {
-                        long1Valid = false;
-                    }
-                    else
-                    {
-                        long1Valid = true;
-                    }
-                }
-                neighborLongReverse2 = neighborSW.GetNeighbor(HexDirection.W);
-                if (neighborLongReverse2.hasReverseHat)
-                {
-                    if (neighborLongReverse2.hatRot == 0)
-                    {
-                        long2Valid = false;
-                    }
-                    else
-                    {
-                        long2Valid = true;
-                    }
-                }
-
-
-
-            }
-            else if (this.CompareTag("Reverse Hat"))
-            {
-
-
-                if (neighborSW.hasHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 0 || neighborSW.hatRot == 120 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240 || neighborSW.hatRot == 300)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-                if (neighborW.hasHat)
-                {
-                    Debug.Log("W Hat");
-                    if (neighborW.hatRot == 0 || neighborW.hatRot == 60 || neighborW.hatRot == 240 || neighborW.hatRot == 300)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-                if (neighborNW.hasHat)
-                {
-                    Debug.Log("NW hat");
-                    if (neighborNW.hatRot == 0 || neighborNW.hatRot == 60 || neighborNW.hatRot == 120 || neighborNW.hatRot == 300)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-                if (neighborNE.hasHat)
-                {
-                    Debug.Log("NE Hat");
-                    if (neighborNE.hatRot == 0)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-                if (neighborE.hasHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 120)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-                if (neighborSE.hasHat)
-                {
-                    Debug.Log("SE Hit");
-                    if (neighborSE.hatRot == 0 || neighborSE.hatRot == 180 || neighborSE.hatRot == 240 || neighborSE.hatRot == 300)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-                if (neighborSW.hasReverseHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 60 || neighborSW.hatRot == 120 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240 || neighborSW.hatRot == 300)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-                if (neighborW.hasReverseHat)
-                {
-                    Debug.Log("W Hat");
-                    if (neighborW.hatRot == 60 || neighborW.hatRot == 120 || neighborW.hatRot == 180 || neighborW.hatRot == 240 || neighborW.hatRot == 300)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-                if (neighborNW.hasReverseHat)
-                {
-                    Debug.Log("NW hat");
-                    if (neighborNW.hatRot == 0 || neighborNW.hatRot == 180 || neighborNW.hatRot == 240 || neighborNW.hatRot == 300)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-                if (neighborNE.hasReverseHat)
-                {
-                    Debug.Log("NE Hat");
-                    if (neighborNE.hatRot == 300)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-                if (neighborE.hasReverseHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 60)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-                if (neighborSE.hasReverseHat)
-                {
-                    if (neighborSE.hatRot == 0 || neighborSE.hatRot == 60 || neighborSE.hatRot == 120 || neighborSE.hatRot == 180)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-                neighborLong = neighborNE.GetNeighbor(HexDirection.E);
-                if (neighborLong.hasReverseHat)
-                {
-                    Debug.Log("NE_E Reverse Hat");
-                    if (neighborLong.hatRot == 180)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                else if (neighborLong.hasHat)
-                {
-                    if (neighborLong.hatRot == 0 || neighborLong.hatRot == 300)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                neighborLongReverse1 = neighborSE.GetNeighbor(HexDirection.E);
-                if (neighborLongReverse1.hasHat)
-                {
-                    if (neighborLongReverse1.hatRot == 0)
-                    {
-                        long1Valid = false;
-                    }
-                    else
-                    {
-                        long1Valid = true;
-                    }
-                }
-                neighborLongReverse2 = neighborNE.GetNeighbor(HexDirection.NE);
-                if (neighborLongReverse2.hasHat)
-                {
-                    if (neighborLongReverse2.hatRot == 240)
-                    {
-                        long2Valid = false;
-                    }
-                    else
-                    {
-                        long2Valid = true;
-                    }
-                }
-            }
-            
+            NeighboursBool[j] = true;
+            LongboisBool[j] = true;
+            LongboisBool[j + 6] = true;
         }
 
-        else if (Mathf.Round(thisHatRot.y) == 60)
+        if (this.CompareTag("Hat"))
         {
-            if (this.CompareTag("Hat"))
+            for (int i = 0; i < Neighbours.Length; i++)
             {
-            if (neighborSW.hasHat)
+                if (Neighbours[(i + thisHatRotInt) % 6].hasHat)
                 {
-                    Debug.Log("SW Hit");
-                    if (neighborSW.hatRot == 0 || neighborSW.hatRot == 120 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240 || neighborSW.hatRot == 300)
-                {
-                    SWValid = true;
+                    int calc = ((Neighbours[(i + thisHatRotInt) % 6].hatRotInt + 6 - thisHatRotInt) % 6);
+                    List<int> cribsList = new List<int>();
+                    foreach (int c in cribsHatHat[i])
+                    {
+                        if (c == calc)
+                        {
+                            cribsList.Add(1);
+                        }
+                    }
+                    if (cribsList.Count == 0)
+                    {
+                        NeighboursBool[i] = false;
+                    }
                 }
-                else
+                else if (Neighbours[(i + thisHatRotInt) % 6].hasReverseHat)
                 {
-                    SWValid = false;
+                    int calc = ((Neighbours[(i + thisHatRotInt) % 6].hatRotInt + 6 - thisHatRotInt) % 6);
+                    List<int> cribsList = new List<int>();
+                    foreach (int c in cribsHatReverseHat[i])
+                    {
+                        if (c == calc)
+                        {
+                            cribsList.Add(1);
+                        }
+                    }
+                    if (cribsList.Count == 0)
+                    {
+                        NeighboursBool[i] = false;
+                    }
                 }
             }
-            if (neighborW.hasHat)
+            for (int j = 0; j < Longbois.Length; j++)
             {
-                    Debug.Log("W Hit");
-                    if (neighborW.hatRot == 0 || neighborW.hatRot == 60 || neighborW.hatRot == 240 || neighborW.hatRot == 300)
+                if (Longbois[(j + thisHatRotInt) % 12].hasHat)
                 {
-                    WValid = true;
-                }
-                else
-                {
-                    WValid = false;
-                }
-            }
-            if (neighborNW.hasHat)
-            {
-                Debug.Log("NW Hat");
-                if (neighborNW.hatRot == 0)
-                {
-                    NWValid = true;
-                }
-                else
-                {
-                    NWValid = false;
-                }
-            }
-            if (neighborNE.hasHat)
-            {
-                Debug.Log("NE hat");
-                if (neighborNE.hatRot == 120)
-                {
-                    NEValid = true;
-                }
-                else
-                {
-                    NEValid = false;
-                }
-            }
-            if (neighborE.hasHat)
-            {
-                Debug.Log("E Hat");
-                if (neighborE.hatRot == 60 || neighborE.hatRot == 180 || neighborE.hatRot == 240)
-                {
-                    EValid = true;
-                }
-                else
-                {
-                    EValid = false;
-                }
-            }
-            if (neighborSE.hasHat)
-            {
-                Debug.Log("SE Hat");
-                if (neighborSE.hatRot == 0 || neighborSE.hatRot == 120 || neighborSE.hatRot == 180 || neighborSE.hatRot == 240 || neighborSE.hatRot == 300)
-                {
-                    SEValid = true;
-                }
-                else
-                {
-                    SEValid = false;
-                }
-            }
-
-            if (neighborSW.hasReverseHat)
-            {
-                Debug.Log("SW Hat");
-                if (neighborSW.hatRot == 60 || neighborSW.hatRot == 120 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240 || neighborSW.hatRot == 300)
-                {
-                    SWValid = true;
-                }
-                else
-                {
-                    SWValid = false;
-                }
-            }
-            if (neighborW.hasReverseHat)
-            {
-                Debug.Log("W Hat");
-                if (neighborW.hatRot == 60 || neighborW.hatRot == 120 || neighborW.hatRot == 180 || neighborW.hatRot == 240)
-                {
-                    WValid = true;
-                }
-                else
-                {
-                    WValid = false;
-                }
-            }
-            if (neighborNW.hasReverseHat)
-            {
-                Debug.Log("NW hat");
-                if (neighborNW.hatRot == 300)
-                {
-                    NWValid = true;
-                }
-                else
-                {
-                    NWValid = false;
-                }
-            }
-            if (neighborNE.hasReverseHat)
-            {
-                Debug.Log("NE Hat");
-                if (neighborNE.hatRot == 60)
-                {
-                    NEValid = true;
-                }
-                else
-                {
-                    NEValid = false;
-                }
-            }
-            if (neighborE.hasReverseHat)
-            {
-                Debug.Log("E Hat");
-                if (neighborE.hatRot == 0 || neighborE.hatRot == 60 || neighborE.hatRot == 120 || neighborE.hatRot == 300)
-                {
-                    EValid = true;
-                }
-                else
-                {
-                    EValid = false;
-                }
-            }
-            if (neighborSE.hasReverseHat)
-            {
-                Debug.Log("SE hat");
-                if (neighborSE.hatRot == 0 || neighborSE.hatRot == 60 || neighborSE.hatRot == 120 || neighborSE.hatRot == 180)
-                {
-                    SEValid = true;
-                }
-                else
-                {
-                    SEValid = false;
-                }
-            }
-
-                neighborLong = neighborNE.GetNeighbor(HexDirection.NW);
-                if (neighborLong.hasHat)
-                {
-                    if (neighborLong.hatRot == 240)
+                    int calc = ((Longbois[(j + thisHatRotInt) % 12].hatRotInt + 12 - thisHatRotInt) % 6);
+                    List<int> cribsList = new List<int>();
+                    foreach (int c in cribsLongboisHatHat[(j + 12 - thisHatRotInt) % 12])
                     {
-                        longValid = false;
+                        if (c == calc)
+                        {
+                            cribsList.Add(1);
+                        }
                     }
-                    else
+                    if (cribsList.Count > 0)
                     {
-                        longValid = true;
+                        LongboisBool[j] = false;
                     }
                 }
-                else if (neighborLong.hasReverseHat)
+                else if (Longbois[(j + thisHatRotInt) % 12].hasReverseHat)
                 {
-                    if (neighborLong.hatRot == 60 || neighborLong.hatRot == 120)
+                    int calc = ((Longbois[(j + thisHatRotInt) % 12].hatRotInt + 12 - thisHatRotInt) % 6);
+                    List<int> cribsList = new List<int>();
+                    foreach (int c in cribsLongboisHatReverseHat[(j + 12 - thisHatRotInt) % 12])
                     {
-                        longValid = false;
+                        if (c == calc)
+                        {
+                            cribsList.Add(1);
+                        }
                     }
-                    else
+                    if (cribsList.Count > 0)
                     {
-                        longValid = true;
-                    }
-                }
-                neighborLongReverse1 = neighborNE.GetNeighbor(HexDirection.NE);
-                if (neighborLongReverse1.hasReverseHat)
-                {
-                    if (neighborLongReverse1.hatRot == 180)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                neighborLongReverse2 = neighborNW.GetNeighbor(HexDirection.W);
-                if (neighborLongReverse2.hasReverseHat)
-                {
-                    if (neighborLongReverse2.hatRot == 60)
-                    {
-                        long2Valid = false;
-                    }
-                    else
-                    {
-                        long2Valid = true;
-                    }
-                }
-
-            }
-            else if (this.CompareTag("Reverse Hat"))
-            {
-                if (neighborSW.hasHat)
-                {
-                    Debug.Log("SW Hit");
-                    if (neighborSW.hatRot == 0 || neighborSW.hatRot == 60 || neighborSW.hatRot == 240 || neighborSW.hatRot == 300)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-                if (neighborW.hasHat)
-                {
-                    Debug.Log("W Hit");
-                    if (neighborW.hatRot == 0 || neighborW.hatRot == 60 || neighborW.hatRot == 180 || neighborW.hatRot == 240 || neighborW.hatRot == 300)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-                if (neighborNW.hasHat)
-                {
-                    Debug.Log("NW Hat");
-                    if (neighborNW.hatRot == 0 || neighborNW.hatRot == 60 || neighborNW.hatRot == 120 || neighborNW.hatRot == 300)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-                if (neighborNE.hasHat)
-                {
-                    Debug.Log("NE hat");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 120 || neighborNE.hatRot == 180)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-                if (neighborE.hasHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 60)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-                if (neighborSE.hasHat)
-                {
-                    Debug.Log("SE Hat");
-                    if (neighborSE.hatRot == 120 || neighborSE.hatRot == 180 || neighborSE.hatRot == 240 || neighborSE.hatRot == 300)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-                if (neighborSW.hasReverseHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 60 || neighborSW.hatRot == 120 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-                if (neighborW.hasReverseHat)
-                {
-                    Debug.Log("W Hat");
-                    if (neighborW.hatRot == 0 || neighborW.hatRot == 120 || neighborW.hatRot == 180 || neighborW.hatRot == 240 || neighborW.hatRot == 300)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-                if (neighborNW.hasReverseHat)
-                {
-                    Debug.Log("NW hat");
-                    if (neighborNW.hatRot == 0 || neighborNW.hatRot == 120 || neighborNW.hatRot == 180 || neighborNW.hatRot == 240 || neighborNW.hatRot == 300)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-                if (neighborNE.hasReverseHat)
-                {
-                    Debug.Log("NE Hat");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 240 || neighborNE.hatRot == 300)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-                if (neighborE.hasReverseHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 0)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-                if (neighborSE.hasReverseHat)
-                {
-                    Debug.Log("SE hat");
-                    if (neighborSE.hatRot == 120)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-
-                neighborLong = neighborE.GetNeighbor(HexDirection.SE);
-                if (neighborLong.hasReverseHat)
-                {
-                    if (neighborLong.hatRot == 240)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                else if (neighborLong.hasHat)
-                {
-                    if (neighborLong.hatRot == 0 || neighborLong.hatRot == 60)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                neighborLongReverse1 = neighborSE.GetNeighbor(HexDirection.SW);
-                if (neighborLongReverse1.hasHat)
-                {
-                    if (neighborLongReverse1.hatRot == 60)
-                    {
-                        long1Valid = false;
-                    }
-                    else
-                    {
-                        long1Valid = true;
-                    }
-                }
-                neighborLongReverse2 = neighborNE.GetNeighbor(HexDirection.NE);
-                if (neighborLongReverse2.hasHat)
-                {
-                    if (neighborLongReverse2.hatRot == 240)
-                    {
-                        long2Valid = false;
-                    }
-                    else
-                    {
-                        long2Valid = true;
+                        LongboisBool[j] = false;
                     }
                 }
             }
-
-            
         }
-
-        else if (Mathf.Round(thisHatRot.y) == 120)
+        else if (this.CompareTag("Reverse Hat"))
         {
-            if(this.CompareTag("Hat"))
+            for (int i = 0; i < Neighbours.Length; i++)
             {
-            if (neighborSW.hasHat)
-            {
-                Debug.Log("SW Hat");
-                if (neighborSW.hatRot == 0 || neighborSW.hatRot == 60 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240 || neighborSW.hatRot == 300)
+                if (Neighbours[(i + thisHatRotInt) % 6].hasHat)
                 {
-                    SWValid = true;
-                }
-                else
-                {
-                    SWValid = false;
-                }
-            }
-            if (neighborW.hasHat)
-            {
-                    Debug.Log("W Hit");
-                    if (neighborW.hatRot == 0 || neighborW.hatRot == 60 || neighborW.hatRot == 180 || neighborW.hatRot == 240 || neighborW.hatRot == 300)
-                {
-                    WValid = true;
-                }
-                else
-                {
-                    WValid = false;
-                }
-            }
-            if (neighborNW.hasHat)
-            {
-                    Debug.Log("NW Hit");
-                    if (neighborNW.hatRot == 0 || neighborNW.hatRot == 60 || neighborNW.hatRot == 120 || neighborNW.hatRot == 300)
-                {
-                    NWValid = true;
-                }
-                else
-                {
-                    NWValid = false;
-                }
-            }
-            if (neighborNE.hasHat)
-            {
-                Debug.Log("NE Hat");
-                if (neighborNE.hatRot == 60)
-                {
-                    NEValid = true;
-                }
-                else
-                {
-                    NEValid = false;
-                }
-            }
-            if (neighborE.hasHat)
-            {
-                Debug.Log("E hat");
-                if (neighborE.hatRot == 180)
-                {
-                    EValid = true;
-                }
-                else
-                {
-                    EValid = false;
-                }
-            }
-            if (neighborSE.hasHat)
-            {
-                Debug.Log("SE Hat");
-                if (neighborSE.hatRot == 120 || neighborSE.hatRot == 180 || neighborSE.hatRot == 240 || neighborSE.hatRot == 300)
-                {
-                    SEValid = true;
-                }
-                else
-                {
-                    SEValid = false;
-                }
-            }
-
-            if (neighborSW.hasReverseHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 60 || neighborSW.hatRot == 120 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240)
+                    int calc = ((Neighbours[(i + thisHatRotInt) % 6].hatRotInt + 6 - thisHatRotInt) % 6);
+                    List<int> cribsList = new List<int>();
+                    foreach (int c in cribsReverseHatHat[i])
                     {
-                        SWValid = true;
+                        if (c == calc)
+                        {
+                            cribsList.Add(1);
+                        }
                     }
-                    else
+                    if (cribsList.Count == 0)
                     {
-                        SWValid = false;
+                        NeighboursBool[i] = false;
                     }
                 }
-            if (neighborW.hasReverseHat)
+                else if (Neighbours[(i + thisHatRotInt) % 6].hasReverseHat)
                 {
-                    Debug.Log("W Hat");
-                    if (neighborW.hatRot == 0 || neighborW.hatRot == 120 || neighborW.hatRot == 180 || neighborW.hatRot == 240 || neighborW.hatRot == 300)
+                    int calc = ((Neighbours[(i + thisHatRotInt) % 6].hatRotInt + 6 - thisHatRotInt) % 6);
+                    List<int> cribsList = new List<int>();
+                    foreach (int c in cribsReverseHatReverseHat[i])
                     {
-                        WValid = true;
+                        if (c == calc)
+                        {
+                            cribsList.Add(1);
+                        }
                     }
-                    else
+                    if (cribsList.Count == 0)
                     {
-                        WValid = false;
-                    }
-                }
-            if (neighborNW.hasReverseHat)
-                {
-                    Debug.Log("NW hat");
-                    if (neighborNW.hatRot == 120 || neighborNW.hatRot == 180 || neighborNW.hatRot == 240 || neighborNW.hatRot == 300)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-            if (neighborNE.hasReverseHat)
-                {
-                    Debug.Log("NE Hat");
-                    if (neighborNE.hatRot == 0)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-            if (neighborE.hasReverseHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 120)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-            if (neighborSE.hasReverseHat)
-                {
-                    if (neighborSE.hatRot == 0 || neighborSE.hatRot == 60 || neighborSE.hatRot == 120 || neighborSE.hatRot == 180)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-                neighborLong = neighborNE.GetNeighbor(HexDirection.E);
-                if (neighborLong.hasHat)
-                {
-                    if (neighborLong.hatRot == 300)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                else if (neighborLong.hasReverseHat)
-                {
-                    if (neighborLong.hatRot == 120 || neighborLong.hatRot == 180)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                neighborLongReverse1 = neighborNW.GetNeighbor(HexDirection.NE);
-                if (neighborLongReverse1.hasReverseHat)
-                {
-                    if ( neighborLongReverse1.hatRot == 120)
-                    {
-                        long1Valid = false;
-                    }
-                    else
-                    {
-                        long1Valid = true;
-                    }
-                }
-                neighborLongReverse2 = neighborE.GetNeighbor(HexDirection.E);
-                if (neighborLongReverse2.hasReverseHat)
-                {
-                    if (neighborLongReverse2.hatRot == 240)
-                    {
-                        long2Valid = false;
-                    }
-                    else
-                    {
-                        long2Valid = true;
-                    }
-                }
-
-
-            }
-            else if (this.CompareTag("Reverse Hat"))
-            {
-                if (neighborSW.hasHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 240)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-                if (neighborW.hasHat)
-                {
-                    Debug.Log("W Hit");
-                    if (neighborW.hatRot == 0 || neighborW.hatRot == 60 || neighborW.hatRot == 120 || neighborW.hatRot == 300)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-                if (neighborNW.hasHat)
-                {
-                    Debug.Log("NW Hit");
-                    if (neighborNW.hatRot == 0 || neighborNW.hatRot == 60 || neighborNW.hatRot == 120 || neighborNW.hatRot == 240 || neighborNW.hatRot == 300)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-                if (neighborNE.hasHat)
-                {
-                    Debug.Log("NE Hat");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 120 || neighborNE.hatRot == 180)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-                if (neighborE.hasHat)
-                {
-                    Debug.Log("E hat");
-                    if (neighborE.hatRot == 60 ||neighborE.hatRot == 120 || neighborE.hatRot == 180 || neighborE.hatRot == 240)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-                if (neighborSE.hasHat)
-                {
-                    Debug.Log("SE Hat");
-                    if (neighborSE.hatRot == 120)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-                if (neighborSW.hasReverseHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 180)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-                if (neighborW.hasReverseHat)
-                {
-                    Debug.Log("W Hat");
-                    if (neighborW.hatRot == 0 || neighborW.hatRot == 120 || neighborW.hatRot == 180 || neighborW.hatRot == 240 || neighborW.hatRot == 300)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-                if (neighborNW.hasReverseHat)
-                {
-                    Debug.Log("NW hat");
-                    if (neighborNW.hatRot == 0 || neighborNW.hatRot == 60 || neighborNW.hatRot == 180 || neighborNW.hatRot == 240 || neighborNW.hatRot == 300)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-                if (neighborNE.hasReverseHat)
-                {
-                    Debug.Log("NE Hat");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 180 || neighborNE.hatRot == 240 || neighborNE.hatRot == 300)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-                if (neighborE.hasReverseHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 0 || neighborE.hatRot == 60 || neighborE.hatRot == 120 || neighborE.hatRot == 300)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-                if (neighborSE.hasReverseHat)
-                {
-                    if (neighborSE.hatRot == 60)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-                neighborLong = neighborSE.GetNeighbor(HexDirection.SW);
-                if (neighborLong.hasReverseHat)
-                {
-                    if (neighborLong.hatRot == 300)
-                    {
-                        long1Valid = false;
-                    }
-                    else
-                    {
-                        long1Valid = true;
-                    }
-                }
-                else if (neighborLong.hasHat)
-                {
-                    if (neighborLong.hatRot == 60 || neighborLong.hatRot == 120)
-                    {
-                        long1Valid = false;
-                    }
-                    else
-                    {
-                        long1Valid = true;
-                    }
-                }
-                neighborLongReverse1 = neighborSW.GetNeighbor(HexDirection.W);
-                if (neighborLongReverse1.hasHat)
-                {
-                    if (neighborLongReverse1.hatRot == 120)
-                    {
-                        long1Valid = false;
-                    }
-                    else
-                    {
-                        long1Valid = true;
-                    }
-                }
-                neighborLongReverse2 = neighborSE.GetNeighbor(HexDirection.SE);
-                if (neighborLongReverse2.hasHat)
-                {
-                    if (neighborLongReverse2.hatRot == 0)
-                    {
-                        long1Valid = false;
-                    }
-                    else
-                    {
-                        long1Valid = true;
+                        NeighboursBool[i] = false;
                     }
                 }
             }
-            
+            for (int j = 0; j < Longbois.Length; j++)
+            {
+                if (Longbois[(j + thisHatRotInt) % 12].hasHat)
+                {
+                    int calc = ((Longbois[(j + thisHatRotInt) % 12].hatRotInt + 12 - thisHatRotInt) % 6);
+                    Debug.Log("calc = " + calc);
+                    List<int> cribsList = new List<int>();
+                    foreach (int c in cribsLongboisReverseHatHat[(j + 12 - thisHatRotInt) % 12])
+                    {
+                        if (c == calc)
+                        {
+                            cribsList.Add(1);
+                        }
+                    }
+                    if (cribsList.Count > 0)
+                    {
+                        LongboisBool[j] = false;
+                    }
+                }
+                else if (Longbois[(j + thisHatRotInt) % 12].hasReverseHat)
+                {
+                    int calc = ((Longbois[(j + thisHatRotInt) % 12].hatRotInt + 12 - thisHatRotInt) % 6);
+                    Debug.Log("calc = " + calc);
+                    List<int> cribsList = new List<int>();
+                    foreach (int c in cribsLongboisReverseHatReverseHat[(j + 12 - thisHatRotInt) % 12])
+                    {
+                        if (c == calc)
+                        {
+                            cribsList.Add(1);
+                        }
+                    }
+                    if (cribsList.Count > 0)
+                    {
+                        LongboisBool[j] = false;
+                    }
+                }
+            }
         }
-
-        else if (Mathf.Round(thisHatRot.y) == 180)
-        {
-            if (this.CompareTag("Hat"))
-            {
-            if (neighborSW.hasHat)
-            {
-                Debug.Log("SW Hat");
-                if (neighborSW.hatRot == 0 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240 || neighborSW.hatRot == 300)
-                {
-                    SWValid = true;
-                }
-                else
-                {
-                    SWValid = false;
-                }
-            }
-            if (neighborW.hasHat)
-            {
-                Debug.Log("W Hat");
-                if (neighborW.hatRot == 0 || neighborW.hatRot == 60 || neighborW.hatRot == 120 || neighborW.hatRot == 240 || neighborW.hatRot == 300)
-                {
-                    WValid = true;
-                }
-                else
-                {
-                    WValid = false;
-                }
-            }
-            if (neighborNW.hasHat)
-            {
-                    Debug.Log("NW Hit");
-                    if (neighborNW.hatRot == 0 || neighborNW.hatRot == 60 || neighborNW.hatRot == 120 || neighborNW.hatRot == 240 || neighborNW.hatRot == 300)
-                {
-                    NWValid = true;
-                }
-                else
-                {
-                    NWValid = false;
-                }
-            }
-            if (neighborNE.hasHat)
-            {
-                    Debug.Log("NE Hit");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 120 || neighborNE.hatRot == 180)
-                {
-                    NEValid = true;
-                }
-                else
-                {
-                    NEValid = false;
-                }
-            }
-            if (neighborE.hasHat)
-            {
-                Debug.Log("E Hat");
-                if (neighborE.hatRot == 120)
-                {
-                    EValid = true;
-                }
-                else
-                {
-                    EValid = false;
-                }
-            }
-            if (neighborSE.hasHat)
-            {
-                Debug.Log("SE hat");
-                if (neighborSE.hatRot == 240)
-                {
-                    SEValid = true;
-                }
-                else
-                {
-                    SEValid = false;
-                }
-            }
-
-            if (neighborSW.hasReverseHat)
-            {
-                Debug.Log("SW Hat");
-                if (neighborSW.hatRot == 60 || neighborSW.hatRot == 120 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240)
-                {
-                    SWValid = true;
-                }
-                else
-                {
-                    SWValid = false;
-                }
-            }
-            if (neighborW.hasReverseHat)
-            {
-                Debug.Log("W Hat");
-                if (neighborW.hatRot == 120 || neighborW.hatRot == 180 || neighborW.hatRot == 240 || neighborW.hatRot == 300)
-                {
-                    WValid = true;
-                }
-                else
-                {
-                    WValid = false;
-                }
-            }
-            if (neighborNW.hasReverseHat)
-            {
-                Debug.Log("NW hat");
-                if (neighborNW.hatRot == 0 || neighborNW.hatRot == 60 || neighborNW.hatRot == 180 || neighborNW.hatRot == 240 || neighborNW.hatRot == 300)
-                {
-                    NWValid = true;
-                }
-                else
-                {
-                    NWValid = false;
-                }
-            }
-            if (neighborNE.hasReverseHat)
-            {
-                Debug.Log("NE Hat");
-                if (neighborNE.hatRot == 0 || neighborNE.hatRot == 240 || neighborNE.hatRot == 180 || neighborNE.hatRot == 300)
-                {
-                    NEValid = true;
-                }
-                else
-                {
-                    NEValid = false;
-                }
-            }
-            if (neighborE.hasReverseHat)
-            {
-                Debug.Log("E Hat");
-                if (neighborE.hatRot == 60)
-                {
-                    EValid = true;
-                }
-                else
-                {
-                    EValid = false;
-                }
-            }
-            if (neighborSE.hasReverseHat)
-            {
-                Debug.Log("SE Hat");
-                if (neighborSE.hatRot == 180)
-                {
-                    SEValid = true;
-                }
-                else
-                {
-                    SEValid = false;
-                }
-            }
-
-                neighborLong = neighborSE.GetNeighbor(HexDirection.E);
-                if (neighborLong.hasHat)
-                {
-                    if (neighborLong.hatRot == 0)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                else if (neighborLong.hasReverseHat)
-                {
-                    if (neighborLong.hatRot == 180 || neighborLong.hatRot == 240)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                neighborLongReverse1 = neighborNE.GetNeighbor(HexDirection.E);
-                if (neighborLongReverse1.hasReverseHat)
-                {
-                    if (neighborLongReverse1.hatRot == 180)
-                    {
-                        long1Valid = false;
-                    }
-                    else
-                    {
-                        long1Valid = true;
-                    }
-                }
-                neighborLongReverse2 = neighborSE.GetNeighbor(HexDirection.SE);
-                if (neighborLongReverse2.hasReverseHat)
-                {
-                    if (neighborLongReverse2.hatRot == 300)
-                    {
-                        long2Valid = false;
-                    }
-                    else
-                    {
-                        long2Valid = true;
-                    }
-                }
-
-            }
-            else if (this.CompareTag("Reverse Hat"))
-            {
-                if (neighborSW.hasHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 180)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-                if (neighborW.hasHat)
-                {
-                    Debug.Log("W Hat");
-                    if (neighborW.hatRot == 300)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-                if (neighborNW.hasHat)
-                {
-                    Debug.Log("NW Hit");
-                    if (neighborNW.hatRot == 0 || neighborNW.hatRot == 60 || neighborNW.hatRot == 120 || neighborNW.hatRot == 180)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-                if (neighborNE.hasHat)
-                {
-                    Debug.Log("NE Hit");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 120 || neighborNE.hatRot == 180 || neighborNE.hatRot == 300)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-                if (neighborE.hasHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 60 || neighborE.hatRot == 120 || neighborE.hatRot == 180 || neighborE.hatRot == 240)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-                if (neighborSE.hasHat)
-                {
-                    Debug.Log("SE hat");
-                    if (neighborSE.hatRot == 120 || neighborSE.hatRot == 180 || neighborSE.hatRot == 240 || neighborSE.hatRot == 300)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-                if (neighborSW.hasReverseHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 120)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-                if (neighborW.hasReverseHat)
-                {
-                    Debug.Log("W Hat");
-                    if (neighborW.hatRot == 240)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-                if (neighborNW.hasReverseHat)
-                {
-                    Debug.Log("NW hat");
-                    if (neighborNW.hatRot == 0 || neighborNW.hatRot == 180 || neighborNW.hatRot == 240 || neighborNW.hatRot == 300)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-                if (neighborNE.hasReverseHat)
-                {
-                    Debug.Log("NE Hat");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 120 || neighborNE.hatRot == 240 || neighborNE.hatRot == 300)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-                if (neighborE.hasReverseHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 0 || neighborE.hatRot == 60 || neighborE.hatRot == 120 || neighborE.hatRot == 240 || neighborE.hatRot == 300)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-                if (neighborSE.hasReverseHat)
-                {
-                    Debug.Log("SE Hat");
-                    if (neighborSE.hatRot == 0 || neighborSE.hatRot == 60 || neighborSE.hatRot == 120 || neighborSE.hatRot == 180)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-                neighborLong = neighborSW.GetNeighbor(HexDirection.W);
-                if (neighborLong.hasReverseHat)
-                {
-                    if (neighborLong.hatRot == 0)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                else if (neighborLong.hasHat)
-                {
-                    if (neighborLong.hatRot == 120 || neighborLong.hatRot == 180)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                neighborLongReverse1 = neighborSW.GetNeighbor(HexDirection.SW);
-                if (neighborLongReverse1.hasHat)
-                {
-                    if (neighborLongReverse1.hatRot == 60) 
-                    { 
-                        longValid = false; 
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                neighborLongReverse2 = neighborNW.GetNeighbor(HexDirection.W);
-                if (neighborLongReverse2.hasHat)
-                {
-                    if (neighborLongReverse2.hatRot == 180)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-            }
-            
-            
-        }
-
-        else if (Mathf.Round(thisHatRot.y) == 240)
-        {
-            if (this.CompareTag("Hat"))
-            {
-            if (neighborSW.hasHat)
-            {
-                Debug.Log("SW hat");
-                if (neighborSW.hatRot == 300)
-                {
-                    SWValid = true;
-                }
-                else
-                {
-                    SWValid = false;
-                }
-            }
-            if (neighborW.hasHat)
-            {
-                Debug.Log("W Hat");
-                if (neighborW.hatRot == 0 || neighborW.hatRot == 60 || neighborW.hatRot == 240 || neighborW.hatRot == 300)
-                {
-                    WValid = true;
-                }
-                else
-                {
-                    WValid = false;
-                }
-            }
-            if (neighborNW.hasHat)
-            {
-                Debug.Log("NW Hat");
-                if (neighborNW.hatRot == 0 || neighborNW.hatRot == 60 || neighborNW.hatRot == 120 || neighborNW.hatRot == 180 || neighborNW.hatRot == 300)
-                {
-                    NWValid = true;
-                }
-                else
-                {
-                    NWValid = false;
-                }
-            }
-            if (neighborNE.hasHat)
-            {
-                    Debug.Log("NE Hit");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 120 || neighborNE.hatRot == 180 || neighborNE.hatRot == 300)
-                {
-                    NEValid = true;
-                }
-                else
-                {
-                    NEValid = false;
-                }
-            }
-            if (neighborE.hasHat)
-                {
-                    Debug.Log("E Hit");
-                    if (neighborE.hatRot == 60 || neighborE.hatRot == 120 || neighborE.hatRot == 180 || neighborE.hatRot == 240)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-            if (neighborSE.hasHat)
-                {
-                    Debug.Log("SE Hat");
-                    if (neighborSE.hatRot == 180)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-            if (neighborSW.hasReverseHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 240)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-            if (neighborW.hasReverseHat)
-                {
-                    Debug.Log("W Hat");
-                    if (neighborW.hatRot == 120 || neighborW.hatRot == 180 || neighborW.hatRot == 240 || neighborW.hatRot == 300)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-            if (neighborNW.hasReverseHat)
-                {
-                    Debug.Log("NW hat");
-                    if (neighborNW.hatRot == 0 || neighborNW.hatRot == 120 || neighborNW.hatRot == 180 || neighborNW.hatRot == 240 || neighborNW.hatRot == 300)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-            if (neighborNE.hasReverseHat)
-                {
-                    Debug.Log("NE Hat");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 120 || neighborNE.hatRot == 240 || neighborNE.hatRot == 300)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-            if (neighborE.hasReverseHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 0 || neighborE.hatRot == 60 || neighborE.hatRot == 240 || neighborE.hatRot == 300)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-            if (neighborSE.hasReverseHat)
-                {
-                    if (neighborSE.hatRot == 60 || neighborSE.hatRot == 120)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-                neighborLong = neighborSW.GetNeighbor(HexDirection.SE);
-                if (neighborLong.hasHat)
-                {
-                    if (neighborLong.hatRot == 60)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                else if (neighborLong.hasReverseHat)
-                {
-                    if (neighborLong.hatRot == 240 || neighborLong.hatRot == 300)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                neighborLongReverse1 = neighborE.GetNeighbor(HexDirection.SE);
-                if (neighborLongReverse1.hasReverseHat)
-                {
-                    if (neighborLongReverse1.hatRot == 240)
-                    {
-                        long1Valid = false;
-                    }
-                    else
-                    {
-                        long1Valid = true;
-                    }
-                }
-                neighborLongReverse2 = neighborSW.GetNeighbor(HexDirection.SW);
-                if (neighborLongReverse2.hasReverseHat)
-                {
-                    if (neighborLongReverse2.hatRot == 0)
-                    {
-                        long2Valid = false;
-                    }
-                    else
-                    {
-                        long2Valid = true;
-                    }
-                }
-            }
-            else if (this.CompareTag("Reverse Hat"))
-            {
-                if (neighborSW.hasHat)
-                {
-                    Debug.Log("SW Hit");
-                    if (neighborSW.hatRot == 0 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240 || neighborSW.hatRot == 300)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-                if (neighborW.hasHat)
-                {
-                    Debug.Log("W Hit");
-                    if (neighborW.hatRot == 240)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-                if (neighborNW.hasHat)
-                {
-                    Debug.Log("NW Hat");
-                    if (neighborNW.hatRot == 0)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-                if (neighborNE.hasHat)
-                {
-                    Debug.Log("NE hat");
-                    if (neighborNE.hatRot == 60 || neighborNE.hatRot == 120 || neighborNE.hatRot == 180 || neighborNE.hatRot == 240)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-                if (neighborE.hasHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 0 || neighborE.hatRot == 60 || neighborE.hatRot == 120 || neighborE.hatRot == 180 || neighborE.hatRot == 240)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-                if (neighborSE.hasHat)
-                {
-                    Debug.Log("SE Hat");
-                    if (neighborSE.hatRot == 120 || neighborSE.hatRot == 180 || neighborSE.hatRot == 240 || neighborSE.hatRot == 300)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-                if (neighborSW.hasReverseHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 60 || neighborSW.hatRot == 120 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-                if (neighborW.hasReverseHat)
-                {
-                    Debug.Log("W Hat");
-                    if (neighborW.hatRot == 180)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-                if (neighborNW.hasReverseHat)
-                {
-                    Debug.Log("NW hat");
-                    if (neighborNW.hatRot == 300)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-                if (neighborNE.hasReverseHat)
-                {
-                    Debug.Log("NE Hat");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 240 || neighborNE.hatRot == 300)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-                if (neighborE.hasReverseHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 0 || neighborE.hatRot == 60 || neighborE.hatRot == 120 || neighborE.hatRot == 180 || neighborE.hatRot == 300)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-                if (neighborSE.hasReverseHat)
-                {
-                    Debug.Log("SE hat");
-                    if (neighborSE.hatRot == 0 || neighborSE.hatRot == 60 || neighborSE.hatRot == 120 || neighborSE.hatRot == 180 || neighborSE.hatRot == 300)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-                neighborLong = neighborNW.GetNeighbor(HexDirection.W);
-                if (neighborLong.hasReverseHat)
-                {
-                    if (neighborLong.hatRot == 60)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                else if (neighborLong.hasHat)
-                {
-                    if (neighborLong.hatRot == 180 || neighborLong.hatRot == 240)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                neighborLongReverse1 = neighborNW.GetNeighbor(HexDirection.NE);
-                if (neighborLongReverse1.hasHat) 
-                {
-                    if (neighborLongReverse1.hatRot == 240)
-                    {
-                        long1Valid = false;
-                    }
-                    else
-                    {
-                        long1Valid = true;
-                    }
-                }
-                neighborLongReverse2 = neighborW.GetNeighbor(HexDirection.W);
-                if (neighborLongReverse2.hasHat)
-                {
-                    if (neighborLongReverse2.hatRot == 120)
-                    {
-                        long2Valid = false;
-                    }
-                    else
-                    {
-                        long2Valid = true;
-                    }
-                }
-
-            }
-
-            
-        }
-
-        else if (Mathf.Round(thisHatRot.y) == 300)
-        {
-            if (this.CompareTag("Hat"))
-            {
-                
-            if (neighborSW.hasHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 240)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-            if (neighborW.hasHat)
-                {
-                    Debug.Log("W hat");
-                    if (neighborW.hatRot == 0)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-            if (neighborNW.hasHat)
-                {
-                    Debug.Log("NW Hat");
-                    if (neighborNW.hatRot == 0 || neighborNW.hatRot == 60 || neighborNW.hatRot == 120 || neighborNW.hatRot == 300)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-            if (neighborNE.hasHat)
-                {
-                    Debug.Log("NE Hat");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 120 || neighborNE.hatRot == 180 || neighborNE.hatRot == 240)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-            if (neighborE.hasHat)
-                {
-                    Debug.Log("E Hit");
-                    if (neighborE.hatRot == 0 || neighborE.hatRot == 60 || neighborE.hatRot == 120 || neighborE.hatRot == 180 || neighborE.hatRot == 240)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-            if(neighborSE.hasHat)
-                {
-                    Debug.Log("SE Hit");
-                    if (neighborSE.hatRot == 120 || neighborSE.hatRot == 180 || neighborSE.hatRot == 240 || neighborSE.hatRot == 300)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-            if (neighborSW.hasReverseHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 180)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-            if (neighborW.hasReverseHat)
-                {
-                    Debug.Log("W Hat");
-                    if (neighborW.hatRot == 300)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-            if (neighborNW.hasReverseHat)
-                {
-                    Debug.Log("NW hat");
-                    if (neighborNW.hatRot == 0 || neighborNW.hatRot == 180 || neighborNW.hatRot == 240 || neighborNW.hatRot == 300)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-            if (neighborNE.hasReverseHat)
-                {
-                    Debug.Log("NE Hat");
-                    if (neighborNE.hatRot == 0 || neighborNE.hatRot == 60 || neighborNE.hatRot == 240 || neighborNE.hatRot == 300)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-            if (neighborE.hasReverseHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 0 || neighborE.hatRot == 60 || neighborE.hatRot == 120 || neighborE.hatRot == 180 || neighborE.hatRot == 300)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-            if (neighborSE.hasReverseHat)
-                {
-                    if (neighborSE.hatRot == 0 || neighborSE.hatRot == 60 || neighborSE.hatRot == 120 || neighborSE.hatRot == 300)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-                neighborLong = neighborSW.GetNeighbor(HexDirection.W);
-                if (neighborLong.hasHat)
-                {
-                    if (neighborLong.hatRot == 120)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                else if (neighborLong.hasReverseHat)
-                {
-                    if (neighborLong.hatRot == 0 || neighborLong.hatRot == 300)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                neighborLongReverse1 = neighborW.GetNeighbor(HexDirection.W);
-                if (neighborLongReverse1.hasReverseHat)
-                {
-                    if (neighborLongReverse1.hatRot == 60)
-                    {
-                        long1Valid = false;
-                    }
-                    else
-                    {
-                        long1Valid = true;
-                    }
-                }
-                neighborLongReverse2 = neighborSW.GetNeighbor(HexDirection.SE);
-                if (neighborLongReverse2.hasReverseHat)
-                {
-                    if (neighborLongReverse2.hatRot == 300)
-                    {
-                        long2Valid = false;
-                    }
-                    else
-                    {
-                        long2Valid = true;
-                    }
-                }
-            }
-            else if (this.CompareTag("Reverse Hat"))
-            {
-                if (neighborSW.hasHat)
-                {
-                    Debug.Log("SW Hit");
-                    if (neighborSW.hatRot == 0 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240 || neighborSW.hatRot == 300)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-                if (neighborW.hasHat)
-                {
-                    Debug.Log("W Hit");
-                    if (neighborW.hatRot == 0 || neighborW.hatRot == 60 || neighborW.hatRot == 240 || neighborW.hatRot == 300)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-                if (neighborNW.hasHat)
-                {
-                    Debug.Log("NW Hat");
-                    if (neighborNW.hatRot == 300)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-                if (neighborNE.hasHat)
-                {
-                    Debug.Log("NE hat");
-                    if (neighborNE.hatRot == 60)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-                if (neighborE.hasHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 120 || neighborE.hatRot == 180 || neighborE.hatRot == 240 || neighborE.hatRot == 300)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-                if (neighborSE.hasHat)
-                {
-                    Debug.Log("SE Hat");
-                    if (neighborSE.hatRot == 60 || neighborSE.hatRot == 120 || neighborSE.hatRot == 180 || neighborSE.hatRot == 240 || neighborSE.hatRot == 300)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-
-
-
-                if (neighborSW.hasReverseHat)
-                {
-                    Debug.Log("SW Hat");
-                    if (neighborSW.hatRot == 0 || neighborSW.hatRot == 60 || neighborSW.hatRot == 120 || neighborSW.hatRot == 180 || neighborSW.hatRot == 240)
-                    {
-                        SWValid = true;
-                    }
-                    else
-                    {
-                        SWValid = false;
-                    }
-                }
-                if (neighborW.hasReverseHat)
-                {
-                    Debug.Log("W Hat");
-                    if (neighborW.hatRot == 120 || neighborW.hatRot == 180 || neighborW.hatRot == 240 || neighborW.hatRot == 300)
-                    {
-                        WValid = true;
-                    }
-                    else
-                    {
-                        WValid = false;
-                    }
-                }
-                if (neighborNW.hasReverseHat)
-                {
-                    Debug.Log("NW hat");
-                    if (neighborNW.hatRot == 240)
-                    {
-                        NWValid = true;
-                    }
-                    else
-                    {
-                        NWValid = false;
-                    }
-                }
-                if (neighborNE.hasReverseHat)
-                {
-                    Debug.Log("NE Hat");
-                    if (neighborNE.hatRot == 0)
-                    {
-                        NEValid = true;
-                    }
-                    else
-                    {
-                        NEValid = false;
-                    }
-                }
-                if (neighborE.hasReverseHat)
-                {
-                    Debug.Log("E Hat");
-                    if (neighborE.hatRot == 0 || neighborE.hatRot == 60 || neighborE.hatRot == 120 || neighborE.hatRot == 300)
-                    {
-                        EValid = true;
-                    }
-                    else
-                    {
-                        EValid = false;
-                    }
-                }
-                if (neighborSE.hasReverseHat)
-                {
-                    Debug.Log("SE hat");
-                    if (neighborSE.hatRot == 0 || neighborSE.hatRot == 60 || neighborSE.hatRot == 120 || neighborSE.hatRot == 180 || neighborSE.hatRot == 240)
-                    {
-                        SEValid = true;
-                    }
-                    else
-                    {
-                        SEValid = false;
-                    }
-                }
-                
-                neighborLong = neighborNE.GetNeighbor(HexDirection.NW);
-                if (neighborLong.hasReverseHat)
-                {
-                    if (neighborLong.hatRot == 120)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                else if (neighborLong.hasHat)
-                {
-                    if (neighborLong.hatRot == 240 || neighborLong.hatRot == 300)
-                    {
-                        longValid = false;
-                    }
-                    else
-                    {
-                        longValid = true;
-                    }
-                }
-                neighborLongReverse1 = neighborE.GetNeighbor(HexDirection.NE);
-                if ( neighborLongReverse1.hasHat)
-                {
-                    if (neighborLongReverse1.hatRot == 300)
-                    {
-                        long1Valid = false;
-                    }
-                    else
-                    {
-                        long1Valid = true;
-                    }
-                }
-                neighborLongReverse2 = neighborNW.GetNeighbor(HexDirection.NW);
-                if (neighborLongReverse2.hasHat)
-                {
-                    if(neighborLongReverse2.hatRot == 180)
-                    {
-                        long2Valid = false;
-                    }
-                    else
-                    {
-                        long2Valid = true;
-                    }
-                }
-            }
-
-
-        }
-
-
-        Debug.Log("SWValid: " + SWValid);
-        Debug.Log("WValid: " + WValid);
-        Debug.Log("NWValid: " + NWValid);
-        Debug.Log("NEValid: " + NEValid);
-        Debug.Log("EValid: " + EValid);
-        Debug.Log("SEValid: " + SEValid);
-        Debug.Log("LongValid: " + longValid);
-        Debug.Log("LongValid1: " + long1Valid);
-        Debug.Log("LongValid2: " + long2Valid);
-
-        if (SWValid && WValid && NWValid && NEValid && EValid && SEValid && longValid && long1Valid && long2Valid)
+        if (AllNeighboursValid())
         {
             isValid = true;
         }
         else
         {
             isValid = false;
-            SWValid = true;
-            WValid = true; 
-            NWValid = true; 
-            NEValid = true; 
-            EValid = true;
-            SEValid = true;
-            longValid = true;
-            long1Valid = true;
-            long2Valid = true;
         }
+    }
 
+    public bool AllNeighboursValid()
+    {
+        for (int i = 0; i < NeighboursBool.Length; i++)
+            if (!NeighboursBool[i])
+            {
+                Debug.Log(((HexDirection)((i + thisHatRotInt) % 6)).Opposite());
+                return false;
+            }
+        for (int j = 0; j < LongboisBool.Length; j++)
+            if (!LongboisBool[j])
+            {
+                Debug.Log(((LongboiDirection)((j + thisHatRotInt) % 12)));
+                Debug.Log(thisHatRotInt);
+                return false;
+            }
+        return true;
     }
 
     private IEnumerator CheckValid(float waveTime)

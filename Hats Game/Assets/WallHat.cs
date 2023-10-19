@@ -48,7 +48,6 @@ public class WallHat : MonoBehaviour
             {
                 if (playerHat.isValid)
                 {
-
                     currentCell = hexGrid.GetCell(transform.position);
                     if (moveTime)
                     {
@@ -69,7 +68,6 @@ public class WallHat : MonoBehaviour
                             SetHex();
                             alternate = true;
                         }
-
                         StartCoroutine(MoveDown(1 / difficulty));
                         moveTime = false;
                     }
@@ -100,6 +98,7 @@ public class WallHat : MonoBehaviour
             currentCell.hasReverseHat = true;
         }
         currentCell.hatRot = Mathf.Round(transform.eulerAngles.y);
+        currentCell.hatRotInt = Mathf.RoundToInt(currentCell.hatRot / 60) % 6;
     }
 
     public void ResetHex()
@@ -112,6 +111,8 @@ public class WallHat : MonoBehaviour
         {
             currentCell.hasReverseHat = false;
         }
+        currentCell.hatRot = 0;
+        currentCell.hatRotInt = 0;
     }
    IEnumerator MoveDown(float downSpeed)
     {

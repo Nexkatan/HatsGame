@@ -13,6 +13,7 @@ public class HexCell : MonoBehaviour
 
     [SerializeField]
     HexCell[] neighbors;
+    HexCell[] longbois;
 
     private void Start()
     {
@@ -21,6 +22,11 @@ public class HexCell : MonoBehaviour
     public HexCell GetNeighbor(HexDirection direction)
     {
         return neighbors[(int)direction];
+    }
+
+    public HexCell GetLongboi(LongboiDirection direction)
+    {
+        return longbois[(int)direction];
     }
 
     public void SetNeighbor(HexDirection direction, HexCell cell)

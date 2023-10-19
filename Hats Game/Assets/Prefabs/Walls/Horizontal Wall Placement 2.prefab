@@ -4068,7 +4068,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2000893977851815712}
-  - component: {fileID: 8024257630678701331}
+  - component: {fileID: 3261513160429959854}
   m_Layer: 3
   m_Name: Hat Variant Grey(Clone)
   m_TagString: Reverse Hat
@@ -4093,33 +4093,24 @@ Transform:
   m_Father: {fileID: 6292531456703363373}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!54 &8024257630678701331
-Rigidbody:
+--- !u!114 &3261513160429959854
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3015953504641175030}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4cd4ac0eefb3440bc22297cae88134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCell: {fileID: 0}
+  playerHat: {fileID: 0}
+  moveCell: {fileID: 0}
+  moveTime: 0
+  isPlayer: 0
+  isWallMover: 0
 --- !u!1 &3018520621749196938
 GameObject:
   m_ObjectHideFlags: 0
@@ -5223,7 +5214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4036224775664752620}
-  - component: {fileID: 6804704999708272300}
+  - component: {fileID: 4098418114360729219}
   m_Layer: 3
   m_Name: Hat Variant Grey(Clone)
   m_TagString: Reverse Hat
@@ -5248,33 +5239,24 @@ Transform:
   m_Father: {fileID: 6292531456703363373}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!54 &6804704999708272300
-Rigidbody:
+--- !u!114 &4098418114360729219
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3558036138289392453}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4cd4ac0eefb3440bc22297cae88134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCell: {fileID: 0}
+  playerHat: {fileID: 0}
+  moveCell: {fileID: 0}
+  moveTime: 0
+  isPlayer: 0
+  isWallMover: 0
 --- !u!1 &3644606870329286650
 GameObject:
   m_ObjectHideFlags: 0
@@ -8616,7 +8598,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3953016123108168232}
-  - component: {fileID: 6892030016862801567}
+  - component: {fileID: 1608788289607236866}
   m_Layer: 3
   m_Name: Hat Variant Grey(Clone)
   m_TagString: Reverse Hat
@@ -8641,33 +8623,24 @@ Transform:
   m_Father: {fileID: 6292531456703363373}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!54 &6892030016862801567
-Rigidbody:
+--- !u!114 &1608788289607236866
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6149075944423219274}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4cd4ac0eefb3440bc22297cae88134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCell: {fileID: 0}
+  playerHat: {fileID: 0}
+  moveCell: {fileID: 0}
+  moveTime: 0
+  isPlayer: 0
+  isWallMover: 0
 --- !u!1 &6297860569999748735
 GameObject:
   m_ObjectHideFlags: 0
@@ -11023,7 +10996,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8779506112722667106}
-  - component: {fileID: 1399546719018608530}
+  - component: {fileID: 7198005154457823352}
   m_Layer: 3
   m_Name: Hat Variant Grey(Clone)
   m_TagString: Reverse Hat
@@ -11048,33 +11021,24 @@ Transform:
   m_Father: {fileID: 6292531456703363373}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!54 &1399546719018608530
-Rigidbody:
+--- !u!114 &7198005154457823352
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7949982463553765332}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4cd4ac0eefb3440bc22297cae88134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCell: {fileID: 0}
+  playerHat: {fileID: 0}
+  moveCell: {fileID: 0}
+  moveTime: 0
+  isPlayer: 0
+  isWallMover: 0
 --- !u!1 &8051652064346990384
 GameObject:
   m_ObjectHideFlags: 0
@@ -11334,7 +11298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5138341295545514796}
   - component: {fileID: 6179525406813662255}
-  - component: {fileID: 7263367490714446946}
+  - component: {fileID: 947285274544222907}
   m_Layer: 3
   m_Name: Hat Variant Grey(Clone)
   m_TagString: Reverse Hat
@@ -11372,42 +11336,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colors: []
-  colliders: {fileID: 0}
+  Neighbours: []
+  Longbois: []
+  isValid: 1
   isSelected: 0
   hatHits: 0
   currentCell: {fileID: 0}
   landCell: {fileID: 0}
+  thisHatRot: {x: 0, y: 0, z: 0}
+  thisHatRotInt: 0
   cellCo:
     x: 0
     z: 0
-  isValid: 1
---- !u!54 &7263367490714446946
-Rigidbody:
+--- !u!114 &947285274544222907
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8263870095722933955}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4cd4ac0eefb3440bc22297cae88134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCell: {fileID: 0}
+  playerHat: {fileID: 0}
+  moveCell: {fileID: 0}
+  moveTime: 0
+  isPlayer: 0
+  isWallMover: 0
 --- !u!1 &8274786543726306922
 GameObject:
   m_ObjectHideFlags: 0
@@ -11417,7 +11375,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6292531456703363373}
-  - component: {fileID: 3330983002353405080}
   - component: {fileID: 4180123986552029766}
   m_Layer: 3
   m_Name: Horizontal Wall Placement 2
@@ -11448,33 +11405,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!54 &3330983002353405080
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8274786543726306922}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!114 &4180123986552029766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11488,15 +11418,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colors: []
-  colliders: {fileID: 0}
-  isSelected: 0
+  Neighbours:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Longbois:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isValid: 1
+  isSelected: 1
   hatHits: 0
   currentCell: {fileID: 0}
   landCell: {fileID: 0}
+  thisHatRot: {x: 0, y: 0, z: 0}
+  thisHatRotInt: 0
   cellCo:
     x: 0
     z: 0
-  isValid: 1
 --- !u!1 &8331920760967232492
 GameObject:
   m_ObjectHideFlags: 0
