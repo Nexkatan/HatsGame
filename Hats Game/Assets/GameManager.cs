@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
    public void LoadHoleInTheWall()
     {
+
         SceneManager.LoadScene("Hole In The Wall");
     }
     public void LoadLevelEditor()

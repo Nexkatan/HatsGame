@@ -24,7 +24,7 @@ public class ChecksValid : MonoBehaviour
 
     public HexCell currentCell;
 
-    private float thisHatRot;
+    public float thisHatRot;
     public int thisHatRotInt;
 
 

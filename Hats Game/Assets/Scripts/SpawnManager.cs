@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
     public float timeBetweenWaves;
 
 
-    private void Start()
+    private void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         buttonPos = transform.position;
@@ -41,7 +41,14 @@ public class SpawnManager : MonoBehaviour
         {
             Vector3 mousePos = Input.mousePosition;
             Instantiate(hat, mousePos, hat.transform.rotation);
-            hat.gameObject.GetComponent<HatPlacer>().isSelected = true;
+            if (this.CompareTag("Hat") || this.CompareTag("Reverse Hat"))
+            {
+                hat.gameObject.GetComponent<HatPlacer>().isSelected = true;
+            }
+            else if ((this.CompareTag("Multi Hat"))) 
+            {
+                hat.gameObject.GetComponent<MultiHatPlacer>().isSelected = true;
+            }
             gameManager.tileSelected = true;
             gameManager.selectedTile = hat.gameObject;
         }
