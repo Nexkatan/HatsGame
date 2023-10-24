@@ -8,6 +8,7 @@ public class HexCell : MonoBehaviour
 
     public bool hasHat;
     public bool hasReverseHat;
+    public bool isBinHat;
     public float hatRot;
     public int hatRotInt;
 

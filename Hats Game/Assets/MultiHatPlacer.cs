@@ -14,7 +14,7 @@ public class MultiHatPlacer : MonoBehaviour
 
     public bool isSelected;
 
-    private ChecksValid[] validHats;
+    public ChecksValid[] validHats;
     private HexCell[] landCells;
     private HexCell[] currentCells;
 
@@ -105,94 +105,77 @@ public class MultiHatPlacer : MonoBehaviour
             
         }
     }
-    private void OnMouseDown()
-    {
-        if (!gameManager.tileSelected)
-        {
-            Debug.Log("select");
-            gameManager.tileSelected = true;
-            foreach (ChecksValid hat in validHats)
-            {
-                HexCell landCell = hexGrid.GetCell(hat.transform.position);
-                landCell.hasHat = false;
-                landCell.hasReverseHat = false;
-                landCell.hatRot = 0;
-                landCell.hatRotInt = 0;
-            }
-            Destroy(this.GetComponent<Rigidbody>());
-            StartCoroutine(TrueSelecta());
-            gameManager.selectedTile = this.gameObject;
-        }
-        else
-        {
-            Debug.Log("already selected");
-        }
-
-    }
+  
     private void Deselect()
     {
         Debug.Log("Deselect");
         int count = 0;
-        for (int i = 0; i < validHats.Length; i++)
+        if (hexGrid.GetCell(transform.position).isBinHat)
         {
-            validHats[i].thisHatRot = validHats[i].transform.eulerAngles.y;
-            validHats[i].thisHatRotInt = Mathf.RoundToInt(validHats[i].thisHatRot / 60) % 6;
-            landCells[i] = hexGrid.GetCell(validHats[i].transform.position);
-            currentCells[i] = landCells[i];
-            
-            if (!landCells[i].hasHat && !landCells[i].hasReverseHat)
-            {
-                count++;
-            }
-        }
-
-        if (count == validHats.Length)
-        {
-            int count2 = 0;
-            for (int i = 0; i < validHats.Length; i++)
-            {
-                validityCheck = validHats[i].GetComponent<ChecksValid>();
-                validityCheck.IsPlacementValid(landCells[i]);
-                if (validityCheck.isValid)
-                {
-                    count2++;
-                    
-                }
-                else
-                {
-                    Debug.Log("hat " + (i + 1) + " is " + validityCheck.isValid);
-                }
-            }
-            
-  
-            if (count2 == validHats.Length)
-            {
-                for (int i = 0; i < validHats.Length; i++)
-                {
-                    if (validHats[i].CompareTag("Hat"))
-                    {
-                        landCells[i].hasHat = true;
-                    }
-                    else if (validHats[i].CompareTag("Reverse Hat"))
-                    {
-                        landCells[i].hasReverseHat = true;
-                    }
-
-                    landCells[i].hatRot = Mathf.Round(validHats[i].transform.eulerAngles.y);
-                    landCells[i].hatRotInt = Mathf.RoundToInt(landCells[i].hatRot / 60) % 6;
-                }
-                this.AddComponent<Rigidbody>();
-                Rigidbody rb = this.GetComponent<Rigidbody>();
-                rb.constraints = RigidbodyConstraints.FreezeAll;
-                gameManager.tileSelected = false;
-                gameManager.selectedTile = null;
-                isSelected = false;
-            }
+            Destroy(gameObject);
         }
         else
         {
-            Debug.Log("Hat Already here");
+            for (int i = 0; i < validHats.Length; i++)
+            {
+                validHats[i].thisHatRot = validHats[i].transform.eulerAngles.y;
+                validHats[i].thisHatRotInt = Mathf.RoundToInt(validHats[i].thisHatRot / 60) % 6;
+                landCells[i] = hexGrid.GetCell(validHats[i].transform.position);
+                validHats[i].currentCell = landCells[i];
+                currentCells[i] = landCells[i];
+
+                if (!landCells[i].hasHat && !landCells[i].hasReverseHat)
+                {
+                    count++;
+                }
+            }
+
+            if (count == validHats.Length)
+            {
+                int count2 = 0;
+                for (int i = 0; i < validHats.Length; i++)
+                {
+                    validityCheck = validHats[i].GetComponent<ChecksValid>();
+                    validityCheck.IsPlacementValid(landCells[i]);
+                    if (validityCheck.isValid)
+                    {
+                        count2++;
+
+                    }
+                    else
+                    {
+                        Debug.Log("hat " + (i + 1) + " is " + validityCheck.isValid);
+                    }
+                }
+
+
+                if (count2 == validHats.Length)
+                {
+                    for (int i = 0; i < validHats.Length; i++)
+                    {
+                        if (validHats[i].CompareTag("Hat"))
+                        {
+                            landCells[i].hasHat = true;
+                        }
+                        else if (validHats[i].CompareTag("Reverse Hat"))
+                        {
+                            landCells[i].hasReverseHat = true;
+                        }
+
+                        landCells[i].hatRot = Mathf.Round(validHats[i].transform.eulerAngles.y);
+                        landCells[i].hatRotInt = Mathf.RoundToInt(landCells[i].hatRot / 60) % 6;
+                    }
+                    gameManager.tileSelected = false;
+                    gameManager.selectedTile = null;
+                    isSelected = false;
+                }
+            }
+            else
+            {
+                Debug.Log("Hat Already here");
+            }
         }
+        
     }
     HexCell GetCellUnderCursor()
     {

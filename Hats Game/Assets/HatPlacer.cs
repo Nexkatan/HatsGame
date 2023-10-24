@@ -11,12 +11,11 @@ public class HatPlacer : MonoBehaviour
 {
     public Color[] colors;
 
+    private GameManager gameManager;
     private HexGrid hexGrid;
     private Rigidbody rb;
 
     public bool isSelected;
-
-    public int hatHits = 0;
 
     public HexCell currentCell;
     public HexCell landCell;
@@ -26,7 +25,6 @@ public class HatPlacer : MonoBehaviour
 
     [SerializeField] HexCoordinates cellCo;
 
-    private GameManager gameManager;
 
     private ChecksValid validityCheck;
 
@@ -52,11 +50,14 @@ public class HatPlacer : MonoBehaviour
         {
             Spin();
         }
-        if (Input.GetMouseButtonDown(0))
-            if (isSelected)
+        if (isSelected)
+        {
+            if (Input.GetMouseButtonDown(0))
             {
                 Deselect();
             }
+        }
+            
     }
 
     void MouseMove()
@@ -68,10 +69,6 @@ public class HatPlacer : MonoBehaviour
             if (isSelected)
             {
                 this.transform.position = (currentCell.transform.position);
-            }
-            else
-            {
-                this.transform.position = (stayCell.transform.position);
             }
         }
     }
@@ -86,69 +83,54 @@ public class HatPlacer : MonoBehaviour
             thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
         }
     }
-    private void OnMouseDown()
-    {
-        if (!gameManager.tileSelected)
-        {
-            Debug.Log("select");
-            gameManager.tileSelected = true;
-            HexCell landCell = hexGrid.GetCell(transform.position);
-            landCell.hasHat = false;
-            landCell.hasReverseHat = false;
-            landCell.hatRot = 0;
-            landCell.hatRotInt = 0;
-            StartCoroutine(TrueSelecta());
-            gameManager.selectedTile = this.gameObject; 
-            Destroy(this.GetComponent<Rigidbody>());
-        }
-        else
-        {
-            Debug.Log("already selected");
-        }
-
-    }
+    
     private void Deselect()
     {
+        Debug.Log("Deselect");
         thisHatRot = transform.eulerAngles;
         thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
 
         landCell = hexGrid.GetCell(transform.position);
         currentCell = landCell;
-        if (!landCell.hasHat && !landCell.hasReverseHat)
+        if (landCell.isBinHat)
         {
-            validityCheck.IsPlacementValid(landCell);
-            Debug.Log(validityCheck.isValid);
-  
-            if (validityCheck.isValid)
-            {
-                if (this.CompareTag("Hat"))
-                {
-                    landCell.hasHat = true;
-                }
-                else if (this.CompareTag("Reverse Hat"))
-                {
-                    landCell.hasReverseHat = true;
-                }
-
-                landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
-                landCell.hatRotInt = Mathf.RoundToInt(landCell.hatRot / 60) % 6;
-            isSelected = false;
-                this.AddComponent<Rigidbody>();
-                rb = GetComponent<Rigidbody>();
-                rb.constraints = RigidbodyConstraints.FreezeAll;
-                gameManager.tileSelected = false;
-                gameManager.selectedTile = null;
-            }
-            else
-            {
-                Debug.Log("Invalid");
-            }
-
-
+            Destroy(gameObject);
         }
         else
         {
-            Debug.Log("Hat Already here");
+            if (!landCell.hasHat && !landCell.hasReverseHat)
+            {
+                validityCheck.IsPlacementValid(landCell);
+                Debug.Log(validityCheck.isValid);
+
+                if (validityCheck.isValid)
+                {
+                    if (this.CompareTag("Hat"))
+                    {
+                        landCell.hasHat = true;
+                    }
+                    else if (this.CompareTag("Reverse Hat"))
+                    {
+                        landCell.hasReverseHat = true;
+                    }
+
+                    landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
+                    landCell.hatRotInt = Mathf.RoundToInt(landCell.hatRot / 60) % 6;
+                    isSelected = false;
+                    gameManager.tileSelected = false;
+                    gameManager.selectedTile = null;
+                }
+                else
+                {
+                    Debug.Log("Invalid");
+                }
+
+
+            }
+            else
+            {
+                Debug.Log("Hat Already here");
+            }
         }
     }
     HexCell GetCellUnderCursor()
