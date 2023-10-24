@@ -180,10 +180,9 @@ public class ChecksValid : MonoBehaviour
             }
             for (int j = 0; j < Longbois.Length; j++)
             {
-                if (Longbois[(j + thisHatRotInt) % 12].hasHat)
+                if (Longbois[(j + thisHatRotInt) % 12] && Longbois[(j + thisHatRotInt) % 12].hasHat)
                 {
                     int calc = ((Longbois[(j + thisHatRotInt) % 12].hatRotInt + 12 - thisHatRotInt) % 6);
-                    Debug.Log("calc = " + calc);
                     List<int> cribsList = new List<int>();
                     foreach (int c in cribsLongboisReverseHatHat[(j + 12 - thisHatRotInt) % 12])
                     {
@@ -197,10 +196,9 @@ public class ChecksValid : MonoBehaviour
                         LongboisBool[j] = false;
                     }
                 }
-                else if (Longbois[(j + thisHatRotInt) % 12].hasReverseHat)
+                else if (Longbois[(j + thisHatRotInt) % 12] && Longbois[(j + thisHatRotInt) % 12].hasReverseHat)
                 {
                     int calc = ((Longbois[(j + thisHatRotInt) % 12].hatRotInt + 12 - thisHatRotInt) % 6);
-                    Debug.Log("calc = " + calc);
                     List<int> cribsList = new List<int>();
                     foreach (int c in cribsLongboisReverseHatReverseHat[(j + 12 - thisHatRotInt) % 12])
                     {

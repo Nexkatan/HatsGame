@@ -35,7 +35,7 @@ public class MultiHatPlacer : MonoBehaviour
         foreach (Transform t in transform)
         {
             hats.Add(t.gameObject);
-            if (t.gameObject.GetComponent<WallHat>())
+            if (t.gameObject.GetComponent<ChecksValid>())
             {
                 t.gameObject.GetComponent<ChecksValid>().currentCell = hexGrid.GetCell(transform.position);
                 validHatsList.Add(t.GetComponent<ChecksValid>());
@@ -44,20 +44,14 @@ public class MultiHatPlacer : MonoBehaviour
 
         validHats = new ChecksValid[validHatsList.Count];
         landCells = new HexCell[validHatsList.Count];
+        currentCells = new HexCell[validHatsList.Count];
         for (int i = 0; i < validHatsList.Count; i++)
         {
             validHats[i] = validHatsList[i];
-            Debug.Log(validHats[i]);
             validHats[i].currentCell = hexGrid.GetCell(validHats[i].transform.position);
             landCells[i] = hexGrid.GetCell(validHatsList[i].transform.position);
             currentCells[i] = landCells[i];
-            Debug.Log(validHats[i]);
-            Debug.Log(landCells[i]);
         }
-
-        
-
-        validityCheck = this.GetComponent<ChecksValid>();
     }
 
     void FixedUpdate()
@@ -124,9 +118,9 @@ public class MultiHatPlacer : MonoBehaviour
                 landCell.hasReverseHat = false;
                 landCell.hatRot = 0;
                 landCell.hatRotInt = 0;
-                StartCoroutine(TrueSelecta());
-                Destroy(hat.GetComponent<Rigidbody>());
             }
+            Destroy(this.GetComponent<Rigidbody>());
+            StartCoroutine(TrueSelecta());
             gameManager.selectedTile = this.gameObject;
         }
         else
@@ -151,15 +145,14 @@ public class MultiHatPlacer : MonoBehaviour
                 count++;
             }
         }
-        Debug.Log(count);
 
-        if (count == 0)
+        if (count == validHats.Length)
         {
             int count2 = 0;
             for (int i = 0; i < validHats.Length; i++)
             {
+                validityCheck = validHats[i].GetComponent<ChecksValid>();
                 validityCheck.IsPlacementValid(landCells[i]);
-                Debug.Log(validityCheck.isValid);
                 if (validityCheck.isValid)
                 {
                     count2++;
@@ -167,7 +160,7 @@ public class MultiHatPlacer : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("hat " + i + " is " + validityCheck.isValid);
+                    Debug.Log("hat " + (i + 1) + " is " + validityCheck.isValid);
                 }
             }
             
@@ -187,11 +180,10 @@ public class MultiHatPlacer : MonoBehaviour
 
                     landCells[i].hatRot = Mathf.Round(validHats[i].transform.eulerAngles.y);
                     landCells[i].hatRotInt = Mathf.RoundToInt(landCells[i].hatRot / 60) % 6;
-
-                    //validHats[i].AddComponent<Rigidbody>();
-                    //Rigidbody rb = validHats[i].gameObject.GetComponent<Rigidbody>();
-                    //rb.constraints = RigidbodyConstraints.FreezeAll;
                 }
+                this.AddComponent<Rigidbody>();
+                Rigidbody rb = this.GetComponent<Rigidbody>();
+                rb.constraints = RigidbodyConstraints.FreezeAll;
                 gameManager.tileSelected = false;
                 gameManager.selectedTile = null;
                 isSelected = false;
