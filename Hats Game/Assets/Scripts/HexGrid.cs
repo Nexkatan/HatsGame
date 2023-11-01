@@ -6,8 +6,8 @@ public class HexGrid : MonoBehaviour
 {
     public bool HexCoordinatesOn;
 
-    public int width = 6;
-    public int height = 6;
+    public int width;
+    public int height;
 
     public HexCell cellPrefab;
 
@@ -26,7 +26,6 @@ public class HexGrid : MonoBehaviour
         gridCanvas = GetComponentInChildren<Canvas>();
         hexMesh = GetComponentInChildren<HexMesh>();
         cells = new HexCell[height * width];
-
         for (int z = 0, i = 0; z < height; z++)
         {
             for (int x = 0; x < width; x++)
@@ -57,7 +56,7 @@ public class HexGrid : MonoBehaviour
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
-        if (index < width * height)
+        if (index > 0 && index < cells.Length)
         {
             HexCell cell = cells[index];
             return cell;

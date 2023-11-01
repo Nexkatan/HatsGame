@@ -24,7 +24,7 @@ public class MultiHatPlacer : MonoBehaviour
 
     private ChecksValid validityCheck;
 
-    void Start()
+    private void Awake()
     {
         hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -41,14 +41,13 @@ public class MultiHatPlacer : MonoBehaviour
                 validHatsList.Add(t.GetComponent<ChecksValid>());
             }
         }
-
         validHats = new ChecksValid[validHatsList.Count];
         landCells = new HexCell[validHatsList.Count];
         currentCells = new HexCell[validHatsList.Count];
         for (int i = 0; i < validHatsList.Count; i++)
         {
             validHats[i] = validHatsList[i];
-            validHats[i].currentCell = hexGrid.GetCell(validHats[i].transform.position);
+            validHats[i].currentCell = hexGrid.GetCell(validHatsList[i].transform.position);
             landCells[i] = hexGrid.GetCell(validHatsList[i].transform.position);
             currentCells[i] = landCells[i];
         }

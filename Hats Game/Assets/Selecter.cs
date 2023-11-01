@@ -17,12 +17,9 @@ public class Selecter : MonoBehaviour
     private void OnMouseDown()
     {
         GameObject hat = transform.root.gameObject;
-
-        Debug.Log("Mouse");
         if (!gameManager.tileSelected)
         {
-            Debug.Log("GameManager tile not selected");
-            Debug.Log("select");
+            Debug.Log("Select");
             gameManager.tileSelected = true;
 
             if (hat.GetComponent<HatPlacer>())
@@ -47,10 +44,6 @@ public class Selecter : MonoBehaviour
            
             StartCoroutine(TrueSelecta(hat));
             gameManager.selectedTile = hat.gameObject;
-        }
-        else
-        {
-            Debug.Log("already selected");
         }
     }
 
