@@ -149,3 +149,5 @@ MonoBehaviour:
   hat: {fileID: 0}
   isSelected: 0
   isPlaced: 0
+  wallPrefab: {fileID: 0}
+  timeBetweenWaves: 0
