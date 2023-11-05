@@ -121,6 +121,8 @@ public class HatPlacer : MonoBehaviour
                     isSelected = false;
                     gameManager.tileSelected = false;
                     gameManager.selectedTile = null;
+
+                    gameManager.GetComponent<ChainManager>().checkComplete();
                 }
                 else
                 {
