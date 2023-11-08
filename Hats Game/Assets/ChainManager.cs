@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ChainManager : MonoBehaviour
 {
-    private GameObject startChain;
-    private int hatCount;
+    public GameObject startChain;
     public GameObject endChain;
+    private int hatCount;
     public List<GameObject> chainList = new List<GameObject>();
+    private UniversalLevelManager levelManager;
+    
 
     private void Awake()
     {
@@ -20,8 +23,7 @@ public class ChainManager : MonoBehaviour
         {
             endChain = GameObject.FindObjectOfType<EndChain>().transform.root.gameObject;
         }
-        
-        
+        levelManager = GetComponent<UniversalLevelManager>();
     }
     public void AddHatsToList()
     {
@@ -38,9 +40,6 @@ public class ChainManager : MonoBehaviour
                 {
                     chainList.Add(startChain.transform.parent.parent.gameObject.transform.GetChild(1).GetChild(0).GetComponent<StartChain>().connectedHats[k]);
                 }
-            
-            
-                Debug.Log(hatCount);
                 for (int i = 1; i < hatCount + 1; i++)
                     {
                     if (i < chainList.Count)
@@ -48,6 +47,7 @@ public class ChainManager : MonoBehaviour
                         if (chainList[i].transform.GetChild(1).GetChild(0).GetComponent<EndChain>())
                         {
                             Debug.Log("Complete");
+                            levelManager.LevelComplete();
                         }
                         else if (chainList[i].transform.GetChild(1).GetChild(0).GetComponent<Chain>().touchingHats.Count > 1)
                         {
@@ -64,5 +64,7 @@ public class ChainManager : MonoBehaviour
             }
         }
     }
+
+   
 }
      

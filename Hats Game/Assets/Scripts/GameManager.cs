@@ -10,9 +10,12 @@ public class GameManager : MonoBehaviour
     public bool gameOver = false;
     public int difficulty = 2;
 
+   public void LoadHome()
+    {
+        SceneManager.LoadScene("MainScreen");
+    }
    public void LoadHoleInTheWall()
     {
-
         SceneManager.LoadScene("Hole In The Wall");
     }
     public void LoadLevelEditor()
@@ -21,6 +24,8 @@ public class GameManager : MonoBehaviour
     }
     public void LoadPlacementPuzzle()
     {
-        SceneManager.LoadScene("Placement Puzzle");
+        SceneManager.LoadScene("Placement Puzzle 1");
     }
+
+   
 }

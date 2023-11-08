@@ -122,7 +122,10 @@ public class HatPlacer : MonoBehaviour
                     gameManager.tileSelected = false;
                     gameManager.selectedTile = null;
 
-                    gameManager.GetComponent<ChainManager>().AddHatsToList();
+                    if (gameManager.GetComponent<ChainManager>())
+                    {
+                        gameManager.GetComponent<ChainManager>().AddHatsToList();
+                    }
                 }
                 else
                 {
