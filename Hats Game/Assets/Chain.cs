@@ -12,14 +12,14 @@ public class Chain : MonoBehaviour
         isConnected = true;
         if (!touchingHats.Contains(collision.transform.root.gameObject))
         {
-            touchingHats.Add(collision.transform.root.gameObject);
+            touchingHats.Add(collision.transform.parent.parent.gameObject);
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
         isConnected = false;
-        touchingHats.Remove(collision.transform.root.gameObject);
+        touchingHats.Remove(collision.transform.parent.parent.gameObject);
     }
 
     

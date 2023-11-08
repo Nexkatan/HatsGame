@@ -104,7 +104,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0.0000009536743, z: -0.0000015199184}
 --- !u!1 &515902093901028697
@@ -211,7 +211,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: 0.00000086426735}
 --- !u!1 &917044639823396130
@@ -318,7 +318,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: 0.00000086426735}
 --- !u!1 &1154284188928695508
@@ -594,7 +594,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.000007688999, y: -7.723471e-16, z: -0.0000024735928}
 --- !u!1 &2007825037962193105
@@ -784,7 +784,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.00000005960465, y: -0.0000038146973, z: 0.0000037252903}
 --- !u!1 &2497193374472645108
@@ -820,7 +820,7 @@ Transform:
   - {fileID: 6873762236690247647}
   - {fileID: 9088366493881244165}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &6208934001104732692
 MonoBehaviour:
@@ -835,7 +835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colors: []
-  isSelected: 0
+  isSelected: 1
   currentCell: {fileID: 0}
   landCell: {fileID: 0}
   thisHatRot: {x: -0, y: 180, z: 0}
@@ -1066,7 +1066,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: -0.0000009536743, z: 0.00000086426735}
 --- !u!1 &3204465713234731815
@@ -1846,7 +1846,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: -0.0000009536743, z: 0.00000086426735}
 --- !u!1 &6277717322159044325
@@ -2365,7 +2365,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: 0.00000086426735}
 --- !u!1 &7734940781694479696
@@ -2525,7 +2525,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0.000002861023, z: 0.0000046789646}
 --- !u!1 &7973374139560761937
@@ -2717,7 +2717,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.000000059604666, y: -0.0000038146973, z: 0.0000037252903}
 --- !u!1 &8331971786891822878
@@ -2824,7 +2824,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.000000059604666, y: -1.2098817e-15, z: -0.0000019967556}
 --- !u!1 &8607459201470244841
@@ -2931,7 +2931,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.00000005960465, y: -0.0000038146973, z: -0.0000019967556}
 --- !u!1 &8634658529343391780
@@ -3038,7 +3038,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0.000000059604638, y: -7.723471e-16, z: 0.0000042021275}
 --- !u!1 &8682208905120362496
@@ -3051,7 +3051,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7050642298695894883}
   - component: {fileID: 6526073415689350670}
-  - component: {fileID: 2018383441924935654}
+  - component: {fileID: 1254431597394210597}
   m_Layer: 0
   m_Name: Cyllinders
   m_TagString: Untagged
@@ -3114,7 +3114,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &2018383441924935654
+--- !u!114 &1254431597394210597
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3123,12 +3123,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8682208905120362496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3dd2c75c75cd3649aa8c446434fa547, type: 3}
+  m_Script: {fileID: 11500000, guid: 39484d8da31bef146b8607eba2c467e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  touchingHats: []
   isConnected: 0
-  connectedHats:
-  - {fileID: 2497193374472645108}
 --- !u!1 &8725568325839695844
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,9 +10,9 @@ public class EndChain : MonoBehaviour
     private void OnCollisionStay(Collision collision)
     {
         isConnected = true;
-        if (!connectedHats.Contains(collision.transform.root.gameObject))
+        if (!connectedHats.Contains(collision.transform.parent.parent.gameObject))
         {
-            connectedHats.Add(collision.transform.root.gameObject);
+            connectedHats.Add(collision.transform.parent.parent.gameObject);
         }
     }
 
