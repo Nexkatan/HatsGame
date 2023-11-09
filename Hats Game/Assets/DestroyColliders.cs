@@ -15,8 +15,6 @@ public class DestroyColliders : MonoBehaviour
     }
     public void WallifyHats()
     {
-        //StartChain.transform.GetChild(1).GetChild(0).gameObject.AddComponent<Rigidbody>();
-
         foreach (Transform child in transform)
         {
             if (child.gameObject.CompareTag("Hat") || child.gameObject.CompareTag("Reverse Hat"))
@@ -30,9 +28,19 @@ public class DestroyColliders : MonoBehaviour
                     Destroy(child.GetComponent<ChecksValid>());
                 }
 
-                child.AddComponent<WallHat>();
+                Debug.Log(child.gameObject);
 
-                Destroy(child.transform.GetChild(0).GetChild(0).GetChild(0).gameObject);
+                if (!child.GetComponent<WallHat>())
+                {
+                    child.AddComponent<WallHat>();
+                }
+                
+
+                if (child.transform.GetChild(0).GetChild(0).childCount > 0)
+                {
+                    Destroy(child.transform.GetChild(0).GetChild(0).GetChild(0).gameObject);
+                }
+               
 
                 Destroy(child.transform.GetChild(1).GetChild(0).gameObject.GetComponent<Chain>());
 
@@ -47,10 +55,12 @@ public class DestroyColliders : MonoBehaviour
                 }
                 else if (child.gameObject == StartChain)
                 {
+                    Debug.Log("StartChain");
                     child.transform.GetChild(1).GetChild(0).gameObject.AddComponent<StartChain>();
                 }
                 else if (child.gameObject == EndChain)
                 {
+                    Debug.Log("EndChain");
                     child.transform.GetChild(1).GetChild(0).gameObject.AddComponent<EndChain>();
                 }
             }

@@ -12,8 +12,9 @@ public class ChainManager : MonoBehaviour
     private UniversalLevelManager levelManager;
     
 
-    private void Awake()
+    private void Start()
     {
+        Debug.Log("Awake");
         if (GameObject.FindObjectOfType<StartChain>())
         {
             startChain = GameObject.FindObjectOfType<StartChain>().gameObject;
@@ -21,7 +22,7 @@ public class ChainManager : MonoBehaviour
         }
         if (GameObject.FindObjectOfType<EndChain>())
         {
-            endChain = GameObject.FindObjectOfType<EndChain>().transform.root.gameObject;
+            endChain = GameObject.FindObjectOfType<EndChain>().transform.parent.parent.gameObject;
         }
         levelManager = GetComponent<UniversalLevelManager>();
     }

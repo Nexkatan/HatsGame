@@ -32,7 +32,7 @@ public class WallHat : MonoBehaviour
 
     private void Update()
     {
-        if (hexGrid.GetCell(transform.position).coordinates.Z < 1)
+        if (hexGrid.GetCell(transform.position).coordinates.Z < 2)
         {
             Destroy(this.gameObject);
             ResetHex(currentCell);

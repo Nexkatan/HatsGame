@@ -16,8 +16,7 @@ public class UniversalLevelManager : MonoBehaviour
     private void Start()
     {
         int levelSelected = LevelSelector.selectedLevel;
-        Debug.Log(levelSelected);
-        if (levelWalls != null)
+        if (levelSelected > 0 && levelWalls.transform.childCount >= levelSelected)
         {
             levelWalls.transform.GetChild(levelSelected - 1).gameObject.SetActive(true);
         }
@@ -39,11 +38,15 @@ public class UniversalLevelManager : MonoBehaviour
     {
         LevelCompleteButtons.SetActive(true);
         HatTab.SetActive(false);
+        if (LevelSelector.selectedLevel >= PlayerPrefs.GetInt("levelsUnlocked"))
+        {
+            PlayerPrefs.SetInt("levelsUnlocked", LevelSelector.selectedLevel + 1); 
+        }
     }
 
     public void LevelSelect()
     {
-        SceneManager.LoadScene("Placement Puzzle 1");
+        SceneManager.LoadScene("Placement Puzzle Level Selector");
     }
 
 

@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     }
     public void LoadPlacementPuzzle()
     {
-        SceneManager.LoadScene("Placement Puzzle 1");
+        SceneManager.LoadScene("Placement Puzzle Level Selector");
     }
 
    
