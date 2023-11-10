@@ -46,22 +46,32 @@ public class DestroyColliders : MonoBehaviour
 
                 if (child.gameObject != StartChain && child.gameObject != EndChain)
                 {
-                    Destroy(child.transform.GetChild(1).GetChild(0).gameObject.GetComponent<Rigidbody>());
-                    Collider[] childCollider = child.GetComponentsInChildren<Collider>();
-                    foreach (Collider collider in childCollider)
+                    if (child.transform.GetChild(1).GetChild(0).childCount > 13)
                     {
-                        DestroyImmediate(collider);
+                        Destroy(child.transform.GetChild(1).GetChild(0).GetChild(13).gameObject.GetComponent<Rigidbody>());
+                        Collider[] childCollider = child.GetComponentsInChildren<Collider>();
+                        foreach (Collider collider in childCollider)
+                        {
+                            DestroyImmediate(collider);
+                        }
                     }
+                    
                 }
                 else if (child.gameObject == StartChain)
                 {
                     Debug.Log("StartChain");
-                    child.transform.GetChild(1).GetChild(0).gameObject.AddComponent<StartChain>();
+                    if (!child.transform.GetChild(1).GetChild(0).GetChild(13).GetComponent<StartChain>())
+                    {
+                        child.transform.GetChild(1).GetChild(0).GetChild(13).AddComponent<StartChain>();
+                    }
                 }
                 else if (child.gameObject == EndChain)
                 {
                     Debug.Log("EndChain");
-                    child.transform.GetChild(1).GetChild(0).gameObject.AddComponent<EndChain>();
+                    if (!child.transform.GetChild(1).GetChild(0).GetChild(13).GetComponent<EndChain>())
+                    {
+                        child.transform.GetChild(1).GetChild(0).GetChild(13).gameObject.AddComponent<EndChain>();
+                    }
                 }
             }
 

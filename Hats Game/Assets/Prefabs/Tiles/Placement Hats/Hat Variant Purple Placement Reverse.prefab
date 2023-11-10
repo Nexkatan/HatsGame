@@ -1798,8 +1798,8 @@ GameObject:
   - component: {fileID: 549049024853817}
   - component: {fileID: -3204098481600285977}
   m_Layer: 3
-  m_Name: Hat Variant Purple Placement
-  m_TagString: Hat
+  m_Name: Hat Variant Purple Placement Reverse
+  m_TagString: Reverse Hat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1813,7 +1813,7 @@ Transform:
   m_GameObject: {fileID: 4256428953982782798}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: -10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6751820368167175222}
@@ -2645,7 +2645,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2432681763172365652}
   - component: {fileID: 2314076449466056939}
-  - component: {fileID: 6632836904357181794}
+  - component: {fileID: 719074423269618690}
   m_Layer: 0
   m_Name: Cylinder Colliders
   m_TagString: Untagged
@@ -2708,7 +2708,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &6632836904357181794
+--- !u!114 &719074423269618690
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
