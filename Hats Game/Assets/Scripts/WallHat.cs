@@ -51,6 +51,7 @@ public class WallHat : MonoBehaviour
         }
         currentCell.hatRot = Mathf.Round(transform.eulerAngles.y);
         currentCell.hatRotInt = Mathf.RoundToInt(currentCell.hatRot / 60) % 6;
+        currentCell.hatAbove = this.gameObject;
     }
 
     public void ResetHex(HexCell currentCell)
@@ -65,6 +66,7 @@ public class WallHat : MonoBehaviour
         }
         currentCell.hatRot = 0;
         currentCell.hatRotInt = 0;
+        currentCell.hatAbove = null;
     }
    
 }

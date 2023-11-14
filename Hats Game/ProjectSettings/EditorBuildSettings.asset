@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Placement Puzzle Level Selector.unity
     guid: a7170490fd1cc764e825722daa857d61
+  - enabled: 1
+    path: Assets/Scenes/Tiling Fill.unity
+    guid: 2d2a7b9e7396ad24bbd3e15969cc0e3c
   m_configObjects: {}

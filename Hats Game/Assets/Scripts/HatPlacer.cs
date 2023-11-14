@@ -118,6 +118,7 @@ public class HatPlacer : MonoBehaviour
 
                     landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
                     landCell.hatRotInt = Mathf.RoundToInt(landCell.hatRot / 60) % 6;
+                    landCell.hatAbove = this.gameObject;
                     isSelected = false;
                     gameManager.tileSelected = false;
                     gameManager.selectedTile = null;
@@ -125,6 +126,17 @@ public class HatPlacer : MonoBehaviour
                     if (gameManager.GetComponent<ChainManager>())
                     {
                         gameManager.GetComponent<ChainManager>().AddHatsToList();
+                    }
+                    if (gameManager.GetComponent<TilingHoleMaker>())
+                    {
+                        if (this.CompareTag("Hat"))
+                        {
+                            gameManager.GetComponent<TilingHoleMaker>().hats -= 1;
+                        }
+                        else if (this.CompareTag("Reverse Hat"))
+                        {
+                            gameManager.GetComponent<TilingHoleMaker>().reverseHats -= 1;
+                        }
                     }
                 }
                 else

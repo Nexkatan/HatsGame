@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,8 +11,23 @@ public class GameManager : MonoBehaviour
     public GameObject selectedTile;
     public bool gameOver = false;
     public int difficulty = 2;
+    public Slider _slider;
+    public TextMeshProUGUI sliderText;
+    public static int tilingDifficulty;
 
-   public void LoadHome()
+
+    public void Start()
+    {
+        if (_slider != null)
+        {
+            _slider.onValueChanged.AddListener(value =>
+            {
+                tilingDifficulty = (int)value;
+                sliderText.text = value.ToString();
+            });
+        }
+    }
+    public void LoadHome()
     {
         SceneManager.LoadScene("MainScreen");
     }
@@ -26,6 +43,10 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Placement Puzzle Level Selector");
     }
+    public void LoadTilingFill()
+    {
+        SceneManager.LoadScene("Tiling Fill");
 
+    }
    
 }

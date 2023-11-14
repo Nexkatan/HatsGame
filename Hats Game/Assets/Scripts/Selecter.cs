@@ -29,6 +29,7 @@ public class Selecter : MonoBehaviour
                 landCell.hasReverseHat = false;
                 landCell.hatRot = 0;
                 landCell.hatRotInt = 0;
+                landCell.hatAbove = null;
             }
             else if (hat.GetComponent<MultiHatPlacer>())
             {
@@ -39,9 +40,20 @@ public class Selecter : MonoBehaviour
                     landCell.hasReverseHat = false;
                     landCell.hatRot = 0;
                     landCell.hatRotInt = 0;
+                    landCell.hatAbove = null;
                 }
             }
-           
+            if (gameManager.GetComponent<TilingHoleMaker>())
+            {
+                if (this.transform.root.CompareTag("Hat"))
+                {
+                    gameManager.GetComponent<TilingHoleMaker>().hats += 1;
+                }
+                else if (this.transform.root.CompareTag("Reverse Hat"))
+                {
+                    gameManager.GetComponent<TilingHoleMaker>().reverseHats += 1;
+                }
+            }
             StartCoroutine(TrueSelecta(hat));
             gameManager.selectedTile = hat.gameObject;
         }

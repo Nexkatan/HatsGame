@@ -6013,7 +6013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f831aa138b6511143aa9e9ba3b063ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelsUnlocked: 0
+  levelsUnlocked: 7
   levelButtons:
   - {fileID: 180445295}
   - {fileID: 965255360}

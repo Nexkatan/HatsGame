@@ -11,6 +11,7 @@ public class HexCell : MonoBehaviour
     public bool isBinHat;
     public float hatRot;
     public int hatRotInt;
+    public GameObject hatAbove;
 
     [SerializeField]
     HexCell[] neighbors;
