@@ -326,7 +326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3197490182586861015, guid: dc5076d29a013ca4d8e4d56762cee1c0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5573817607684140362, guid: dc5076d29a013ca4d8e4d56762cee1c0, type: 3}
       propertyPath: m_RootOrder
@@ -1592,6 +1592,8 @@ MonoBehaviour:
   selectedTile: {fileID: 0}
   gameOver: 0
   difficulty: 2
+  _slider: {fileID: 0}
+  sliderText: {fileID: 0}
 --- !u!114 &787709953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1982,7 +1984,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &924727205
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3759,6 +3761,8 @@ MonoBehaviour:
   selectedTile: {fileID: 0}
   gameOver: 0
   difficulty: 2
+  _slider: {fileID: 0}
+  sliderText: {fileID: 0}
 --- !u!114 &1535131011
 MonoBehaviour:
   m_ObjectHideFlags: 0

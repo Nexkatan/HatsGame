@@ -29,6 +29,9 @@ public class TilingHoleMaker : MonoBehaviour
     public TextMeshProUGUI hatsNumber;
     public TextMeshProUGUI reverseHatsNumber;
 
+    public GameObject HatTab;
+    public GameObject levelCompleteButtons;
+
     void Start()
     {
         difficulty = GameManager.tilingDifficulty;
@@ -139,6 +142,9 @@ public class TilingHoleMaker : MonoBehaviour
         reverseHats = reverseHatsList.Count;
         hatsNumber.SetText(hatsList.Count.ToString());
         reverseHatsNumber.SetText(reverseHatsList.Count.ToString());
+
+        Debug.Log(hats);
+        Debug.Log(reverseHats);
            
         for (int i = 0; i < hatsToDestroy.Count; i++)
         {
@@ -150,4 +156,11 @@ public class TilingHoleMaker : MonoBehaviour
             Destroy(hatsToDestroy[i]);
         }
     }
+
+    public void LevelComplete()
+    {
+        HatTab.SetActive(false);
+        levelCompleteButtons.SetActive(true);
+    }
+
 }

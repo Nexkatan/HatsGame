@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI sliderText;
     public static int tilingDifficulty;
 
+    public Button[] buttons;
 
     public void Start()
     {
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
             });
         }
     }
+
     public void LoadHome()
     {
         SceneManager.LoadScene("MainScreen");
@@ -46,7 +48,8 @@ public class GameManager : MonoBehaviour
     public void LoadTilingFill()
     {
         SceneManager.LoadScene("Tiling Fill");
-
     }
+
+
    
 }

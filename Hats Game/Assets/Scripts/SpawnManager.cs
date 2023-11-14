@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class SpawnManager : MonoBehaviour
     public float timeBetweenWaves;
 
 
+    public List<Button> buttons = new List<Button>();
+
+
     private void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -26,10 +30,19 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-   
+    private void Start()
+    {
+        foreach (Button button in FindObjectsOfType<Button>())
+        {
+            buttons.Add(button);
+        }
+    }
+    
 
 
-    private void OnMouseDown()
+
+
+private void OnMouseDown()
     {
         SpawnHat();
     }
@@ -51,6 +64,10 @@ public class SpawnManager : MonoBehaviour
             }
             gameManager.tileSelected = true;
             gameManager.selectedTile = hat.gameObject;
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].interactable = false;
+            }
         }
         
     }

@@ -6,6 +6,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HatPlacer : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class HatPlacer : MonoBehaviour
 
     [SerializeField] HexCoordinates cellCo;
 
+    public List<Button> buttons = new List<Button>();
 
     private ChecksValid validityCheck;
 
@@ -35,6 +37,10 @@ public class HatPlacer : MonoBehaviour
         landCell = hexGrid.GetCell(transform.position);
         currentCell = landCell;
         validityCheck = this.GetComponent<ChecksValid>();
+        foreach (Button button in FindObjectsOfType<Button>())
+        {
+            buttons.Add(button);
+        }
     }
 
     void FixedUpdate()
@@ -102,8 +108,18 @@ public class HatPlacer : MonoBehaviour
         {
             if (!landCell.hasHat && !landCell.hasReverseHat)
             {
+                
                 validityCheck.IsPlacementValid(landCell);
                 Debug.Log(validityCheck.isValid);
+
+                if (gameManager.GetComponent<TilingHoleMaker>())
+                {
+                    if (transform.position.x > 700 || transform.position.x < 150 || transform.position.z > 470 || transform.position.z < 150)
+                    {
+                        Debug.Log("Out of Bounds");
+                        validityCheck.isValid = false;
+                    }
+                }
 
                 if (validityCheck.isValid)
                 {
@@ -122,6 +138,11 @@ public class HatPlacer : MonoBehaviour
                     isSelected = false;
                     gameManager.tileSelected = false;
                     gameManager.selectedTile = null;
+                    
+                    for (int i = 0; i < buttons.Count; i++)
+                    {
+                        buttons[i].interactable = true;
+                    }
 
                     if (gameManager.GetComponent<ChainManager>())
                     {
@@ -136,6 +157,10 @@ public class HatPlacer : MonoBehaviour
                         else if (this.CompareTag("Reverse Hat"))
                         {
                             gameManager.GetComponent<TilingHoleMaker>().reverseHats -= 1;
+                        }
+                        if (gameManager.GetComponent<TilingHoleMaker>().hats + gameManager.GetComponent<TilingHoleMaker>().reverseHats == 0)
+                        {
+                            gameManager.GetComponent<TilingHoleMaker>().LevelComplete();
                         }
                     }
                 }

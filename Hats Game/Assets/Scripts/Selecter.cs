@@ -1,17 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Selecter : MonoBehaviour
 {
 
     private GameManager gameManager;
     private HexGrid hexGrid;
+
+    public List<Button> buttons = new List<Button>();
+
     // Update is called once per frame
     void Start()
     {
         hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        foreach (Button button in FindObjectsOfType<Button>())
+        {
+            buttons.Add(button);
+        }
     }
 
     private void OnMouseDown()
@@ -42,6 +51,10 @@ public class Selecter : MonoBehaviour
                     landCell.hatRotInt = 0;
                     landCell.hatAbove = null;
                 }
+            }
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].interactable = false;
             }
             if (gameManager.GetComponent<TilingHoleMaker>())
             {
