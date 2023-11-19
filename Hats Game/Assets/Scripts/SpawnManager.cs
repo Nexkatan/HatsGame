@@ -15,8 +15,8 @@ public class SpawnManager : MonoBehaviour
     public GameObject wallPrefab;
     public float timeBetweenWaves;
 
-
-    public List<Button> buttons = new List<Button>();
+    private GameObject HatTab;
+    private List<Button> buttons = new List<Button>();
 
 
     private void Awake()
@@ -32,7 +32,8 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        foreach (Button button in FindObjectsOfType<Button>())
+        HatTab = GameObject.Find("HatTab");
+        foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
         {
             buttons.Add(button);
         }

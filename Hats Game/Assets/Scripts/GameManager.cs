@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI sliderText;
     public static int tilingDifficulty;
 
-    public Button[] buttons;
 
     public void Start()
     {

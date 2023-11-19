@@ -26,6 +26,7 @@ public class HatPlacer : MonoBehaviour
 
     [SerializeField] HexCoordinates cellCo;
 
+    GameObject HatTab;
     public List<Button> buttons = new List<Button>();
 
     private ChecksValid validityCheck;
@@ -37,7 +38,8 @@ public class HatPlacer : MonoBehaviour
         landCell = hexGrid.GetCell(transform.position);
         currentCell = landCell;
         validityCheck = this.GetComponent<ChecksValid>();
-        foreach (Button button in FindObjectsOfType<Button>())
+        HatTab = GameObject.Find("HatTab");
+        foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
         {
             buttons.Add(button);
         }

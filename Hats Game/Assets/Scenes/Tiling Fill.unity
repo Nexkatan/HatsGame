@@ -3641,7 +3641,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535131007}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68bbd0b879eda914fab00c55acbece8f, type: 3}
   m_Name: 
@@ -4273,9 +4273,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
+    - {fileID: 2946046856291547371, guid: ce18476209fd89b4b8dd1cfc08184ef2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7172133931471712818, guid: ce18476209fd89b4b8dd1cfc08184ef2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1911024196}
   m_SourcePrefab: {fileID: 100100000, guid: ce18476209fd89b4b8dd1cfc08184ef2, type: 3}
 --- !u!1 &1908136434
 GameObject:
@@ -4404,6 +4408,27 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7172133931471712818, guid: ce18476209fd89b4b8dd1cfc08184ef2, type: 3}
   m_PrefabInstance: {fileID: 1853947658}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1911024196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911024194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f46f7970722d6864c8c3213e8d8270e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pink: {fileID: 2100000, guid: aeea688d193ea6243893ebdb59a13bf1, type: 2}
+  pinkDarker: {fileID: 2100000, guid: 7edf9ec16ada2294dbf732de25e14681, type: 2}
+  pinkDarkest: {fileID: 2100000, guid: 099990efb3305d4468581a298b07f109, type: 2}
+  purple: {fileID: 2100000, guid: 282f924875966cf42ac2d4f68be3162b, type: 2}
+  blueLight: {fileID: 2100000, guid: f8ba2fc6515dc67419d764271ea86ed7, type: 2}
+  greenLight: {fileID: 2100000, guid: 696b7dc96bf76fa49bfa66c86b991263, type: 2}
+  blueDark: {fileID: 2100000, guid: 8b447962926af094b8d4d58bfc613361, type: 2}
+  greenDark: {fileID: 2100000, guid: 716da15f550ed054786a73f1403b91da, type: 2}
+  yellow: {fileID: 2100000, guid: 1bbaae227f523fd4b85ba2d555709e0d, type: 2}
 --- !u!1 &1939017710
 GameObject:
   m_ObjectHideFlags: 0

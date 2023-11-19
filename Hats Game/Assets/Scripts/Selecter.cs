@@ -9,6 +9,7 @@ public class Selecter : MonoBehaviour
     private GameManager gameManager;
     private HexGrid hexGrid;
 
+    private GameObject HatTab;
     public List<Button> buttons = new List<Button>();
 
     // Update is called once per frame
@@ -16,8 +17,8 @@ public class Selecter : MonoBehaviour
     {
         hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-        foreach (Button button in FindObjectsOfType<Button>())
+        HatTab = GameObject.Find("HatTab");
+        foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
         {
             buttons.Add(button);
         }
