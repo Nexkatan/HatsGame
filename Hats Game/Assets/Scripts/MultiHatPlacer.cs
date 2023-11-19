@@ -7,6 +7,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MultiHatPlacer : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class MultiHatPlacer : MonoBehaviour
     private GameManager gameManager;
 
     private ChecksValid validityCheck;
+
+    GameObject HatTab;
+    public List<Button> buttons = new List<Button>();
 
     private void Awake()
     {
@@ -50,6 +54,14 @@ public class MultiHatPlacer : MonoBehaviour
             validHats[i].currentCell = hexGrid.GetCell(validHatsList[i].transform.position);
             landCells[i] = hexGrid.GetCell(validHatsList[i].transform.position);
             currentCells[i] = landCells[i];
+        }
+        HatTab = GameObject.Find("HatTab");
+        if (HatTab)
+        {
+            foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
+            {
+                buttons.Add(button);
+            }
         }
     }
 
@@ -114,6 +126,10 @@ public class MultiHatPlacer : MonoBehaviour
             gameManager.tileSelected = false;
             gameManager.selectedTile = null;
             Destroy(gameObject);
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].interactable = true;
+            }
         }
         else
         {
@@ -169,6 +185,10 @@ public class MultiHatPlacer : MonoBehaviour
                     gameManager.tileSelected = false;
                     gameManager.selectedTile = null;
                     isSelected = false;
+                    for (int i = 0; i < buttons.Count; i++)
+                    {
+                        buttons[i].interactable = true;
+                    }
                 }
             }
             else

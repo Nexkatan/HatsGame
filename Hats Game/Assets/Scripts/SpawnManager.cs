@@ -33,9 +33,12 @@ public class SpawnManager : MonoBehaviour
     private void Start()
     {
         HatTab = GameObject.Find("HatTab");
-        foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
+        if (HatTab)
         {
-            buttons.Add(button);
+            foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
+            {
+                buttons.Add(button);
+            }
         }
     }
     

@@ -18,9 +18,12 @@ public class Selecter : MonoBehaviour
         hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         HatTab = GameObject.Find("HatTab");
-        foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
+        if (HatTab)
         {
-            buttons.Add(button);
+            foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
+            {
+                buttons.Add(button);
+            }
         }
     }
 

@@ -39,9 +39,12 @@ public class HatPlacer : MonoBehaviour
         currentCell = landCell;
         validityCheck = this.GetComponent<ChecksValid>();
         HatTab = GameObject.Find("HatTab");
-        foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
+        if (HatTab)
         {
-            buttons.Add(button);
+            foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
+            {
+                buttons.Add(button);
+            }
         }
     }
 
@@ -105,6 +108,10 @@ public class HatPlacer : MonoBehaviour
             gameManager.tileSelected = false;
             gameManager.selectedTile = null;
             Destroy(gameObject);
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].interactable = true;
+            }
         }
         else
         {

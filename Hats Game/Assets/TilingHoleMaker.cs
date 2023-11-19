@@ -52,8 +52,9 @@ public class TilingHoleMaker : MonoBehaviour
         DestroyHats();
     }
 
-    void DestroyHats()
+    public void DestroyHats()
     {
+
         List<GameObject> hatsToDestroy = new List<GameObject>();
         int xVal = Random.Range(widthStart + (difficulty * multiplier)/2, widthEnd - (difficulty * multiplier) / 2);
         int zVal = Random.Range(heightStart + (difficulty * multiplier), heightEnd - (difficulty * multiplier));
@@ -125,6 +126,8 @@ public class TilingHoleMaker : MonoBehaviour
                 }
             }
         }
+        hatsList.Clear();
+        reverseHatsList.Clear();
 
         for (int i = 0; i < hatsToDestroy.Count; i++)
         {

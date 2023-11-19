@@ -2398,7 +2398,7 @@ PrefabInstance:
     - target: {fileID: 8568921676601611619, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
       propertyPath: hat
       value: 
-      objectReference: {fileID: 4256428953982782798, guid: 8df5a337a3dda77498e0bef8b1cc48b3, type: 3}
+      objectReference: {fileID: 4256428953982782798, guid: 2992993524039144dabb95774c70cb34, type: 3}
     - target: {fileID: 8568921676601611619, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -3735,6 +3735,8 @@ MonoBehaviour:
   selectedTile: {fileID: 0}
   gameOver: 0
   difficulty: 2
+  _slider: {fileID: 0}
+  sliderText: {fileID: 0}
 --- !u!1001 &1538376672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4309,7 +4311,7 @@ PrefabInstance:
     - target: {fileID: 8568921676601611619, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
       propertyPath: hat
       value: 
-      objectReference: {fileID: 428455810980651803, guid: 0444b8359dd948a45aba2b9f111cbe5b, type: 3}
+      objectReference: {fileID: 428455810980651803, guid: 3472b004d2cc9b74aaae7dc9d106e20c, type: 3}
     - target: {fileID: 8568921676601611619, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
       propertyPath: m_Enabled
       value: 1
