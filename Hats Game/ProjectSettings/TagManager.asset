@@ -10,6 +10,7 @@ TagManager:
   - Hat Bin
   - Start
   - End
+  - Tiling
   layers:
   - Default
   - TransparentFX

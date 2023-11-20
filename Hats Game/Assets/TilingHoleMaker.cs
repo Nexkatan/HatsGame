@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class TilingHoleMaker : MonoBehaviour
@@ -34,8 +35,10 @@ public class TilingHoleMaker : MonoBehaviour
 
     void Start()
     {
+        GameObject tiling = GameObject.FindGameObjectWithTag("Tiling");
         difficulty = GameManager.tilingDifficulty;
         hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
+        HatTab = GameObject.Find("HatTab");
         StartCoroutine("CountDown");
     }
 
@@ -165,6 +168,21 @@ public class TilingHoleMaker : MonoBehaviour
     {
         HatTab.SetActive(false);
         levelCompleteButtons.SetActive(true);
+        foreach (HatPlacer placedHat in GameObject.FindObjectsOfType<HatPlacer>())
+        {
+            Destroy(placedHat.GetComponent<HatPlacer>());
+            Destroy(placedHat.GetComponent<ChecksValid>());
+            placedHat.GetComponent<WallHat>().validityCheck = null;
+            Destroy(placedHat.transform.GetChild(0).GetChild(0).GetChild(0).gameObject);
+            placedHat.transform.SetParent(tiling.transform);
+        }
+    }
+
+    public void ResetHats()
+    {
+        HatTab.SetActive(true);
+        HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<UnityEngine.UI.Button>().interactable = true;
+        HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<UnityEngine.UI.Button>().interactable = true;
     }
 
 }

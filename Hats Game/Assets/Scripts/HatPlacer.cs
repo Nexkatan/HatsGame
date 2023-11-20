@@ -167,6 +167,14 @@ public class HatPlacer : MonoBehaviour
                         {
                             gameManager.GetComponent<TilingHoleMaker>().reverseHats -= 1;
                         }
+                        if (gameManager.GetComponent<TilingHoleMaker>().hats < 1)
+                        {
+                            HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Button>().interactable = false;
+                        }
+                        else if (gameManager.GetComponent<TilingHoleMaker>().reverseHats < 1)
+                        {
+                            HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<Button>().interactable = false;
+                        }
                         if (gameManager.GetComponent<TilingHoleMaker>().hats + gameManager.GetComponent<TilingHoleMaker>().reverseHats == 0)
                         {
                             gameManager.GetComponent<TilingHoleMaker>().LevelComplete();

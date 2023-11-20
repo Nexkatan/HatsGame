@@ -54,20 +54,22 @@ private void OnMouseDown()
 
     public void SpawnHat()
     {
+
         if (!isSelected) 
         {
             Vector3 mousePos = Input.mousePosition;
-            Instantiate(hat, mousePos, hat.transform.rotation);
+            GameObject hatObj = Instantiate(hat, mousePos, hat.transform.rotation);
             if (this.CompareTag("Hat") || this.CompareTag("Reverse Hat"))
             {
-                hat.gameObject.GetComponent<HatPlacer>().isSelected = true;
+                hatObj.gameObject.GetComponent<HatPlacer>().isSelected = true;
             }
             else if ((this.CompareTag("Multi Hat"))) 
             {
-                hat.gameObject.GetComponent<MultiHatPlacer>().isSelected = true;
+                hatObj.gameObject.GetComponent<MultiHatPlacer>().isSelected = true;
             }
             gameManager.tileSelected = true;
-            gameManager.selectedTile = hat.gameObject;
+            gameManager.selectedTile = hatObj.gameObject;
+
             for (int i = 0; i < buttons.Count; i++)
             {
                 buttons[i].interactable = false;
