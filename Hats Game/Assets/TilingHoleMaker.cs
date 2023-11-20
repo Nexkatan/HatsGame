@@ -146,6 +146,7 @@ public class TilingHoleMaker : MonoBehaviour
         hatsNumber.SetText(hatsList.Count.ToString());
         reverseHatsNumber.SetText(reverseHatsList.Count.ToString());
 
+        Debug.Log("Hats to destroy: " + hatsToDestroy.Count);
         Debug.Log(hats);
         Debug.Log(reverseHats);
            
