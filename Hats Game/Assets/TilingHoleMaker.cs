@@ -152,16 +152,8 @@ public class TilingHoleMaker : MonoBehaviour
         Debug.Log("Hats to destroy: " + hatsToDestroy.Count);
         Debug.Log(hats);
         Debug.Log(reverseHats);
-           
-        for (int i = 0; i < hatsToDestroy.Count; i++)
-        {
-            hexGrid.GetCell(hatsToDestroy[i].transform.position).hasHat = false;
-            hexGrid.GetCell(hatsToDestroy[i].transform.position).hasReverseHat = false;
-            hexGrid.GetCell(hatsToDestroy[i].transform.position).hatRot = 0;
-            hexGrid.GetCell(hatsToDestroy[i].transform.position).hatRotInt = 0;
-            hexGrid.GetCell(hatsToDestroy[i].transform.position).hatAbove = null;
-            Destroy(hatsToDestroy[i]);
-        }
+
+        StartCoroutine(DestroyHatsList(hatsToDestroy));
     }
 
     public void LevelComplete()
@@ -185,4 +177,17 @@ public class TilingHoleMaker : MonoBehaviour
         HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<UnityEngine.UI.Button>().interactable = true;
     }
 
+    IEnumerator DestroyHatsList(List<GameObject> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            yield return new WaitForSeconds(15 / (list.Count + 10));
+            hexGrid.GetCell(list[i].transform.position).hasHat = false;
+            hexGrid.GetCell(list[i].transform.position).hasReverseHat = false;
+            hexGrid.GetCell(list[i].transform.position).hatRot = 0;
+            hexGrid.GetCell(list[i].transform.position).hatRotInt = 0;
+            hexGrid.GetCell(list[i].transform.position).hatAbove = null;
+            Destroy(list[i]);
+        }
+    }
 }
