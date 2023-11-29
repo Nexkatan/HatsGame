@@ -26,6 +26,9 @@ public class HatController : MonoBehaviour
     private ChecksValid validityCheck;
 
     private float checkTime;
+
+    public bool is3D;
+
     void Start()
     {
         hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
@@ -42,7 +45,10 @@ public class HatController : MonoBehaviour
 
     private void Update()
     {
-        HexMove();
+        if (!is3D)
+        {
+            HexMove();
+        }
         HexSpin();
     }
 

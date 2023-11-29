@@ -40,7 +40,6 @@ public class WallMover : MonoBehaviour
         for (int i = 0; i < wallHatsList.Count; i++)
         {
             wallHats[i] = wallHatsList[i];
-            Debug.Log(wallHats[i]);
         }
 
         randomHat = Random.Range(2, hats.ToArray().Length - 2);
