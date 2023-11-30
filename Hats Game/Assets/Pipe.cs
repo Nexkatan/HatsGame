@@ -25,6 +25,8 @@ public class Pipe : MonoBehaviour
 
     private Vector2[] uv;
 
+    public PipeItemGenerator[] generators;
+
     private void Awake()
     {
         GetComponent<MeshFilter>().mesh = mesh = new Mesh();
@@ -141,6 +143,11 @@ public class Pipe : MonoBehaviour
         SetUV();
         SetTriangles();
         mesh.RecalculateNormals();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+        generators[Random.Range(0, generators.Length)].GenerateItems(this);
     }
 
     private void SetUV()
@@ -175,6 +182,13 @@ public class Pipe : MonoBehaviour
         get
         {
             return relativeRotation;
+        }
+    }
+    public int CurveSegmentCount
+    {
+        get
+        {
+            return curveSegmentCount;
         }
     }
 }

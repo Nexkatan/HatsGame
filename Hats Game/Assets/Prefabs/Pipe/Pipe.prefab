@@ -53,6 +53,8 @@ MonoBehaviour:
   maxCurveRadius: 50
   minCurveSegmentCount: 9
   maxCurveSegmentCount: 10
+  generators:
+  - {fileID: 8893192157902747464, guid: add3f6fd030f81a45a898f5a003f73fa, type: 3}
 --- !u!33 &4731366601815547753
 MeshFilter:
   m_ObjectHideFlags: 0

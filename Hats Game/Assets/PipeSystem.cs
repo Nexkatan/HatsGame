@@ -40,7 +40,7 @@ public class PipeSystem : MonoBehaviour
         AlignNextPipeWithOrigin();
         pipes[pipes.Length - 1].Generate();
         pipes[pipes.Length - 1].AlignWith(pipes[pipes.Length - 2]);
-        transform.localPosition = new Vector3(0f, -pipes[0].CurveRadius);
+        //pipes[pipes.Length - 1].AddGate(pipes[pipes.Length - 1]);
         transform.localPosition = new Vector3(0f, -pipes[1].CurveRadius);
         return pipes[1];
     }
