@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4113077646314963507
 MonoBehaviour:
@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pipeRadius: 1
-  pipeSegmentCount: 10
-  ringDistance: 1
+  pipeSegmentCount: 16
+  ringDistance: 0.77
   minCurveRadius: 49
   maxCurveRadius: 50
   minCurveSegmentCount: 9
@@ -81,7 +81,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5c4fc41c9b37f6c488ebe6afe7bb7415, type: 2}
+  - {fileID: 2100000, guid: c2260f6d6da133d47aa3651f76e56f21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

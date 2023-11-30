@@ -21,8 +21,9 @@ public class Pipe : MonoBehaviour
     private Vector3[] vertices;
     private int[] triangles;
 
+    private float curveAngle;
 
-    private float curveAngle;   
+    private Vector2[] uv;
 
     private void Awake()
     {
@@ -137,8 +138,22 @@ public class Pipe : MonoBehaviour
             Random.Range(minCurveSegmentCount, maxCurveSegmentCount + 1);
         mesh.Clear();
         SetVertices();
+        SetUV();
         SetTriangles();
         mesh.RecalculateNormals();
+    }
+
+    private void SetUV()
+    {
+        uv = new Vector2[vertices.Length];
+        for (int i = 0; i < vertices.Length; i += 4)
+        {
+            uv[i] = Vector2.zero;
+            uv[i + 1] = Vector2.right;
+            uv[i + 2] = Vector2.up;
+            uv[i + 3] = Vector2.one;
+        }
+        mesh.uv = uv;
     }
 
     public float CurveRadius
