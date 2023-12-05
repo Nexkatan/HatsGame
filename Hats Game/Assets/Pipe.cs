@@ -27,10 +27,17 @@ public class Pipe : MonoBehaviour
 
     public PipeItemGenerator[] generators;
 
+    public float gateRot;
+
     private void Awake()
     {
         GetComponent<MeshFilter>().mesh = mesh = new Mesh();
         mesh.name = "Pipe";
+    }
+
+    private void Update()
+    {
+        gateRot = -UnityEditor.TransformUtils.GetInspectorRotation(gameObject.transform).x;
     }
 
     private void SetVertices() 

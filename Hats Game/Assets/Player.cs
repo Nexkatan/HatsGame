@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public float velocity;
     public float rotationVelocity;
 
-    private Pipe currentPipe;
+    public Pipe currentPipe;
 
     private float distanceTraveled;
 
@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
 
     private Transform world, rotater;
     private float worldRotation, avatarRotation;
+
+    public float worldRot;
 
     private Camera mainCam;
 
@@ -29,7 +31,6 @@ public class Player : MonoBehaviour
         deltaToRotation = 360f / (2f * Mathf.PI * currentPipe.CurveRadius);
         SetupCurrentPipe();
         mainCam  = GameObject.Find("Main Camera").GetComponent<Camera>();
-        Debug.Log(mainCam.transform.position);
     }
 
 
@@ -52,6 +53,7 @@ public class Player : MonoBehaviour
         FlipHat();
         UpdateAvatarRotation();
 
+        worldRot = UnityEditor.TransformUtils.GetInspectorRotation(world.transform).x;
     }
 
     private void SetupCurrentPipe()

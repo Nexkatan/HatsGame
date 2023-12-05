@@ -435,8 +435,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pipeSystem: {fileID: 1494284419}
-  velocity: 2
+  velocity: 5
   rotationVelocity: 180
+  currentPipe: {fileID: 0}
+  worldRot: 0
 --- !u!4 &617661932
 Transform:
   m_ObjectHideFlags: 0
@@ -1588,7 +1590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pipePrefab: {fileID: 4113077646314963507, guid: cc17d401e8f818449ab81452030d11fd, type: 3}
-  pipeCount: 6
+  pipeCount: 10
 --- !u!4 &1494284420
 Transform:
   m_ObjectHideFlags: 0
