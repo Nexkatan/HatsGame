@@ -17,7 +17,7 @@ public class PipeItem : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Player>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (staticGateRot)
         {

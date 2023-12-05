@@ -49,10 +49,10 @@ MonoBehaviour:
   pipeRadius: 1
   pipeSegmentCount: 16
   ringDistance: 0.77
-  minCurveRadius: 10
-  maxCurveRadius: 30
-  minCurveSegmentCount: 9
-  maxCurveSegmentCount: 10
+  minCurveRadius: 60
+  maxCurveRadius: 100
+  minCurveSegmentCount: 20
+  maxCurveSegmentCount: 20
   generators:
   - {fileID: 8893192157902747464, guid: add3f6fd030f81a45a898f5a003f73fa, type: 3}
   gateRot: 0

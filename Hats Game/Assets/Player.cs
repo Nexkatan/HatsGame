@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
         deltaToRotation = 360f / (2f * Mathf.PI * currentPipe.CurveRadius);
         SetupCurrentPipe();
         mainCam  = GameObject.Find("Main Camera").GetComponent<Camera>();
+        transform.Rotate(-30, 0, 0);
     }
 
 
@@ -83,7 +84,13 @@ public class Player : MonoBehaviour
         {
             avatarRotation -= 360f;
         }
-        rotater.localRotation = Quaternion.Euler(avatarRotation, 0f, 0f);
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Vector3 m_EulerAngleVelocity = new Vector3(-60, 0, 0);
+            Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity);
+            rotater.GetChild(0).rotation *= deltaRotation;
+            rotater.localRotation = Quaternion.Euler(avatarRotation, 0f, 0f);
+        }
     }
 
     private void FlipHat()
@@ -104,7 +111,7 @@ public class Player : MonoBehaviour
             {
                 playerHat.rotation *= deltaRotationPos;
             }
-            playerHat.localScale = new Vector3(-playerHat.localScale.x, 0.1f, 0.1f);
+            playerHat.localScale = new Vector3(-playerHat.localScale.x, 0.175f, 0.175f);
         }
     }
 }
