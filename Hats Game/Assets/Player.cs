@@ -6,15 +6,17 @@ public class Player : MonoBehaviour
 {
     public PipeSystem pipeSystem;
 
-    public float velocity;
-    public float rotationVelocity;
+    public float startVelocity, rotationVelocity;
+
+    public float[] accelerations;
+
+    public float acceleration, velocity;
 
     public Pipe currentPipe;
 
     private float distanceTraveled;
 
-    private float deltaToRotation;
-    private float systemRotation;
+    private float deltaToRotation, systemRotation;
 
     private Transform world, rotater;
     private float worldRotation, avatarRotation;
@@ -29,38 +31,60 @@ public class Player : MonoBehaviour
     public Material mat1;
     public Material mat2;
 
+    private bool isActive;
 
-    private void Start()
+    public PipeDreamMainMenu mainMenu;
+    public HUD hud;
+
+    private void Awake()
     {
         world = pipeSystem.transform.parent;
         rotater = transform.GetChild(0);
-        currentPipe = pipeSystem.SetupFirstPipe();
-        deltaToRotation = 360f / (2f * Mathf.PI * currentPipe.CurveRadius);
-        SetupCurrentPipe();
         mainCam  = GameObject.Find("Main Camera").GetComponent<Camera>();
+        isActive = false;
     }
 
+    public void StartGame(int accelerationMode)
+    {
+        distanceTraveled = 0f;
+        avatarRotation = 0f;
+        systemRotation = 0f;
+        worldRotation = 0f;
+        currentPipe = pipeSystem.SetupFirstPipe();
+        deltaToRotation = 360f / (2f * Mathf.PI * currentPipe.CurveRadius);
+        acceleration = accelerations[accelerationMode];
+        velocity = startVelocity;
+        SetupCurrentPipe();
+        isActive = true;
+
+        hud.gameObject.SetActive(true);
+        hud.SetValues(distanceTraveled, velocity);
+    }
 
     private void Update()
     {
+        velocity += acceleration * Time.deltaTime;
         float delta = velocity * Time.deltaTime;
         distanceTraveled += delta;
         systemRotation += delta * deltaToRotation;
-       
-        if (systemRotation >= currentPipe.CurveAngle)
+        if (isActive)
         {
-            delta = (systemRotation - currentPipe.CurveAngle) / deltaToRotation;
-            currentPipe = pipeSystem.SetupNextPipe();
-            SetupCurrentPipe();
-            systemRotation = delta * deltaToRotation;
+            if (systemRotation >= currentPipe.CurveAngle)
+            {
+                delta = (systemRotation - currentPipe.CurveAngle) / deltaToRotation;
+                currentPipe = pipeSystem.SetupNextPipe();
+                SetupCurrentPipe();
+                systemRotation = delta * deltaToRotation;
+            }
+
+            pipeSystem.transform.localRotation =
+               Quaternion.Euler(0f, 0f, systemRotation);
+            FlipHat();
+            UpdateAvatarRotation();
+
+            worldRot = UnityEditor.TransformUtils.GetInspectorRotation(world.transform).x;
         }
-
-        pipeSystem.transform.localRotation =
-           Quaternion.Euler(0f, 0f, systemRotation);
-        FlipHat();
-        UpdateAvatarRotation();
-
-        worldRot = UnityEditor.TransformUtils.GetInspectorRotation(world.transform).x;
+        hud.SetValues(distanceTraveled, velocity);
     }
 
     private void SetupCurrentPipe()
@@ -138,11 +162,10 @@ public class Player : MonoBehaviour
     public void Die()
     {
         Debug.Log("dead");
-        //gameObject.SetActive(false);
-        ParticleSystem.MainModule main = burst.main;
-        var em = main.maxParticles;
-        var dur = main.duration;
+        gameObject.SetActive(false);
+        
+        hud.gameObject.SetActive(false);
 
-        burst.Emit(em);
+        mainMenu.EndGame(distanceTraveled);
     }
 }

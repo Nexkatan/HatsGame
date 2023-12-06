@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tiling Fill.unity
     guid: 2d2a7b9e7396ad24bbd3e15969cc0e3c
+  - enabled: 1
+    path: Assets/Scenes/Pipe Dream.unity
+    guid: 0ee688643d322f740bb376a226692f23
   m_configObjects: {}

@@ -21,6 +21,10 @@ public class Avatar : MonoBehaviour
     {
         if (deathCountdown >= 0f)
         {
+            ParticleSystem.MainModule main = burst.main;
+            var em = main.maxParticles;
+            burst.Emit(em);
+            player.acceleration = - player.velocity;
             deathCountdown -= Time.deltaTime;
             if (deathCountdown <= 0f)
             {

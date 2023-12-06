@@ -19,18 +19,21 @@ public class PipeSystem : MonoBehaviour
         {
             Pipe pipe = pipes[i] = Instantiate<Pipe>(pipePrefab);
             pipe.transform.SetParent(transform, false);
+        }
+    }
+
+    public Pipe SetupFirstPipe()
+    {
+        for (int i = 0; i < pipes.Length; i++)
+        {
+            Pipe pipe = pipes[i];
             pipe.Generate(i > emptyPipeCount);
             if (i > 0)
             {
                 pipe.AlignWith(pipes[i - 1]);
             }
         }
-
         AlignNextPipeWithOrigin();
-    }
-
-    public Pipe SetupFirstPipe()
-    {
         transform.localPosition = new Vector3(0f, -pipes[1].CurveRadius);
         return pipes[1];
     }
