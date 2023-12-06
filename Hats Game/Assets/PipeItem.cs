@@ -10,7 +10,7 @@ public class PipeItem : MonoBehaviour
     private Player player;
 
     public bool staticGateRot;
-
+    public bool isReverse;
     private void Awake()
     {
         rotater = transform.GetChild(0);

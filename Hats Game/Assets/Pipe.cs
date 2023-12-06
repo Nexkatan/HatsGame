@@ -140,7 +140,7 @@ public class Pipe : MonoBehaviour
         }
     }
 
-    public void Generate()
+    public void Generate(bool withItems = true)
     {
         curveRadius = Random.Range(minCurveRadius, maxCurveRadius);
         curveSegmentCount =
@@ -154,7 +154,10 @@ public class Pipe : MonoBehaviour
         {
             Destroy(transform.GetChild(i).gameObject);
         }
-        generators[Random.Range(0, generators.Length)].GenerateItems(this);
+        if(withItems)
+        {
+            generators[Random.Range(0, generators.Length)].GenerateItems(this);
+        }
     }
 
     private void SetUV()

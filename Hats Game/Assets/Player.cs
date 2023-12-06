@@ -23,6 +23,13 @@ public class Player : MonoBehaviour
 
     private Camera mainCam;
 
+    public ParticleSystem burst;
+    
+    private bool matBool;
+    public Material mat1;
+    public Material mat2;
+
+
     private void Start()
     {
         world = pipeSystem.transform.parent;
@@ -31,7 +38,6 @@ public class Player : MonoBehaviour
         deltaToRotation = 360f / (2f * Mathf.PI * currentPipe.CurveRadius);
         SetupCurrentPipe();
         mainCam  = GameObject.Find("Main Camera").GetComponent<Camera>();
-        transform.Rotate(-30, 0, 0);
     }
 
 
@@ -97,7 +103,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Transform playerHat = rotater.GetChild(0).GetChild(0).transform;
+            Transform playerHat = rotater.GetChild(0).GetChild(0);
             Vector3 m_EulerAngleVelocityPos = new Vector3(0, 60, 0);
             Vector3 m_EulerAngleVelocityNeg = new Vector3(0, -60, 0);
             Quaternion deltaRotationPos = Quaternion.Euler(m_EulerAngleVelocityPos);
@@ -112,6 +118,31 @@ public class Player : MonoBehaviour
                 playerHat.rotation *= deltaRotationPos;
             }
             playerHat.localScale = new Vector3(-playerHat.localScale.x, 0.175f, 0.175f);
+            
+           if (matBool)
+            {
+                burst.GetComponent<ParticleSystemRenderer>().material = mat2;
+                playerHat.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = mat2;
+                matBool = !matBool;
+            }
+           else
+            {
+                burst.GetComponent<ParticleSystemRenderer>().material = mat1;
+                playerHat.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = mat1;
+                matBool = !matBool;
+            }
+            
         }
+    }
+
+    public void Die()
+    {
+        Debug.Log("dead");
+        //gameObject.SetActive(false);
+        ParticleSystem.MainModule main = burst.main;
+        var em = main.maxParticles;
+        var dur = main.duration;
+
+        burst.Emit(em);
     }
 }
