@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   staticGateRot: 1
+  isReverse: 0
 --- !u!1 &1513860168122161903
 GameObject:
   m_ObjectHideFlags: 0
