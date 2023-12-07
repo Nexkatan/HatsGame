@@ -24,7 +24,7 @@ public class Avatar : MonoBehaviour
             ParticleSystem.MainModule main = burst.main;
             var em = main.maxParticles;
             burst.Emit(em);
-            player.acceleration = - player.velocity;
+            player.acceleration = -(player.velocity * player.velocity);
             deathCountdown -= Time.deltaTime;
             if (deathCountdown <= 0f)
             {
@@ -51,15 +51,13 @@ public class Avatar : MonoBehaviour
                 {
                     if (deathCountdown < 0)
                     {
-                        ParticleSystem.MainModule main = burst.main;
-                        deathCountdown = main.startLifetime.constant;
+                        Dying(other);
                     }
                 }
             }
             else
             {
-                ParticleSystem.MainModule main = burst.main;
-                deathCountdown = main.startLifetime.constant;
+                Dying(other);
             }
             
         }
@@ -75,19 +73,26 @@ public class Avatar : MonoBehaviour
                 {
                     if (deathCountdown < 0)
                     {
-                        ParticleSystem.MainModule main = burst.main;
-                        deathCountdown = main.startLifetime.constant;
+                        Dying(other);
                     }
                 }
             }
             else
             {
-                ParticleSystem.MainModule main = burst.main;
-                deathCountdown = main.startLifetime.constant;
+                Dying(other);
             }
         }
        
     }
 
+    private void Dying(Collider other)
+    {
+        Debug.Log(other.transform.parent.parent.GetChild(0).gameObject);
+        other.transform.parent.parent.GetChild(1).gameObject.SetActive(true);
+        other.transform.parent.gameObject.SetActive(false);
+
+        ParticleSystem.MainModule main = burst.main;
+        deathCountdown = main.startLifetime.constant;
+    }
 
 }
