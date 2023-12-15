@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class HexGrid : MonoBehaviour
 {
@@ -10,8 +11,10 @@ public class HexGrid : MonoBehaviour
     public int height;
 
     public HexCell cellPrefab;
+    public HatrisHexCell cellCellPrefab;
 
     HexCell[] cells;
+    HatrisHexCell[] cellCells;
 
     public TextMeshProUGUI cellLabelPrefab;
 
@@ -21,6 +24,7 @@ public class HexGrid : MonoBehaviour
     public Color defaultColor = Color.white;
     public Color touchedColor = Color.magenta;
 
+    public bool cellCell;
     void Awake()
     {
         gridCanvas = GetComponentInChildren<Canvas>();
@@ -31,7 +35,6 @@ public class HexGrid : MonoBehaviour
             for (int x = 0; x < width; x++)
             {
                 CreateCell(x, z, i++);
-
             }
         }
     }
@@ -56,7 +59,7 @@ public class HexGrid : MonoBehaviour
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
-        if (index > 0 && index < cells.Length)
+        if (index > -1 && index < cells.Length)
         {
             HexCell cell = cells[index];
             return cell;
@@ -64,7 +67,10 @@ public class HexGrid : MonoBehaviour
         return null;
     }
 
-
+    public HatrisHexCell GetHatrisHexCell(Vector3 position)
+    {
+        return null;
+    }
 
     public void CreateCell(int x, int z, int i)
     {
@@ -115,10 +121,65 @@ public class HexGrid : MonoBehaviour
         if (HexCoordinatesOn)
         {
             label.text = cell.coordinates.ToStringOnSeparateLines();
+        };
+
+        if (cellCell)
+        {
+            CreateCellCells(cell);
         }
-        ;
     }
 
-    
+    public void CreateCellCells(HexCell cell)
+    { 
+        Transform cellChild = cell.transform.GetChild(0);
+
+        for (int j = 0; j < 6; j++)
+        {
+            HatrisHexCell hatrisCell = Instantiate<HatrisHexCell>(cellCellPrefab);
+
+            TextMeshProUGUI label = Instantiate<TextMeshProUGUI>(cellLabelPrefab);
+
+            label.rectTransform.SetParent(gridCanvas.transform, false);
+            label.rectTransform.SetParent(hatrisCell.transform);
+            label.rectTransform.anchoredPosition = new Vector3(1 * height, 0.5f, 0);
+
+            hatrisCell.transform.position = cell.transform.position;
+            
+            if (HexCoordinatesOn)
+            {
+                label.text = hatrisCell.triCoordinates.ToStringOnSeparateLines();
+            };
+
+            hatrisCell.name = ("hatrisCell" + j);
+            hatrisCell.transform.SetParent(cellChild);
+            hatrisCell.transform.RotateAround(cell.transform.position, Vector3.up, 60 * j);
+
+            
+
+
+            
+        }
+    }
+
+        public void TouchCell(Vector3 position)
+    {
+        position = transform.InverseTransformPoint(position);
+        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+        int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
+        HexCell cell = cells[index];
+        cell.color = touchedColor;
+        hexMesh.Triangulate(cells);
+    }
+
+    public void TouchCellCells(Vector3 position) 
+    {
+        position = transform.InverseTransformPoint(position);
+        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+        int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
+        HexCell cell = cells[index];
+
+
+
+    }
 
 }

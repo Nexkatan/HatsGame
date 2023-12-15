@@ -500,9 +500,11 @@ MonoBehaviour:
   width: 50
   height: 40
   cellPrefab: {fileID: 6507569009415865171, guid: 458fbae3413102c428e3797110a361bd, type: 3}
+  cellCellPrefab: {fileID: 0}
   cellLabelPrefab: {fileID: 7844353680208326743, guid: c623e8bbea3e142439a4bf6715dc2f25, type: 3}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   touchedColor: {r: 1, g: 0, b: 1, a: 1}
+  cellCell: 0
 --- !u!4 &238719234
 Transform:
   m_ObjectHideFlags: 0
@@ -1714,7 +1716,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &709029123
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2470,7 +2472,7 @@ PrefabInstance:
     - target: {fileID: 8568921676601611619, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
       propertyPath: hat
       value: 
-      objectReference: {fileID: 4256428953982782798, guid: 2992993524039144dabb95774c70cb34, type: 3}
+      objectReference: {fileID: 428455810980651803, guid: 0c5e3649c2e81ec40b5fcf8d618d6948, type: 3}
     - target: {fileID: 8568921676601611619, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -2514,6 +2516,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdd24c5de6797a4f9e1987d07a1df41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vertices: []
+  triangles: 
+  colors: []
 --- !u!23 &1021770227
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4439,7 +4444,7 @@ PrefabInstance:
     - target: {fileID: 8568921676601611619, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
       propertyPath: hat
       value: 
-      objectReference: {fileID: 428455810980651803, guid: 3472b004d2cc9b74aaae7dc9d106e20c, type: 3}
+      objectReference: {fileID: 428455810980651803, guid: 0d52cd3d24da8874d9027ce23d4c7fab, type: 3}
     - target: {fileID: 8568921676601611619, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
       propertyPath: m_Enabled
       value: 1

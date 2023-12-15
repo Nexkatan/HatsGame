@@ -68,6 +68,8 @@ public class HexMapEditor : MonoBehaviour
         return null;
     }
 
+
+
     public void SelectColor(int index)
     {
         activeColor = colors[index];

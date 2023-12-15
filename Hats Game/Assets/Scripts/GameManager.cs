@@ -48,7 +48,10 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Tiling Fill");
     }
-
+    public void LoadPipeDream()
+    {
+        SceneManager.LoadScene("Pipe Dream");
+    }
 
    
 }

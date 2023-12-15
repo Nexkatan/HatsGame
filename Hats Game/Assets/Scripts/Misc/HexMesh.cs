@@ -6,10 +6,10 @@ public class HexMesh : MonoBehaviour
 {
 
     Mesh hexMesh;
-    List<Vector3> vertices;
-    List<int> triangles;
+    public List<Vector3> vertices;
+    public List<int> triangles;
     MeshCollider meshCollider;
-    List<Color> colors;
+    public List<Color> colors;
 
     void Awake()
     {
@@ -29,7 +29,7 @@ public class HexMesh : MonoBehaviour
         triangles.Clear();
         for (int i = 0; i < cells.Length; i++)
         {
-            Triangulate(cells[i]);
+            TriangulateSingle(cells[i]);
         }
         hexMesh.vertices = vertices.ToArray();
         hexMesh.colors = colors.ToArray();
@@ -39,7 +39,7 @@ public class HexMesh : MonoBehaviour
         
     }
 
-    void Triangulate(HexCell cell)
+    public void TriangulateSingle(HexCell cell)
     {
         Vector3 center = cell.transform.localPosition;
         for (int i = 0; i < 6; i++)
