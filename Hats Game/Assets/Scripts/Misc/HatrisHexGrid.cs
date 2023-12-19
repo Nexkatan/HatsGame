@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class HexGrid : MonoBehaviour
+public class HatrisHexGrid : MonoBehaviour
 {
     public bool HexCoordinatesOn;
 
@@ -30,11 +30,13 @@ public class HexGrid : MonoBehaviour
         gridCanvas = GetComponentInChildren<Canvas>();
         hexMesh = GetComponentInChildren<HexMesh>();
         cells = new HexCell[height * width];
-        for (int z = 0, i = 0; z < height; z++)
+        for (int z = -height; z <= height;  z++)
         {
-            for (int x = 0; x < width; x++)
+            int r1 = Mathf.Max(-height, -z - height);
+            int r2 = Mathf.Min(height, -z + height);
+            for (int r = r1; r <= r2; r++)
             {
-                CreateCell(x, z, i++);
+                CreateCell(r, z, - z - r);
             }
         }
     }
@@ -87,7 +89,7 @@ public class HexGrid : MonoBehaviour
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
         cell.color = defaultColor;
 
-
+        /*
         if (x > 0)
         {
             cell.SetNeighbor(HexDirection.W, cells[i-1]);
@@ -110,7 +112,7 @@ public class HexGrid : MonoBehaviour
                     cell.SetNeighbor(HexDirection.SE, cells[i - width + 1]);
                 }
             }
-        }
+        }*/
 
 
         TextMeshProUGUI label = Instantiate<TextMeshProUGUI>(cellLabelPrefab);
@@ -156,7 +158,7 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-        public void TouchCell(Vector3 position)
+    public void TouchCell(Vector3 position)
     {
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
@@ -165,4 +167,5 @@ public class HexGrid : MonoBehaviour
         cell.color = touchedColor;
         hexMesh.Triangulate(cells);
     }
+
 }

@@ -30,9 +30,25 @@ public class HatrisHatPlacer : MonoBehaviour
     [SerializeField] HexCoordinates cellCo;
 
     GameObject HatTab;
-    public List<Button> buttons = new List<Button>();
+    public List<Button> player1buttons = new List<Button>();
+    public List<Button> player2buttons = new List<Button>();
 
     private ChecksValid validityCheck;
+
+    public enum Team
+    {
+        Pink,
+        Purple
+    }
+
+    public Team team;
+
+    private Material teamMat;
+    public Material defaultMat;
+
+    private int playerCount;
+
+    public HatrisScoreKeeper scoreKeeper;
 
     void Start()
     {
@@ -44,11 +60,19 @@ public class HatrisHatPlacer : MonoBehaviour
         HatTab = GameObject.Find("HatTab");
         if (HatTab)
         {
-            foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
+            foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponentsInChildren<Button>())
             {
-                buttons.Add(button);
+                player1buttons.Add(button);
+            }
+            foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
+            {
+                player2buttons.Add(button);
             }
         }
+
+        teamMat = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material;
+
+        scoreKeeper = GameObject.Find("GameManager").GetComponent<HatrisScoreKeeper>();
     }
 
     void FixedUpdate()
@@ -71,7 +95,7 @@ public class HatrisHatPlacer : MonoBehaviour
                 Deselect();
             }
         }
-            
+        DeleteHat();
     }
 
     void MouseMove()
@@ -106,14 +130,18 @@ public class HatrisHatPlacer : MonoBehaviour
 
         landCell = hexGrid.GetCell(transform.position);
         currentCell = landCell;
+
+
+
         if (landCell.isBinHat)
         {
             gameManager.tileSelected = false;
             gameManager.selectedTile = null;
             Destroy(gameObject);
-            for (int i = 0; i < buttons.Count; i++)
+            for (int i = 0; i < player1buttons.Count; i++)
             {
-                buttons[i].interactable = true;
+                player1buttons[i].interactable = true;
+                player2buttons[i].interactable = true;
             }
         }
         else
@@ -202,7 +230,10 @@ public class HatrisHatPlacer : MonoBehaviour
                         hatPieces[i] = transform.GetChild(0).GetChild(0).GetChild(i).gameObject;
                         hatPieces[i].name = "hatPiece " + i;
                         meshCells[i].hatPieceAbove = hatPieces[i];
+                        meshCells[i].GetComponent<MeshRenderer>().material = teamMat;
                     }
+
+                    
 
                     int count2 = 0;
                     int count3 = 0;
@@ -226,39 +257,42 @@ public class HatrisHatPlacer : MonoBehaviour
                     
                     if (count2 == 6)
                     {
-                        for (int i = 0; i < 6; i++)
-                        {
-                            Destroy(landCell.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove);
-                            landCell.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove = null;
-                            landCell.hasHat = false;
-                            landCell.hasReverseHat = false;
-                        }
+                        Score(landCell);
                     }
                     if (count3 == 6)
                     {
-                        for (int i = 0; i < 6; i++)
-                        {
-                            Destroy(neighbour1.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove);
-                            neighbour1.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove = null;
-                            neighbour1.hasHat = false;
-                            neighbour1.hasReverseHat = false;
-                        }
+                        Score(neighbour1);
                     }
                     if (count4 == 6)
                     {
-                        for (int i = 0; i < 6; i++)
+                        Score(neighbour2);
+                    }
+
+                    int extraScore = 0;
+
+                    int[] counts = new int[3];
+
+                    counts[0] = count2;
+                    counts[1] = count3;
+                    counts[2] = count4;
+
+                    for (int i = 0; i < counts.Length; i++)
+                    {
+                        if (counts[i] % 6 == 0)
                         {
-                            Destroy(neighbour2.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove);
-                            neighbour2.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove = null;
-                            neighbour2.hasHat = false;
-                            neighbour2.hasReverseHat = false;
+                            extraScore++;
                         }
                     }
 
-                    for (int i = 0; i < buttons.Count; i++)
+                    if (extraScore > 0)
                     {
-                        buttons[i].interactable = true;
+                        scoreKeeper.AddScore(extraScore * 2 - 1);
                     }
+
+                    scoreKeeper.playerCount++;
+                    scoreKeeper.playerCount = scoreKeeper.playerCount % 2;
+
+                    ResetButton();
                 }
                 else
                 {
@@ -283,9 +317,57 @@ public class HatrisHatPlacer : MonoBehaviour
         }
         return null;
     }
+
+    void Score(HexCell cell)
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            Destroy(cell.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove);
+            cell.transform.GetChild(0).GetChild(i).gameObject.GetComponent<MeshRenderer>().material = teamMat;
+            cell.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove = null;
+            cell.hasHat = false;
+            cell.hasReverseHat = false;
+        }
+    }
+
+    void ResetButton()
+    {
+        if (scoreKeeper.playerCount == 0)
+        {
+            for (int i = 0; i < player1buttons.Count; i++)
+            {
+                player1buttons[i].interactable = true;
+                player2buttons[i].interactable = false;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < player1buttons.Count; i++)
+            {
+                player1buttons[i].interactable = false;
+                player2buttons[i].interactable = true;
+            }
+        }
+    }
+
+    void DeleteHat()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (gameManager.tileSelected)
+            {
+                Destroy(gameManager.selectedTile.gameObject);
+                gameManager.tileSelected = false;
+            }
+            ResetButton();
+        }
+    }
+
     IEnumerator TrueSelecta()
     {
         yield return new WaitForSeconds(0.05f);
         isSelected = true;
     }
+
+
 }
