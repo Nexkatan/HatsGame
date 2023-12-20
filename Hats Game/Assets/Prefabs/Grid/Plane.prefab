@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5920209988125743442}
   - component: {fileID: 1133923608678593466}
   - component: {fileID: 5661118145766279220}
-  - component: {fileID: 1761022566828852235}
+  - component: {fileID: 4933022464023412176}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -107,7 +107,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1761022566828852235
+--- !u!114 &4933022464023412176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,11 +116,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 5271358456067710860}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ac6481023dde2a4aa70cbd97b609106, type: 3}
+  m_Script: {fileID: 11500000, guid: 190d5615541b9094f95413d2cb3abd4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   coordinates:
     x: 0
     z: 0
   color: {r: 0, g: 0, b: 0, a: 0}
+  inlaySize: 0
+  hasHat: 0
+  hasReverseHat: 0
+  isBinHat: 0
+  hatRot: 0
+  hatRotInt: 0
   hatAbove: {fileID: 0}
+  neighbors: []

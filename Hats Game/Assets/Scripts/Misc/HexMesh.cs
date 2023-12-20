@@ -6,10 +6,12 @@ public class HexMesh : MonoBehaviour
 {
 
     Mesh hexMesh;
-    public List<Vector3> vertices;
-    public List<int> triangles;
     MeshCollider meshCollider;
-    public List<Color> colors;
+
+    static List<Vector3> vertices = new List<Vector3>();
+    static List<Color> colors = new List<Color>();
+    static List<int> triangles = new List<int>();
+
 
     void Awake()
     {
@@ -17,9 +19,6 @@ public class HexMesh : MonoBehaviour
         meshCollider = gameObject.AddComponent<MeshCollider>();
 
         hexMesh.name = "Hex Mesh";
-        vertices = new List<Vector3>();
-        colors = new List<Color>();
-        triangles = new List<int>();
     }
     public void Triangulate(HexCell[] cells)
     {
@@ -49,7 +48,7 @@ public class HexMesh : MonoBehaviour
                 center + HexMetrics.corners[i],
                 center + HexMetrics.corners[i + 1]
             );
-            AddTriangleColor(cell.color);
+            AddTriangleColor(cell.MatToColor);
         }
     }
 

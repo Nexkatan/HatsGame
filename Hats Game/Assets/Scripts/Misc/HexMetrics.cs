@@ -6,6 +6,10 @@ public static class HexMetrics
 
     public const float innerRadius = outerRadius * 0.866025404f;
 
+    public const int chunkSizeX = 4, chunkSizeZ = 3;
+
+    public static Material[] materials;
+
     public static Vector3[] corners = {
         new Vector3(0f, 0f, outerRadius),
         new Vector3(innerRadius, 0f, 0.5f * outerRadius),
@@ -26,4 +30,6 @@ public static class HexMetrics
         corners[5] - (0.5f * corners[0]),
         corners[0] - (0.5f * corners[1])
     };
+
+
 }

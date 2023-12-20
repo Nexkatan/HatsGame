@@ -59,7 +59,7 @@ public class HatrisHexCellMesh : MonoBehaviour
                 center + HexMetrics.corners[i],
                 center + HexMetrics.sideMidPoints[i+1]
                 );
-            AddTriangleColor(cell.color);
+            //AddTriangleColor(cell.color);
         }
     }
 

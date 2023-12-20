@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.IO;
 
 public class HexMapEditor : MonoBehaviour
 {
-    public Color[] colors;
 
     public HexGrid hexGrid;
 
-    private Color activeColor;
 
     private HexCell previousCell;
 
+    int activeTerrainTypeIndex;
+
     void Awake()
     {
-        SelectColor(0);
+        SetEditMode();
     }
 
     void Update()
@@ -47,11 +48,15 @@ public class HexMapEditor : MonoBehaviour
         {
             if (Physics.Raycast(inputRay, out hit))
             {
-                hexGrid.ColorCell(hit.point, activeColor);
+                EditCell(hexGrid.GetCell(hit.point));
             }
-
         }
 
+    }
+
+    public void SetEditMode()
+    {
+        enabled = !enabled;
     }
 
     HexCell GetCellUnderCursor()
@@ -68,10 +73,21 @@ public class HexMapEditor : MonoBehaviour
         return null;
     }
 
-
-
-    public void SelectColor(int index)
+    void EditCell(HexCell cell)
     {
-        activeColor = colors[index];
+        if (cell)
+        {
+            if (activeTerrainTypeIndex >= 0)
+            {;
+                cell.TerrainTypeIndex = activeTerrainTypeIndex;
+                cell.GetComponent<MeshRenderer>().material = cell.Color;
+            }
+        }
     }
+
+    public void SetTerrainTypeIndex(int index)
+    {
+        activeTerrainTypeIndex = index;
+    }
+
 }
