@@ -41,8 +41,8 @@ public class HexGrid : MonoBehaviour
 
     void Awake()
     {
-        cellCountX = chunkCountX * HexMetrics.chunkSizeX;
-        cellCountZ = chunkCountZ * HexMetrics.chunkSizeZ;
+        Debug.Log(cellCountX);
+        Debug.Log(cellCountZ);
         
         HexMetrics.materials = materials;
         
@@ -51,6 +51,15 @@ public class HexGrid : MonoBehaviour
             loadHatrisHex();
             cam.transform.position = new Vector3(100f, 0f, 50f);
         }
+        else
+        
+        {
+            CreateMap(cellCountX, cellCountZ);
+        }
+
+
+        cellCountX = chunkCountX * HexMetrics.chunkSizeX;
+        cellCountZ = chunkCountZ * HexMetrics.chunkSizeZ;
     }
 
     void OnEnable()
@@ -68,7 +77,6 @@ public class HexGrid : MonoBehaviour
 
     public HexCell GetCell(Vector3 position)
     {
-        position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * cellCountX + coordinates.Z / 2;
         if (index > -1 && index < cells.Length)
@@ -79,10 +87,8 @@ public class HexGrid : MonoBehaviour
         return null;
     }
 
-    public HatrisHexCell GetHatrisHexCell(Vector3 position)
-    {
-        return null;
-    }
+    
+
 
     public void CreateCell(int x, int z, int i)
     {

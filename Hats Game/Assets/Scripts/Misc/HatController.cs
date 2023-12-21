@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
+using UnityEngine.UIElements;
 
 public class HatController : MonoBehaviour
 {
@@ -27,7 +29,12 @@ public class HatController : MonoBehaviour
 
     private float checkTime;
 
-    public bool is3D;
+    public Material mat1;
+    public Material mat2;
+    public bool matBool;
+
+    private String normalTag = "Hat";
+    private String reverseTag = "Reverse Hat";
 
     void Start()
     {
@@ -45,15 +52,13 @@ public class HatController : MonoBehaviour
 
     private void Update()
     {
-        if (!is3D)
-        {
-            HexMove();
-        }
-        HexSpin();
+        HatMove();
+        HatSpin();
+        FlipHat();
     }
 
 
-    void HexSpin()
+    void HatSpin()
     {
         if (!gameManager.gameOver)
         {
@@ -78,7 +83,7 @@ public class HatController : MonoBehaviour
             }
         }
     }
-    void HexMove()
+    void HatMove()
     {
         if (!gameManager.gameOver)
         {
@@ -388,6 +393,72 @@ public class HatController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void FlipHat()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Vector3 m_EulerAngleVelocityPos = new Vector3(0, 60, 0);
+            Vector3 m_EulerAngleVelocityNeg = new Vector3(0, -60, 0);
+            Quaternion deltaRotationPos = Quaternion.Euler(m_EulerAngleVelocityPos);
+            Quaternion deltaRotationNeg = Quaternion.Euler(m_EulerAngleVelocityNeg);
+
+            if (transform.localScale.x < 0)
+            {
+                transform.rotation *= deltaRotationNeg;
+            }
+            else
+            {
+                transform.rotation *= deltaRotationPos;
+            }
+
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
+            if (matBool)
+            {
+                transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = mat2;
+                matBool = !matBool;
+                ResetHex(currentCell);
+                tag = reverseTag;
+                SetHex(currentCell);
+
+            }
+            else
+            {
+                transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = mat1;
+                matBool = !matBool;
+                ResetHex(currentCell);
+                tag = normalTag;
+                SetHex(currentCell);
+            }
+
+        }
+    }
+
+    public void SetHex(HexCell currentCell)
+    {
+        if (this.CompareTag("Hat"))
+        {
+            currentCell.hasHat = true;
+        }
+        else if (this.CompareTag("Reverse Hat"))
+        {
+            currentCell.hasReverseHat = true;
+        }
+        currentCell.hatRotInt = thisHatRotInt;
+    }
+    public void ResetHex(HexCell currentCell)
+    {
+        if (this.CompareTag("Hat"))
+        {
+            currentCell.hasHat = false;
+        }
+        else if (this.CompareTag("Reverse Hat"))
+        {
+            currentCell.hasReverseHat = false;
+        }
+        currentCell.hatRotInt = 0;
     }
 
     private IEnumerator CheckValid(float waveTime)
