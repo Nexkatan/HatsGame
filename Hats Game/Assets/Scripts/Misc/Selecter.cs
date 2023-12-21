@@ -15,7 +15,7 @@ public class Selecter : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
+        hexGrid = GameObject.FindObjectOfType<HexGrid>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         HatTab = GameObject.Find("HatTab");
         if (HatTab)

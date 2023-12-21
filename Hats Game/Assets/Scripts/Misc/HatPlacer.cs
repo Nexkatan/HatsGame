@@ -33,7 +33,7 @@ public class HatPlacer : MonoBehaviour
 
     void Start()
     {
-        hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
+        hexGrid = GameObject.FindObjectOfType<HexGrid>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         landCell = hexGrid.GetCell(transform.position);
         currentCell = landCell;

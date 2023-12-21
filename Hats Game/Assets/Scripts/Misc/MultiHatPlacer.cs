@@ -30,7 +30,7 @@ public class MultiHatPlacer : MonoBehaviour
 
     private void Awake()
     {
-        hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
+        hexGrid = GameObject.FindObjectOfType<HexGrid>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         List<GameObject> hats = new List<GameObject>();

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
 using UnityEngine;
 
 public class WallMover : MonoBehaviour
@@ -16,8 +17,13 @@ public class WallMover : MonoBehaviour
     private int randomHat;
     private float difficulty;
 
+
+    private HatController player;
+
     private void Start()
     {
+        player = GameObject.Find("Player").GetComponent<HatController>();
+
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         difficulty = gameManager.difficulty;
 
@@ -52,6 +58,8 @@ public class WallMover : MonoBehaviour
         if (transform.childCount < 1)
         {
             Destroy(gameObject);
+            player.score++;
+            player.SetScore();
         }
     }
     IEnumerator MoveDown(float downSpeed)
@@ -68,46 +76,35 @@ public class WallMover : MonoBehaviour
             {
                 for (int i = 0; i < randomHat-1; i++)
                 {
-                    if (wallHats[i])
-                    {
-                        if (wallHats[i].alternate)
-                    {
-                        wallHats[i].moveCell = wallHats[i].currentCell.GetNeighbor(HexDirection.SE);
-                    }
-                    else
-                    {
-                        wallHats[i].moveCell = wallHats[i].currentCell.GetNeighbor(HexDirection.SW);
-                    }
-                    wallHats[i].ResetHex(wallHats[i].currentCell);
-                    wallHats[i].currentCell = wallHats[i].moveCell;
-                    wallHats[i].transform.position = wallHats[i].currentCell.transform.position;
-                    wallHats[i].alternate = !wallHats[i].alternate;
-                    wallHats[i].SetHex();
-                    StartCoroutine(MoveDown(1 / difficulty));
-                    }
+                    moveTwoDirections(2, i);
                 }
                 for (int i = randomHat+1; i < wallHats.Length; i++)
                 {
-                     if (wallHats[i])
-                    {
-                        if (wallHats[i].alternate)
-                    {
-                        wallHats[i].moveCell = wallHats[i].currentCell.GetNeighbor(HexDirection.SE);
-                    }
-                    else
-                    {
-                        wallHats[i].moveCell = wallHats[i].currentCell.GetNeighbor(HexDirection.SW);
-                    }
-                    wallHats[i].ResetHex(wallHats[i].currentCell);
-                    wallHats[i].currentCell = wallHats[i].moveCell;
-                    wallHats[i].transform.position = wallHats[i].currentCell.transform.position;
-                    wallHats[i].alternate = !wallHats[i].alternate;
-                    wallHats[i].SetHex();
-                    StartCoroutine(MoveDown(1 / difficulty));
-                    }
+                    moveTwoDirections(2, i);
                 }
                 moveTime = false;
             }
+        }
+    }
+
+    void moveTwoDirections(int direction, int i)
+    {
+        if (wallHats[i])
+        {
+            if (wallHats[i].alternate)
+            {
+                wallHats[i].moveCell = wallHats[i].currentCell.GetNeighbor((HexDirection)(direction));
+            }
+            else
+            {
+                wallHats[i].moveCell = wallHats[i].currentCell.GetNeighbor((HexDirection)((direction + 1) % 6));
+            }
+            wallHats[i].ResetHex(wallHats[i].currentCell);
+            wallHats[i].currentCell = wallHats[i].moveCell;
+            wallHats[i].transform.position = wallHats[i].currentCell.transform.position;
+            wallHats[i].alternate = !wallHats[i].alternate;
+            wallHats[i].SetHex();
+            StartCoroutine(MoveDown(1 / difficulty));
         }
     }
 }

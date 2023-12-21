@@ -12,8 +12,6 @@ public class SpawnManager : MonoBehaviour
     private Vector3 buttonPos;
 
     private GameManager gameManager;
-    public GameObject wallPrefab;
-    public float timeBetweenWaves;
 
     private GameObject HatTab;
     private List<Button> buttons = new List<Button>();
@@ -23,11 +21,6 @@ public class SpawnManager : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         buttonPos = transform.position;
-        timeBetweenWaves = gameManager.difficulty;
-        if (wallPrefab != null)
-        {
-            SpawnWall();
-        }
     }
 
     private void Start()
@@ -41,10 +34,6 @@ public class SpawnManager : MonoBehaviour
             }
         }
     }
-    
-
-
-
 
 private void OnMouseDown()
     {
@@ -88,21 +77,6 @@ private void OnMouseDown()
             //return hexGrid.ColorCell(hit.point);
         }
         return null;
-    }
-
-    public void SpawnWall()
-    {
-        if (!gameManager.gameOver)
-        {
-            GameObject wall = Instantiate(wallPrefab, wallPrefab.transform.position, wallPrefab.transform.rotation);
-            StartCoroutine(SpawnSpeed((1 / timeBetweenWaves) * 16));
-        }
-    }
-    IEnumerator SpawnSpeed(float waveTime) 
-    {
-        yield return new WaitForSeconds(waveTime);
-        SpawnWall();
-        
     }
     
 }
