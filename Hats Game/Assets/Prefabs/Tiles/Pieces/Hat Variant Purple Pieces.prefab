@@ -52,13 +52,15 @@ MonoBehaviour:
   neighbour1: {fileID: 0}
   neighbour2: {fileID: 0}
   thisHatRot: {x: 0, y: 0, z: 0}
-  thisHatRotInt: 0
+  thisHatRotInt: 3
   cellCo:
     x: 0
     z: 0
-  buttons: []
-  team: 1
+  player1buttons: []
+  player2buttons: []
+  team: 2
   defaultMat: {fileID: 2100000, guid: 696b7dc96bf76fa49bfa66c86b991263, type: 2}
+  scoreKeeper: {fileID: 0}
 --- !u!1 &6156845796403849027
 GameObject:
   m_ObjectHideFlags: 0

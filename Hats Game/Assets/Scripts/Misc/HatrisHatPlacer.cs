@@ -35,8 +35,10 @@ public class HatrisHatPlacer : MonoBehaviour
 
     private ChecksValid validityCheck;
 
+
     public enum Team
     {
+        None,
         Pink,
         Purple
     }
@@ -107,6 +109,34 @@ public class HatrisHatPlacer : MonoBehaviour
             if (isSelected)
             {
                 this.transform.position = (currentCell.transform.position);
+            }
+            if (this.CompareTag("Hat"))
+            {
+                neighbour1 = currentCell.GetNeighbor((HexDirection)((thisHatRotInt + 4) % 6));
+                neighbour2 = currentCell.GetNeighbor((HexDirection)((thisHatRotInt + 5) % 6));
+
+                if (currentCell.isHatrisCell && neighbour1.isHatrisCell && neighbour2.isHatrisCell)
+                {
+                    transform.position = new Vector3(transform.position.x, 5f, transform.position.z);
+                }
+                else
+                {
+                    transform.position = new Vector3(transform.position.x, -1f, transform.position.z);
+                }
+            }
+            else if (this.CompareTag("Reverse Hat"))
+            {
+                neighbour1 = currentCell.GetNeighbor((HexDirection)((thisHatRotInt) % 6));
+                neighbour2 = currentCell.GetNeighbor((HexDirection)((thisHatRotInt + 1) % 6));
+               
+                if (currentCell.isHatrisCell && neighbour1.isHatrisCell && neighbour2.isHatrisCell)
+                {
+                    transform.position = new Vector3(transform.position.x, 5f, transform.position.z);
+                }
+                else
+                {
+                    transform.position = new Vector3(transform.position.x, -1f, transform.position.z);
+                }
             }
         }
     }
@@ -230,7 +260,7 @@ public class HatrisHatPlacer : MonoBehaviour
                         hatPieces[i] = transform.GetChild(0).GetChild(0).GetChild(i).gameObject;
                         hatPieces[i].name = "hatPiece " + i;
                         meshCells[i].hatPieceAbove = hatPieces[i];
-                        meshCells[i].GetComponent<MeshRenderer>().material = teamMat;
+                        //meshCells[i].GetComponent<MeshRenderer>().material = teamMat;
                     }
 
                     
@@ -286,7 +316,8 @@ public class HatrisHatPlacer : MonoBehaviour
 
                     if (extraScore > 0)
                     {
-                        scoreKeeper.AddScore(extraScore * 2 - 1);
+                        //scoreKeeper.AddScore(extraScore * 2 - 1);
+                        scoreKeeper.KeepScore();
                     }
 
                     scoreKeeper.playerCount++;
@@ -324,6 +355,8 @@ public class HatrisHatPlacer : MonoBehaviour
         {
             Destroy(cell.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove);
             cell.transform.GetChild(0).GetChild(i).gameObject.GetComponent<MeshRenderer>().material = teamMat;
+            int teamToScore = 
+            cell.playerCellScored = (int)team;
             cell.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove = null;
             cell.hasHat = false;
             cell.hasReverseHat = false;

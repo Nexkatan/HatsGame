@@ -24,7 +24,8 @@ public class HexCell : MonoBehaviour
 
     public HexGridChunk chunk;
 
-
+    public bool isHatrisCell;
+    public int playerCellScored;
 
     private void Start()
     {

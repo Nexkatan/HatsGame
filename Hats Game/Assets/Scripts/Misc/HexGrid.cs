@@ -14,7 +14,7 @@ public class HexGrid : MonoBehaviour
     public HexCell cellPrefab;
     public HatrisHexCell cellCellPrefab;
 
-    HexCell[] cells;
+    public HexCell[] cells;
     HatrisHexCell[] cellCells;
 
     public TextMeshProUGUI cellLabelPrefab;
@@ -223,6 +223,7 @@ public class HexGrid : MonoBehaviour
         {
             for (int j = 0; j < 6; j++)
             {
+                cell.isHatrisCell = true;
                 HatrisHexCell hatrisCell = Instantiate<HatrisHexCell>(cellCellPrefab);
 
                 TextMeshProUGUI label = Instantiate<TextMeshProUGUI>(cellLabelPrefab);
@@ -231,11 +232,6 @@ public class HexGrid : MonoBehaviour
                 label.rectTransform.anchoredPosition = new Vector3(1 * cellCountZ, 0.5f, 0);
 
                 hatrisCell.transform.position = cell.transform.position;
-
-                if (HexCoordinatesOn)
-                {
-                    label.text = hatrisCell.triCoordinates.ToStringOnSeparateLines();
-                };
 
                 hatrisCell.name = ("hatrisCell" + j);
                 hatrisCell.transform.SetParent(cellChild);
@@ -288,9 +284,16 @@ public class HexGrid : MonoBehaviour
 
     void loadHatrisHex()
     {
-        String path = "C:/Users/Gabe/AppData/LocalLow/DefaultCompany/Hats Game\\Hatris Map.map";
+        /*String path = "C:/Users/Gabe/AppData/LocalLow/DefaultCompany/Hats Game\\Hatris Map.map";
         SaveLoadMenu.Load(path);
-        
+        */
+
+        CreateMap(12, 9);
+        foreach (HexCell cell in cells) 
+        {
+
+            cell.GetComponent<MeshRenderer>().material = HexMetrics.materials[1];
+        }
     }
 
 }

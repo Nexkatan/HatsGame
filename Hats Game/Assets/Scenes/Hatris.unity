@@ -343,7 +343,10 @@ MonoBehaviour:
   score2: 0
   player1: {fileID: 0}
   player2: {fileID: 0}
+  player1Mat: {fileID: 2100000, guid: aeea688d193ea6243893ebdb59a13bf1, type: 2}
+  player2Mat: {fileID: 2100000, guid: 282f924875966cf42ac2d4f68be3162b, type: 2}
   playerCount: 0
+  grid: {fileID: 238719235}
 --- !u!1 &1546911961
 GameObject:
   m_ObjectHideFlags: 0
