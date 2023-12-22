@@ -5,7 +5,7 @@ public class HexCell : MonoBehaviour
 {
     public HexCoordinates coordinates;
 
-    public int terrainTypeIndex;
+    public int terrainTypeIndex, hatMatIndex;
 
     public float inlaySize;
 
@@ -15,6 +15,7 @@ public class HexCell : MonoBehaviour
     public float hatRot;
     public int hatRotInt;
     public GameObject hatAbove;
+    public Material hatAboveMat;
 
     [SerializeField]
     HexCell[] neighbors;
@@ -63,6 +64,14 @@ public class HexCell : MonoBehaviour
         }
     }
 
+    public Material HatColor
+    {
+        get
+        {
+            return HexMetrics.hatMats[hatMatIndex];
+        }
+    }
+
     public int TerrainTypeIndex
     {
         get
@@ -82,12 +91,20 @@ public class HexCell : MonoBehaviour
     public void Save(BinaryWriter writer)
     {
         writer.Write((byte)terrainTypeIndex);
-        
+        writer.Write(hasHat);
+        writer.Write(hasReverseHat);
+        writer.Write((byte)hatRotInt);
+        writer.Write((byte)hatMatIndex);
     }
 
     public void Load(BinaryReader reader)
     {
         terrainTypeIndex = reader.ReadByte();
+        hasHat = reader.ReadBoolean();
+        hasReverseHat = reader.ReadBoolean();
+        hatRotInt = reader.ReadByte();
+        hatMatIndex = reader.ReadByte();
+        
         GetComponent<MeshRenderer>().material = HexMetrics.materials[terrainTypeIndex];
     }
     void Refresh()

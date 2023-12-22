@@ -411,6 +411,8 @@ MonoBehaviour:
   cellCo:
     x: 0
     z: 0
+  buttons: []
+  hatMatIndex: 3
 --- !u!114 &-484446874319573489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1146,7 +1148,6 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 51da66ca2482a334689162196fcfa983, type: 2}
   - {fileID: 2100000, guid: 51da66ca2482a334689162196fcfa983, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2271,6 +2272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650ab9905e068254bab27723c820afb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttons: []
 --- !u!54 &1144503160783371517
 Rigidbody:
   m_ObjectHideFlags: 0

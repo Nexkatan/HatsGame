@@ -9,6 +9,7 @@ public static class HexMetrics
     public const int chunkSizeX = 4, chunkSizeZ = 3;
 
     public static Material[] materials;
+    public static Material[] hatMats;
 
     public static Vector3[] corners = {
         new Vector3(0f, 0f, outerRadius),

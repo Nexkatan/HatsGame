@@ -21,6 +21,11 @@ public class NewMapMenu : MonoBehaviour
     {
         hexGrid.CreateMap(x, z);
         Close();
+        var hats = GameObject.FindObjectsOfType<HatPlacer>();
+        foreach (HatPlacer hat in hats)
+        {
+            Destroy(hat.gameObject);
+        }
         HexMapCamera.ValidatePosition(cam);
     }
     public void CreateTinyMap()

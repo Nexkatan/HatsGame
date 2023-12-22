@@ -1258,6 +1258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650ab9905e068254bab27723c820afb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttons: []
 --- !u!1 &3847354077126413679
 GameObject:
   m_ObjectHideFlags: 0
@@ -3207,6 +3208,8 @@ MonoBehaviour:
   cellCo:
     x: 0
     z: 0
+  buttons: []
+  hatMatIndex: 3
 --- !u!114 &9191540090254281473
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -20,6 +20,7 @@ public class HexGrid : MonoBehaviour
     public TextMeshProUGUI cellLabelPrefab;
     
     public Material[] materials;
+    public Material[] hatMats;
 
     public bool cellCell;
 
@@ -29,7 +30,7 @@ public class HexGrid : MonoBehaviour
 
     HexGridChunk[] chunks;
 
-
+    public GameObject hatPrefab;
 
     public bool isHatris;
     public Vector2 centrePoint;
@@ -272,14 +273,49 @@ public class HexGrid : MonoBehaviour
 
         CreateMap(x, z);
 
+        var hats = GameObject.FindObjectsOfType<HatPlacer>();
+        foreach (HatPlacer hat in hats)
+        {
+            HexCell cellUnder = hat.currentCell;
+            Destroy(hat.gameObject);
+            cellUnder.hasHat = false;
+            cellUnder.hasReverseHat = false;
+            cellUnder.hatAbove = null;
+        }
+
         for (int i = 0; i < cells.Length; i++)
         {
             cells[i].Load(reader);
+            if (cells[i].hasHat)
+            {
+                GameObject hat = Instantiate(hatPrefab);
+                hat.transform.position = cells[i].transform.position;
+                cells[i].hatAbove = hat;
+                cells[i].hasHat = true;
+                hat.transform.rotation = Quaternion.Euler(0f, (cells[i].hatRotInt) * 60f, 0f);
+                hat.GetComponentInChildren<MeshRenderer>().material = hatMats[cells[i].hatMatIndex];
+                Debug.Log("Instantiate");
+            }
+            else if (cells[i].hasReverseHat)
+            {
+                GameObject hat = Instantiate(hatPrefab);
+                hat.transform.position = cells[i].transform.position;
+                hat.transform.localScale = new Vector3(-hat.transform.localScale.x, hat.transform.localScale.y, hat.transform.localScale.z);
+                hat.transform.rotation = Quaternion.Euler(0f, (cells[i].hatRotInt) * 60f, 0f);
+                hat.tag = "Reverse Hat";
+                cells[i].hatAbove = hat;
+                cells[i].hasReverseHat = true;
+
+                hat.GetComponentInChildren<MeshRenderer>().material = hatMats[cells[i].hatMatIndex];
+                Debug.Log("Instantiate");
+            }
         }
         for (int i = 0; i < chunks.Length; i++)
         {
             chunks[i].Refresh();
         }
+
+       
     }
 
     void loadHatrisHex()

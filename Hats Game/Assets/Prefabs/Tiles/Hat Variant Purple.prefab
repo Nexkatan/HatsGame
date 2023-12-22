@@ -461,6 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650ab9905e068254bab27723c820afb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttons: []
 --- !u!54 &7583801327452654511
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1566,6 +1567,8 @@ MonoBehaviour:
   cellCo:
     x: 0
     z: 0
+  buttons: []
+  hatMatIndex: 1
 --- !u!114 &-3204098481600285977
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -103,6 +103,7 @@ public class SaveLoadMenu : MonoBehaviour
             Directory.GetFiles(Application.persistentDataPath, "*.map");
         Array.Sort(paths);
 
+        Debug.Log(paths.Length);
         for (int i = 0; i < paths.Length; i++)
         {
             SaveLoadItem item = Instantiate(itemPrefab);

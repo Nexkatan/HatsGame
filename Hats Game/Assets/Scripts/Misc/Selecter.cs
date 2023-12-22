@@ -43,6 +43,7 @@ public class Selecter : MonoBehaviour
                 landCell.hatRot = 0;
                 landCell.hatRotInt = 0;
                 landCell.hatAbove = null;
+                landCell.hatAboveMat = null;
             }
             else if (hat.GetComponent<MultiHatPlacer>())
             {
@@ -54,6 +55,7 @@ public class Selecter : MonoBehaviour
                     landCell.hatRot = 0;
                     landCell.hatRotInt = 0;
                     landCell.hatAbove = null;
+                    landCell.hatAboveMat = null;
                 }
             }
             for (int i = 0; i < buttons.Count; i++)

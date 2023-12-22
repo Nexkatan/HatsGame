@@ -31,6 +31,8 @@ public class HatPlacer : MonoBehaviour
 
     private ChecksValid validityCheck;
 
+    public int hatMatIndex;
+
     void Start()
     {
         hexGrid = GameObject.FindObjectOfType<HexGrid>();
@@ -144,6 +146,7 @@ public class HatPlacer : MonoBehaviour
                     landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
                     landCell.hatRotInt = Mathf.RoundToInt(landCell.hatRot / 60) % 6;
                     landCell.hatAbove = this.gameObject;
+                    landCell.hatMatIndex = hatMatIndex;
                     isSelected = false;
                     gameManager.tileSelected = false;
                     gameManager.selectedTile = null;
