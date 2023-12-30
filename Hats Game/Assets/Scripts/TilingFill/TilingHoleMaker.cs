@@ -16,10 +16,8 @@ public class TilingHoleMaker : MonoBehaviour
     List<HexCell> hatsList = new List<HexCell>();
     List<HexCell> reverseHatsList = new List<HexCell>();
 
-    public int widthStart;
-    public int heightStart;
-    public int widthEnd;
-    public int heightEnd;
+    public int width;
+    public int height;
 
     [Range(1.0f, 4.0f)]
     public int difficulty;
@@ -35,9 +33,10 @@ public class TilingHoleMaker : MonoBehaviour
 
     void Start()
     {
-        GameObject tiling = GameObject.FindGameObjectWithTag("Tiling");
+
+        tiling = GameObject.FindGameObjectWithTag("Tiling");
         difficulty = GameManager.tilingDifficulty;
-        hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
+        hexGrid = GameObject.FindObjectOfType<HexGrid>();
         HatTab = GameObject.Find("HatTab");
         StartCoroutine("CountDown");
     }
@@ -59,8 +58,25 @@ public class TilingHoleMaker : MonoBehaviour
     {
 
         List<GameObject> hatsToDestroy = new List<GameObject>();
-        int xVal = Random.Range(widthStart + (difficulty * multiplier)/2, widthEnd - (difficulty * multiplier) / 2);
-        int zVal = Random.Range(heightStart + (difficulty * multiplier), heightEnd - (difficulty * multiplier));
+       
+
+
+        float divisor = difficulty;
+        float divisor2 = (2 + divisor) / divisor;
+        if (divisor2 > 2)
+        {
+            divisor2 = 2;
+        }
+
+        float xVal = Random.Range(tiling.transform.position.x - (width * divisor2 * 1.5f), tiling.transform.position.x + (width * divisor2));
+        float zVal = Random.Range(tiling.transform.position.z - (height * divisor2 * 1.2f), tiling.transform.position.z + (height * divisor2));
+
+        /*
+        float xVal = tiling.transform.position.x - (width * divisor2 * 1.5f);
+        float zVal = tiling.transform.position.z - (height * divisor2 * 1.2f);
+       */
+
+
         Vector3 cellCoords = new Vector3(xVal,0,zVal);
         randomCell = hexGrid.GetCell(cellCoords);
         cam.transform.position = new Vector3(xVal, 150, zVal);
@@ -149,9 +165,6 @@ public class TilingHoleMaker : MonoBehaviour
         hatsNumber.SetText(hatsList.Count.ToString());
         reverseHatsNumber.SetText(reverseHatsList.Count.ToString());
 
-        Debug.Log("Hats to destroy: " + hatsToDestroy.Count);
-        Debug.Log(hats);
-        Debug.Log(reverseHats);
 
         StartCoroutine(DestroyHatsList(hatsToDestroy));
     }

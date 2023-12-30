@@ -578,7 +578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &238719233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,12 +592,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HexCoordinatesOn: 1
-  width: 20
-  height: 20
   cellPrefab: {fileID: 6507569009415865171, guid: 458fbae3413102c428e3797110a361bd, type: 3}
+  cellCellPrefab: {fileID: 0}
+  cells: []
   cellLabelPrefab: {fileID: 7844353680208326743, guid: c623e8bbea3e142439a4bf6715dc2f25, type: 3}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  touchedColor: {r: 1, g: 0, b: 1, a: 1}
+  materials: []
+  hatMats: []
+  cellCell: 0
+  chunkPrefab: {fileID: 3220894801351089572, guid: 9b16c2b78514b9141aafd9f4a8af114d, type: 3}
+  cellCountX: 20
+  cellCountZ: 15
+  hatPrefab: {fileID: 0}
+  isHatris: 0
+  centrePoint: {x: 0, y: 0}
+  HexMapRadius: 0
+  SaveLoadMenu: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!4 &238719234
 Transform:
   m_ObjectHideFlags: 0
@@ -606,7 +616,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238719232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33, y: 0, z: -38}
+  m_LocalPosition: {x: -135, y: 0, z: -140}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4230,10 +4240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26a0463b8f06a44c85be49e30a49370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colors:
-  - {r: 0.87058824, g: 0.3647059, b: 0.5294118, a: 0}
-  - {r: 0.8394069, g: 0.8584906, b: 0.10123708, a: 0}
-  - {r: 0.20496619, g: 0.41090196, b: 0.8867924, a: 0}
   hexGrid: {fileID: 238719233}
 --- !u!114 &2133079422
 MonoBehaviour:

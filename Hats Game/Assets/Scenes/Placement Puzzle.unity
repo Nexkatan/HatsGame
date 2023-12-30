@@ -147,7 +147,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20984710}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -127.2}
   m_LocalScale: {x: 1.285, y: 1.285, z: 1.285}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -164,7 +164,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -201.04, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &27475925
@@ -479,12 +479,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HexCoordinatesOn: 1
-  width: 50
-  height: 40
   cellPrefab: {fileID: 6507569009415865171, guid: 458fbae3413102c428e3797110a361bd, type: 3}
+  cellCellPrefab: {fileID: 0}
+  cells: []
   cellLabelPrefab: {fileID: 7844353680208326743, guid: c623e8bbea3e142439a4bf6715dc2f25, type: 3}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  touchedColor: {r: 1, g: 0, b: 1, a: 1}
+  materials:
+  - {fileID: 2100000, guid: 2c8c51c84b24a53468cb63d887f88dbc, type: 2}
+  hatMats: []
+  cellCell: 0
+  chunkPrefab: {fileID: 3220894801351089572, guid: 9b16c2b78514b9141aafd9f4a8af114d, type: 3}
+  cellCountX: 20
+  cellCountZ: 15
+  hatPrefab: {fileID: 0}
+  isHatris: 0
+  centrePoint: {x: 0, y: 0}
+  HexMapRadius: 0
+  SaveLoadMenu: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!4 &238719234
 Transform:
   m_ObjectHideFlags: 0
@@ -2350,7 +2361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062227721}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 386.2, y: 0.2, z: 241.9}
+  m_LocalPosition: {x: 175, y: 0.2, z: 110}
   m_LocalScale: {x: 35, y: 1, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2455,7 +2466,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1071479760}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 386, y: 150, z: 242}
+  m_LocalPosition: {x: 185, y: 150, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4519,10 +4530,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26a0463b8f06a44c85be49e30a49370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colors:
-  - {r: 0.87058824, g: 0.3647059, b: 0.5294118, a: 0}
-  - {r: 0.8394069, g: 0.8584906, b: 0.10123708, a: 0}
-  - {r: 0.20496619, g: 0.41090196, b: 0.8867924, a: 0}
   hexGrid: {fileID: 238719233}
 --- !u!114 &2133079422
 MonoBehaviour:

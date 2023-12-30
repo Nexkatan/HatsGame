@@ -27,8 +27,7 @@ public class WallMover : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         difficulty = gameManager.difficulty;
 
-        hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
-
+        hexGrid = GameObject.FindObjectOfType<HexGrid>();
         List<GameObject> hats = new List<GameObject>(); 
         List<WallHat> wallHatsList = new List<WallHat>();
 

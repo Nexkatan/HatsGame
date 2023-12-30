@@ -22,7 +22,7 @@ public class WallHat : MonoBehaviour
     private void Start()
     {
         validityCheck = this.GetComponent<ChecksValid>();
-        hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
+        hexGrid = GameObject.FindObjectOfType<HexGrid>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
       
         currentCell = hexGrid.GetCell(transform.position);

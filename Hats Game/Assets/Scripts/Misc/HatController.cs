@@ -43,7 +43,7 @@ public class HatController : MonoBehaviour
     void Start()
     {
         score = 0;
-        hexGrid = GameObject.Find("HexGrid").GetComponent<HexGrid>();
+        hexGrid = GameObject.FindObjectOfType<HexGrid>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         validityCheck = this.GetComponent<ChecksValid>();
         landCell = hexGrid.GetCell(transform.position);

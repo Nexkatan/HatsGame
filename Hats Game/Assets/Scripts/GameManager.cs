@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public int difficulty = 2;
     public Slider _slider;
     public TextMeshProUGUI sliderText;
-    public static int tilingDifficulty;
+    public static int tilingDifficulty = 1;
 
 
     public void Start()
@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     public void LoadHome()
     {
         SceneManager.LoadScene("MainScreen");
+        tilingDifficulty = 1;
     }
    public void LoadHoleInTheWall()
     {
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
     public void LoadTilingFill()
     {
         SceneManager.LoadScene("Tiling Fill");
+
     }
     public void LoadPipeDream()
     {

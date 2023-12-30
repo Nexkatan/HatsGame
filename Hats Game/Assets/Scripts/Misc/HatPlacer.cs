@@ -125,7 +125,10 @@ public class HatPlacer : MonoBehaviour
 
                 if (gameManager.GetComponent<TilingHoleMaker>())
                 {
-                    if (transform.position.x > 700 || transform.position.x < 150 || transform.position.z > 470 || transform.position.z < 150)
+
+                    Debug.Log("xValue: " + transform.position.x);
+                    Debug.Log("zValue: " + transform.position.z);
+                    if (transform.position.x > 530 || transform.position.x < 20 || transform.position.z > 350 || transform.position.z < 50)
                     {
                         Debug.Log("Out of Bounds");
                         validityCheck.isValid = false;

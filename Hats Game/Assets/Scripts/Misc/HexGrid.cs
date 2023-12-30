@@ -42,9 +42,6 @@ public class HexGrid : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log(cellCountX);
-        Debug.Log(cellCountZ);
-        
         HexMetrics.materials = materials;
         
         if (isHatris )
