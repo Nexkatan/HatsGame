@@ -1844,7 +1844,6 @@ MonoBehaviour:
     x: 0
     z: 0
   buttons: []
-  hatMatIndex: 1
 --- !u!114 &-3204098481600285977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1881,6 +1880,7 @@ MonoBehaviour:
   currentCell: {fileID: 0}
   thisHatRot: 180
   thisHatRotInt: 3
+  hatMatIndex: 1
 --- !u!1 &4364476013612624931
 GameObject:
   m_ObjectHideFlags: 0
