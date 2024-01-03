@@ -28,6 +28,8 @@ public class MultiHatPlacer : MonoBehaviour
     GameObject HatTab;
     public List<Button> buttons = new List<Button>();
 
+    public int multiHatRotInt;
+
     private void Awake()
     {
         hexGrid = GameObject.FindObjectOfType<HexGrid>();
@@ -140,6 +142,8 @@ public class MultiHatPlacer : MonoBehaviour
                 landCells[i] = hexGrid.GetCell(validHats[i].transform.position);
                 validHats[i].currentCell = landCells[i];
                 currentCells[i] = landCells[i];
+                currentCells[i].hatAbove = validHats[i].gameObject;
+                currentCells[i].hatMatIndex = validHats[i].GetComponent<ChecksValid>().hatMatIndex;
 
                 if (!landCells[i].hasHat && !landCells[i].hasReverseHat)
                 {

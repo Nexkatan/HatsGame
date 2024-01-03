@@ -17,6 +17,8 @@ public class SaveLoadMenu : MonoBehaviour
     public SaveLoadItem itemPrefab;
 
     public HexMapCamera cam;
+
+
     public void Open(bool saveMode)
     {
         this.saveMode = saveMode;
@@ -69,8 +71,6 @@ public class SaveLoadMenu : MonoBehaviour
 
     public void Load(string path)
     {
-
-        Debug.Log("Load");
         if (!File.Exists(path))
         {
             Debug.LogError("File does not exist " + path);
@@ -102,8 +102,6 @@ public class SaveLoadMenu : MonoBehaviour
         string[] paths =
             Directory.GetFiles(Application.persistentDataPath, "*.map");
         Array.Sort(paths);
-
-        Debug.Log(paths.Length);
         for (int i = 0; i < paths.Length; i++)
         {
             SaveLoadItem item = Instantiate(itemPrefab);
@@ -127,6 +125,7 @@ public class SaveLoadMenu : MonoBehaviour
         {
             Load(path);
         }
+
         Close();
     }
 

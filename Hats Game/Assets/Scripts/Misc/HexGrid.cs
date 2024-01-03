@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using System.IO;
 using System;
+using Unity.VisualScripting;
 
 public class HexGrid : MonoBehaviour
 {
@@ -31,6 +32,10 @@ public class HexGrid : MonoBehaviour
     HexGridChunk[] chunks;
 
     public GameObject hatPrefab;
+    public GameObject SuperTile1Prefab;
+    public GameObject SuperTile2Prefab;
+    public GameObject SuperTile3Prefab;
+    public GameObject SuperTile4Prefab;
 
     public bool isHatris;
     public Vector2 centrePoint;
@@ -40,13 +45,16 @@ public class HexGrid : MonoBehaviour
 
     public HexMapCamera cam;
 
+    public GameObject backgrounds;
+    public int backgroundNumber;
+
     void Awake()
     {
         HexMetrics.materials = materials;
         
-        if (isHatris )
+        if (isHatris)
         {
-            loadHatrisHex();
+            LoadHatrisHex();
             cam.transform.position = new Vector3(100f, 0f, 50f);
         }
         else
@@ -270,15 +278,42 @@ public class HexGrid : MonoBehaviour
 
         CreateMap(x, z);
 
-        var hats = GameObject.FindObjectsOfType<HatPlacer>();
-        foreach (HatPlacer hat in hats)
+        int backgroundChanger = (int)Mathf.Floor(x / 20);
+        if (backgroundChanger > 3)
         {
-            HexCell cellUnder = hat.currentCell;
-            Destroy(hat.gameObject);
-            cellUnder.hasHat = false;
-            cellUnder.hasReverseHat = false;
-            cellUnder.hatAbove = null;
+            backgroundChanger = 3;
         }
+
+        
+        for (int i = 0; i < backgrounds.transform.childCount; i++)
+        {
+            backgrounds.transform.GetChild(i).gameObject.SetActive(false);
+        }
+        backgrounds.transform.GetChild(backgroundChanger).gameObject.SetActive(true);
+        
+
+        
+        var multiHats = GameObject.FindObjectsOfType<MultiHatPlacer>();
+
+        if (multiHats.Length > 0)
+        {
+            foreach (MultiHatPlacer multiHat in multiHats)
+            {
+                Destroy(multiHat.gameObject);
+            }
+        }
+
+        var hats = GameObject.FindObjectsOfType<HatPlacer>();
+
+        if (hats.Length > 0)
+        {
+            foreach (HatPlacer hat in hats)
+            {
+                Destroy(hat.gameObject);
+            }
+        }
+
+        
 
         for (int i = 0; i < cells.Length; i++)
         {
@@ -291,7 +326,6 @@ public class HexGrid : MonoBehaviour
                 cells[i].hasHat = true;
                 hat.transform.rotation = Quaternion.Euler(0f, (cells[i].hatRotInt) * 60f, 0f);
                 hat.GetComponentInChildren<MeshRenderer>().material = hatMats[cells[i].hatMatIndex];
-                Debug.Log("Instantiate");
             }
             else if (cells[i].hasReverseHat)
             {
@@ -304,7 +338,6 @@ public class HexGrid : MonoBehaviour
                 cells[i].hasReverseHat = true;
 
                 hat.GetComponentInChildren<MeshRenderer>().material = hatMats[cells[i].hatMatIndex];
-                Debug.Log("Instantiate");
             }
         }
         for (int i = 0; i < chunks.Length; i++)
@@ -315,16 +348,11 @@ public class HexGrid : MonoBehaviour
        
     }
 
-    void loadHatrisHex()
+    void LoadHatrisHex()
     {
-        /*String path = "C:/Users/Gabe/AppData/LocalLow/DefaultCompany/Hats Game\\Hatris Map.map";
-        SaveLoadMenu.Load(path);
-        */
-
         CreateMap(12, 9);
         foreach (HexCell cell in cells) 
         {
-
             cell.GetComponent<MeshRenderer>().material = HexMetrics.materials[1];
         }
     }

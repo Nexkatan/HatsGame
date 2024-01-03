@@ -55,5 +55,10 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Pipe Dream");
     }
 
+    public void LoadHatris()
+    {
+        SceneManager.LoadScene("Hatris");
+    }
+
    
 }

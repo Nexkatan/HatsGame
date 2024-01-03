@@ -30,6 +30,7 @@ public class ChecksValid : MonoBehaviour
 
     private HexGrid hexGrid;
 
+    public int hatMatIndex;
     private void Start()
     {
         Neighbours = new HexCell[6];
@@ -41,14 +42,32 @@ public class ChecksValid : MonoBehaviour
         thisHatRot = Mathf.Round(transform.eulerAngles.y);
         thisHatRotInt = Mathf.RoundToInt(thisHatRot / 60) % 6;
 
-        Neighbours[0] = landCell.GetNeighbor(HexDirection.SW);
-        Neighbours[1] = landCell.GetNeighbor(HexDirection.W);
-        Neighbours[2] = landCell.GetNeighbor(HexDirection.NW);
-        Neighbours[3] = landCell.GetNeighbor(HexDirection.NE);
-        Neighbours[4] = landCell.GetNeighbor(HexDirection.E);
-        Neighbours[5] = landCell.GetNeighbor(HexDirection.SE);
 
+        for (int i = 0; i < 6; i++)
+        {
+            if (landCell.GetNeighbor((HexDirection)((i + 3) % 6)))
+            {
+                Neighbours[i] = landCell.GetNeighbor((HexDirection)((i + 3) % 6));
+            }
+        }
+        
+        for (int i = 0; i < 6; i++)
+        {
+            if (landCell.GetNeighbor((HexDirection)((i + 3) % 6)) && landCell.GetNeighbor((HexDirection)((i + 3) % 6)).GetNeighbor((HexDirection)((i + 3) % 6)))
+            {
+                Longbois[2 * i] = landCell.GetNeighbor((HexDirection)((i + 3) % 6)).GetNeighbor((HexDirection)((i + 3) % 6));
+            }
+            if (landCell.GetNeighbor((HexDirection)((i + 3) % 6)) && landCell.GetNeighbor((HexDirection)((i + 3) % 6)).GetNeighbor((HexDirection)((i + 4) % 6)))
+            {
+                Longbois[(2 * i) + 1] = landCell.GetNeighbor((HexDirection)((i + 3) % 6)).GetNeighbor((HexDirection)((i + 4) % 6));
+            }
+            
+        }
+       
+        
+        /*
         Longbois[0] = landCell.GetNeighbor(HexDirection.SW).GetNeighbor(HexDirection.SW);
+        
         Longbois[1] = landCell.GetNeighbor(HexDirection.SW).GetNeighbor(HexDirection.W);
         Longbois[2] = landCell.GetNeighbor(HexDirection.W).GetNeighbor(HexDirection.W);
         Longbois[3] = landCell.GetNeighbor(HexDirection.W).GetNeighbor(HexDirection.NW);
@@ -60,7 +79,7 @@ public class ChecksValid : MonoBehaviour
         Longbois[9] = landCell.GetNeighbor(HexDirection.E).GetNeighbor(HexDirection.SE);
         Longbois[10] = landCell.GetNeighbor(HexDirection.SE).GetNeighbor(HexDirection.SE);
         Longbois[11] = landCell.GetNeighbor(HexDirection.SE).GetNeighbor(HexDirection.SW);
-
+        */
         for (int j = 0; j < NeighboursBool.Length; j++)
         {
             NeighboursBool[j] = true;
@@ -72,7 +91,7 @@ public class ChecksValid : MonoBehaviour
         {
             for (int i = 0; i < Neighbours.Length; i++)
             {
-                if (Neighbours[(i + thisHatRotInt) % 6].hasHat)
+                if (Neighbours[(i + thisHatRotInt) % 6] && Neighbours[(i + thisHatRotInt) % 6].hasHat)
                 {
                     int calc = ((Neighbours[(i + thisHatRotInt) % 6].hatRotInt + 6 - thisHatRotInt) % 6);
                     List<int> cribsList = new List<int>();
@@ -88,7 +107,7 @@ public class ChecksValid : MonoBehaviour
                         NeighboursBool[i] = false;
                     }
                 }
-                else if (Neighbours[(i + thisHatRotInt) % 6].hasReverseHat)
+                else if (Neighbours[(i + thisHatRotInt) % 6] && Neighbours[(i + thisHatRotInt) % 6].hasReverseHat)
                 {
                     int calc = ((Neighbours[(i + thisHatRotInt) % 6].hatRotInt + 6 - thisHatRotInt) % 6);
                     List<int> cribsList = new List<int>();
@@ -107,7 +126,7 @@ public class ChecksValid : MonoBehaviour
             }
             for (int j = 0; j < Longbois.Length; j++)
             {
-                if (Longbois[(j + thisHatRotInt) % 12].hasHat)
+                if (Longbois[(j + thisHatRotInt) % 12] && Longbois[(j + thisHatRotInt) % 12].hasHat)
                 {
                     int calc = ((Longbois[(j + thisHatRotInt) % 12].hatRotInt + 12 - thisHatRotInt) % 6);
                     List<int> cribsList = new List<int>();
@@ -123,7 +142,7 @@ public class ChecksValid : MonoBehaviour
                         LongboisBool[j] = false;
                     }
                 }
-                else if (Longbois[(j + thisHatRotInt) % 12].hasReverseHat)
+                else if (Longbois[(j + thisHatRotInt) % 12] && Longbois[(j + thisHatRotInt) % 12].hasReverseHat)
                 {
                     int calc = ((Longbois[(j + thisHatRotInt) % 12].hatRotInt + 12 - thisHatRotInt) % 6);
                     List<int> cribsList = new List<int>();
@@ -145,7 +164,7 @@ public class ChecksValid : MonoBehaviour
         {
             for (int i = 0; i < Neighbours.Length; i++)
             {
-                if (Neighbours[(i + thisHatRotInt) % 6].hasHat)
+                if (Neighbours[(i + thisHatRotInt) % 6] && Neighbours[(i + thisHatRotInt) % 6].hasHat)
                 {
                     int calc = ((Neighbours[(i + thisHatRotInt) % 6].hatRotInt + 6 - thisHatRotInt) % 6);
                     List<int> cribsList = new List<int>();
@@ -161,7 +180,7 @@ public class ChecksValid : MonoBehaviour
                         NeighboursBool[i] = false;
                     }
                 }
-                else if (Neighbours[(i + thisHatRotInt) % 6].hasReverseHat)
+                else if (Neighbours[(i + thisHatRotInt) % 6] && Neighbours[(i + thisHatRotInt) % 6].hasReverseHat)
                 {
                     int calc = ((Neighbours[(i + thisHatRotInt) % 6].hatRotInt + 6 - thisHatRotInt) % 6);
                     List<int> cribsList = new List<int>();

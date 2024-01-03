@@ -11,6 +11,11 @@ public class HexCell : MonoBehaviour
 
     public bool hasHat;
     public bool hasReverseHat;
+    public bool hasSuperTile1;
+    public bool hasSuperTile2;
+    public bool hasSuperTile3;
+    public bool hasSuperTile4;
+    public bool hasWallHat;
     public bool isBinHat;
     public float hatRot;
     public int hatRotInt;
@@ -27,10 +32,6 @@ public class HexCell : MonoBehaviour
 
     public bool isHatrisCell;
     public int playerCellScored;
-
-    private void Start()
-    {
-    }
 
     public HexCell GetNeighbor(HexDirection direction)
     {
@@ -104,7 +105,8 @@ public class HexCell : MonoBehaviour
         hasReverseHat = reader.ReadBoolean();
         hatRotInt = reader.ReadByte();
         hatMatIndex = reader.ReadByte();
-        
+
+
         GetComponent<MeshRenderer>().material = HexMetrics.materials[terrainTypeIndex];
     }
     void Refresh()
