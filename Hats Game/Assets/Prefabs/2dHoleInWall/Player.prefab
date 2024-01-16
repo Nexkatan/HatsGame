@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 5622448028836589117}
   - component: {fileID: 274102189622686678}
   - component: {fileID: 4314745730803436164}
-  - component: {fileID: 2189203137051647299}
+  - component: {fileID: 5547888381729120252}
   m_Layer: 3
   m_Name: Player
   m_TagString: Hat
@@ -596,7 +596,7 @@ MonoBehaviour:
   thisHatRot: 180
   thisHatRotInt: 3
   hatMatIndex: 0
---- !u!120 &2189203137051647299
+--- !u!120 &5547888381729120252
 LineRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -643,15 +643,15 @@ LineRenderer:
   - {x: 0.866, y: 0.53, z: 0}
   - {x: 0.866, y: 0.53, z: 0.5}
   - {x: 0, y: 0.53, z: 1}
-  - {x: -0.433, y: 0.53, z: 0.732}
+  - {x: -0.433, y: 0.53, z: 0.75}
   - {x: -0.866, y: 0.53, z: 1.5}
   - {x: -1.732, y: 0.53, z: 1.5}
   - {x: -1.732, y: 0.53, z: 1}
-  - {x: -1.299, y: 0.53, z: 0.732}
+  - {x: -1.299, y: 0.53, z: 0.75}
   - {x: -1.732, y: 0.53, z: 0}
-  - {x: -1.299, y: 0.53, z: -0.732}
+  - {x: -1.299, y: 0.53, z: -0.75}
   - {x: -0.866, y: 0.53, z: -0.5}
-  - {x: -0.433, y: 0.53, z: -0.732}
+  - {x: -0.433, y: 0.53, z: -0.75}
   - {x: 0, y: 0.53, z: 0}
   - {x: 0.866, y: 0.53, z: 0}
   m_Parameters:
@@ -661,8 +661,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.575758
+        time: 0.0032577515
+        value: 0.6119404
         inSlope: 0
         outSlope: 0
         tangentMode: 0
