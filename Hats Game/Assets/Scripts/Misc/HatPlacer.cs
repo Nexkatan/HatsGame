@@ -98,7 +98,6 @@ public class HatPlacer : MonoBehaviour
     
     private void Deselect()
     {
-        Debug.Log("Deselect");
         thisHatRot = transform.eulerAngles;
         thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
 
@@ -106,6 +105,7 @@ public class HatPlacer : MonoBehaviour
         currentCell = landCell;
         if (landCell.isBinHat)
         {
+            
             gameManager.tileSelected = false;
             gameManager.selectedTile = null;
             Destroy(gameObject);
@@ -120,16 +120,11 @@ public class HatPlacer : MonoBehaviour
             {
                 
                 validityCheck.IsPlacementValid(landCell);
-                Debug.Log(validityCheck.isValid);
 
                 if (gameManager.GetComponent<TilingHoleMaker>())
                 {
-
-                    Debug.Log("xValue: " + transform.position.x);
-                    Debug.Log("zValue: " + transform.position.z);
                     if (transform.position.x > 530 || transform.position.x < 20 || transform.position.z > 350 || transform.position.z < 50)
                     {
-                        Debug.Log("Out of Bounds");
                         validityCheck.isValid = false;
                     }
                 }

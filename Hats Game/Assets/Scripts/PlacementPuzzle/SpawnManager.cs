@@ -43,11 +43,14 @@ private void OnMouseDown()
 
     public void SpawnHat()
     {
-
+        
         if (!isSelected) 
         {
+            Debug.Log("SPAWN");
             Vector3 mousePos = Input.mousePosition;
-            GameObject hatObj = Instantiate(hat, mousePos, hat.transform.rotation);
+            GameObject hatObj = Instantiate(hat, Vector3.zero, hat.transform.rotation);
+
+            Debug.Log(hatObj.name);
             if (this.CompareTag("Hat") || this.CompareTag("Reverse Hat"))
             {
                 hatObj.gameObject.GetComponent<HatPlacer>().isSelected = true;

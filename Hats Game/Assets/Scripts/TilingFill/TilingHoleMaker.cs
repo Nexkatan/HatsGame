@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -177,6 +178,7 @@ public class TilingHoleMaker : MonoBehaviour
         {
             Destroy(placedHat.GetComponent<HatPlacer>());
             Destroy(placedHat.GetComponent<ChecksValid>());
+            placedHat.AddComponent<WallHat>();
             placedHat.GetComponent<WallHat>().validityCheck = null;
             Destroy(placedHat.transform.GetChild(0).GetChild(0).GetChild(0).gameObject);
             placedHat.transform.SetParent(tiling.transform);

@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: d0deb7330c9477245b89a53a0318fa74, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -491,11 +491,17 @@ MonoBehaviour:
   cellCountX: 20
   cellCountZ: 15
   hatPrefab: {fileID: 0}
+  SuperTile1Prefab: {fileID: 0}
+  SuperTile2Prefab: {fileID: 0}
+  SuperTile3Prefab: {fileID: 0}
+  SuperTile4Prefab: {fileID: 0}
   isHatris: 0
   centrePoint: {x: 0, y: 0}
   HexMapRadius: 0
   SaveLoadMenu: {fileID: 0}
   cam: {fileID: 0}
+  backgrounds: {fileID: 0}
+  backgroundNumber: 0
 --- !u!4 &238719234
 Transform:
   m_ObjectHideFlags: 0

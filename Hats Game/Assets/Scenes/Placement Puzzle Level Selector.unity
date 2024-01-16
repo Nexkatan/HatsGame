@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: a8ccacb1342b8e7408135e51057fc701, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -908,12 +908,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HexCoordinatesOn: 1
-  width: 50
-  height: 40
   cellPrefab: {fileID: 6507569009415865171, guid: 458fbae3413102c428e3797110a361bd, type: 3}
+  cellCellPrefab: {fileID: 0}
+  cells: []
   cellLabelPrefab: {fileID: 7844353680208326743, guid: c623e8bbea3e142439a4bf6715dc2f25, type: 3}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  touchedColor: {r: 1, g: 0, b: 1, a: 1}
+  materials: []
+  hatMats: []
+  cellCell: 0
+  chunkPrefab: {fileID: 0}
+  cellCountX: 20
+  cellCountZ: 15
+  hatPrefab: {fileID: 0}
+  SuperTile1Prefab: {fileID: 0}
+  SuperTile2Prefab: {fileID: 0}
+  SuperTile3Prefab: {fileID: 0}
+  SuperTile4Prefab: {fileID: 0}
+  isHatris: 0
+  centrePoint: {x: 0, y: 0}
+  HexMapRadius: 0
+  SaveLoadMenu: {fileID: 0}
+  cam: {fileID: 0}
+  backgrounds: {fileID: 0}
+  backgroundNumber: 0
 --- !u!4 &238719234
 Transform:
   m_ObjectHideFlags: 0
@@ -6001,6 +6017,8 @@ MonoBehaviour:
   selectedTile: {fileID: 0}
   gameOver: 0
   difficulty: 2
+  _slider: {fileID: 0}
+  sliderText: {fileID: 0}
 --- !u!114 &1535131011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7681,10 +7699,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26a0463b8f06a44c85be49e30a49370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colors:
-  - {r: 0.87058824, g: 0.3647059, b: 0.5294118, a: 0}
-  - {r: 0.8394069, g: 0.8584906, b: 0.10123708, a: 0}
-  - {r: 0.20496619, g: 0.41090196, b: 0.8867924, a: 0}
   hexGrid: {fileID: 238719233}
 --- !u!114 &2133079422
 MonoBehaviour:

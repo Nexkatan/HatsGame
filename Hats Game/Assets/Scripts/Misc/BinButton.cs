@@ -28,6 +28,7 @@ public class BinButton : MonoBehaviour
         {
             Destroy(gameManager.selectedTile.gameObject);
             gameManager.tileSelected = false;
+            gameManager.selectedTile = null;
         }
         
         for (int i = 0; i < buttons.Count; i++)
