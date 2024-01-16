@@ -7,7 +7,6 @@ public class StartChain : MonoBehaviour
 {
     public bool isConnected;
     public List<GameObject> connectedHats = new List<GameObject>();
-
     
     private void OnCollisionStay(Collision collision)
     {
@@ -16,12 +15,11 @@ public class StartChain : MonoBehaviour
         {
             connectedHats.Add(collision.transform.root.gameObject);
         }
-        
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        isConnected=false;
+        isConnected = false;
         connectedHats.Clear();
     }
 }

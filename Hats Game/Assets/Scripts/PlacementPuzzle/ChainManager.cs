@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class ChainManager : MonoBehaviour
 {
-    public GameObject startChain;
-    public GameObject endChain;
+    public GameObject startChainHat;
+    public GameObject endChainHat;
     private int hatCount;
     public List<GameObject> chainList = new List<GameObject>();
     private UniversalLevelManager levelManager;
@@ -22,33 +22,38 @@ public class ChainManager : MonoBehaviour
         chainList.Clear();
         if (GameObject.FindObjectOfType<StartChain>())
         {
-            startChain = GameObject.FindObjectOfType<StartChain>().gameObject;
-            chainList.Add(startChain.transform.parent.parent.parent.gameObject);
-            
-            Debug.Log(startChain.transform.parent.parent.parent.gameObject.transform.GetChild(1).GetChild(0).GetChild(13));
+            GameObject startChain = GameObject.FindObjectOfType<StartChain>().gameObject;
+            startChainHat = startChain.transform.parent.parent.gameObject;
+            GameObject endChain = GameObject.FindObjectOfType<EndChain>().gameObject;
+            endChainHat = endChain.transform.parent.parent.gameObject;
+            Debug.Log(startChain);
+            chainList.Add(startChainHat);
 
-            if (startChain.transform.parent.parent.parent.gameObject.transform.GetChild(1).GetChild(0).GetChild(13).GetComponent<StartChain>().connectedHats.Count > 0) 
+            Debug.Log(startChain.GetComponent<StartChain>().connectedHats.Count);
+            Debug.Log(startChain.GetComponent<StartChain>().connectedHats[0]);
+
+            if (startChain.GetComponent<StartChain>().connectedHats.Count > 0) 
             {
-                for (int k = 0; k < startChain.transform.parent.parent.parent.gameObject.transform.GetChild(1).GetChild(0).GetChild(13).GetComponent<StartChain>().connectedHats.Count; k++)
+                for (int k = 0; k < startChain.GetComponent<StartChain>().connectedHats.Count; k++)
                 {
-                    chainList.Add(startChain.transform.parent.parent.parent.gameObject.transform.GetChild(1).GetChild(0).GetChild(13).GetComponent<StartChain>().connectedHats[k]);
+                    chainList.Add(startChain.GetComponent<StartChain>().connectedHats[k]);
                 }
                 for (int i = 1; i < hatCount + 1; i++)
                     {
                     if (i < chainList.Count)
                     {
-                        if (chainList[i].transform.GetChild(1).GetChild(0).GetChild(13).GetComponent<EndChain>())
+                        if (chainList[i].gameObject.GetComponentInChildren<EndChain>())
                         {
                             Debug.Log("Complete");
                             levelManager.LevelComplete();
                         }
-                        else if (chainList[i].transform.GetChild(1).GetChild(0).GetChild(13).GetComponent<Chain>().touchingHats.Count > 1)
+                        else if (chainList[i].GetComponentInChildren<Chain>().touchingHats.Count > 1)
                         {
-                            for (int j = 0; j < chainList[i].transform.GetChild(1).GetChild(0).GetChild(13).GetComponent<Chain>().touchingHats.Count; j++)
+                            for (int j = 0; j < chainList[i].GetComponentInChildren<Chain>().touchingHats.Count; j++)
                             {
-                                if (!chainList.Contains(chainList[i].transform.GetChild(1).GetChild(0).GetChild(13).GetComponent<Chain>().touchingHats[j]))
+                                if (!chainList.Contains(chainList[i].GetComponentInChildren<Chain>().touchingHats[j]))
                                 {
-                                        chainList.Add(chainList[i].transform.GetChild(1).GetChild(0).GetChild(13).GetComponent<Chain>().touchingHats[j]);
+                                        chainList.Add(chainList[i].GetComponentInChildren<Chain>().touchingHats[j]);
                                 }
                             }
                         }

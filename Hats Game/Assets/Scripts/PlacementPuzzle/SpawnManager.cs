@@ -16,6 +16,7 @@ public class SpawnManager : MonoBehaviour
     private GameObject HatTab;
     private List<Button> buttons = new List<Button>();
 
+    public Button oppositeButton;
 
     private void Awake()
     {
@@ -43,14 +44,16 @@ private void OnMouseDown()
 
     public void SpawnHat()
     {
-        
+        if (gameManager.selectedTile != null)
+        {
+            Destroy(gameManager.selectedTile.gameObject);
+        }
         if (!isSelected) 
         {
-            Debug.Log("SPAWN");
             Vector3 mousePos = Input.mousePosition;
-            GameObject hatObj = Instantiate(hat, Vector3.zero, hat.transform.rotation);
+            GameObject hatObj = Instantiate(hat, mousePos, hat.transform.rotation);
+            hatObj.transform.GetComponentInChildren<Selecter>().birthButton = GetComponent<Button>();
 
-            Debug.Log(hatObj.name);
             if (this.CompareTag("Hat") || this.CompareTag("Reverse Hat"))
             {
                 hatObj.gameObject.GetComponent<HatPlacer>().isSelected = true;
@@ -62,10 +65,15 @@ private void OnMouseDown()
             gameManager.tileSelected = true;
             gameManager.selectedTile = hatObj.gameObject;
 
-            for (int i = 0; i < buttons.Count; i++)
+            if (oppositeButton != null)
             {
-                buttons[i].interactable = false;
+                for (int i = 0; i < buttons.Count; i++)
+                {
+                    buttons[i].interactable = false;
+                }
+                oppositeButton.interactable = true;
             }
+            
         }
         
     }
@@ -82,4 +90,6 @@ private void OnMouseDown()
         return null;
     }
     
+
+
 }

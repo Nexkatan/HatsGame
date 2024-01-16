@@ -1423,6 +1423,17 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
+--- !u!114 &605952388 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2054350147388644677, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
+  m_PrefabInstance: {fileID: 641632994}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605952385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &613286976 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4595938350963747424, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
@@ -1453,6 +1464,17 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
+--- !u!114 &613286980 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2054350147388644677, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
+  m_PrefabInstance: {fileID: 1332698963}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613286976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &626012095 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3406484130162385174, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
@@ -1602,6 +1624,10 @@ PrefabInstance:
       propertyPath: hat
       value: 
       objectReference: {fileID: 6346532002515524784, guid: 11082eab10de31946a6f70b6abe464cd, type: 3}
+    - target: {fileID: 8568921676601611619, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
+      propertyPath: oppositeButton
+      value: 
+      objectReference: {fileID: 613286980}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2957,6 +2983,10 @@ PrefabInstance:
       propertyPath: hat
       value: 
       objectReference: {fileID: 6346532002515524784, guid: 144f190baa5873e4f80402e9b83a9517, type: 3}
+    - target: {fileID: 8568921676601611619, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
+      propertyPath: oppositeButton
+      value: 
+      objectReference: {fileID: 605952388}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

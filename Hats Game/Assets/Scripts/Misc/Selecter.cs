@@ -11,6 +11,7 @@ public class Selecter : MonoBehaviour
 
     private GameObject HatTab;
     public List<Button> buttons = new List<Button>();
+    public Button birthButton;
 
     // Update is called once per frame
     void Start()
@@ -58,9 +59,16 @@ public class Selecter : MonoBehaviour
                     landCell.hatAboveMat = null;
                 }
             }
-            for (int i = 0; i < buttons.Count; i++)
+
+
+
+            if (birthButton.GetComponent<SpawnManager>().oppositeButton != null)
             {
-                buttons[i].interactable = false;
+                for (int i = 0; i < buttons.Count; i++)
+                {
+                    buttons[i].interactable = false;
+                }
+                birthButton.GetComponent<SpawnManager>().oppositeButton.interactable = true;
             }
             if (gameManager.GetComponent<TilingHoleMaker>())
             {

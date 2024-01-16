@@ -2758,7 +2758,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5573817607684140362}
-  - component: {fileID: 3095706404969749882}
   m_Layer: 0
   m_Name: Puzzle8
   m_TagString: Untagged
@@ -2799,21 +2798,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3095706404969749882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3197490182586861015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b176aa51621ef40b007cbde3a74fe3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wall: {fileID: 3197490182586861015}
-  StartChain: {fileID: 1017612569164555957}
-  EndChain: {fileID: 7723148338832519102}
 --- !u!1 &3267275530498818215
 GameObject:
   m_ObjectHideFlags: 0

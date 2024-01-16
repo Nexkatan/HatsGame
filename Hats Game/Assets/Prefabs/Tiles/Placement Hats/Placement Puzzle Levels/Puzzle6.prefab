@@ -574,7 +574,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7638399532706032142}
-  - component: {fileID: 4197021417480776781}
   m_Layer: 0
   m_Name: Puzzle6
   m_TagString: Untagged
@@ -623,21 +622,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4197021417480776781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576066087761847003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b176aa51621ef40b007cbde3a74fe3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wall: {fileID: 576066087761847003}
-  StartChain: {fileID: 7338130658929195702}
-  EndChain: {fileID: 521122371998593418}
 --- !u!1 &621149705405660621
 GameObject:
   m_ObjectHideFlags: 0

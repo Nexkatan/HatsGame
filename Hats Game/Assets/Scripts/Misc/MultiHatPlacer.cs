@@ -7,6 +7,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MultiHatPlacer : MonoBehaviour
@@ -80,7 +81,7 @@ public class MultiHatPlacer : MonoBehaviour
         {
             Spin();
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && EventSystem.current.currentSelectedGameObject == null)
             if (isSelected)
             {
                 Deselect();

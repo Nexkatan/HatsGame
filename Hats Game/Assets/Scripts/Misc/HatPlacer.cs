@@ -6,6 +6,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class HatPlacer : MonoBehaviour
@@ -64,7 +65,7 @@ public class HatPlacer : MonoBehaviour
         }
         if (isSelected)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && EventSystem.current.currentSelectedGameObject == null)
             {
                 Deselect();
             }

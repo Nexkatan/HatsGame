@@ -32,10 +32,13 @@ public class WallHat : MonoBehaviour
 
     private void Update()
     {
-        if (hexGrid.GetCell(transform.position).coordinates.Z < 3)
+        if (!gameOver)
         {
-            Destroy(this.gameObject);
-            ResetHex(currentCell);
+            if (hexGrid.GetCell(transform.position).coordinates.Z < 3)
+            {
+                Destroy(this.gameObject);
+                ResetHex(currentCell);
+            }
         }
     }
 

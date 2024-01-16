@@ -6,6 +6,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class HatrisHatPlacer : MonoBehaviour
@@ -92,7 +93,7 @@ public class HatrisHatPlacer : MonoBehaviour
         }
         if (isSelected)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && EventSystem.current.currentSelectedGameObject == null)
             {
                 Deselect();
             }
@@ -180,150 +181,149 @@ public class HatrisHatPlacer : MonoBehaviour
             {
                 HatrisHexCell[] meshCells = new HatrisHexCell[8];
 
-                int count = 0;
+                int landPiecesCount = 0;
 
-                if (CompareTag("Hat"))
+                if (landCell != null && landCell.transform.GetChild(0).childCount == 6)
                 {
-                    meshCells[0] = landCell.transform.GetChild(0).GetChild(thisHatRotInt).GetComponent<HatrisHexCell>();
-                    meshCells[1] = landCell.transform.GetChild(0).GetChild((thisHatRotInt + 1) % 6).GetComponent<HatrisHexCell>();
-                    meshCells[2] = landCell.transform.GetChild(0).GetChild((thisHatRotInt + 4) % 6).GetComponent<HatrisHexCell>();
-                    meshCells[3] = landCell.transform.GetChild(0).GetChild((thisHatRotInt + 5) % 6).GetComponent<HatrisHexCell>();
-
-                    neighbour1 = landCell.GetNeighbor((HexDirection)((thisHatRotInt + 4) % 6));
-                    neighbour2 = landCell.GetNeighbor((HexDirection)((thisHatRotInt + 5) % 6));
-
-                    meshCells[4] = neighbour1.transform.GetChild(0).GetChild((thisHatRotInt + 1) % 6).GetComponent<HatrisHexCell>();
-                    meshCells[5] = neighbour1.transform.GetChild(0).GetChild((thisHatRotInt + 2) % 6).GetComponent<HatrisHexCell>();
-
-                    meshCells[6] = neighbour2.transform.GetChild(0).GetChild((thisHatRotInt + 3) % 6).GetComponent<HatrisHexCell>();
-                    meshCells[7] = neighbour2.transform.GetChild(0).GetChild((thisHatRotInt + 4) % 6).GetComponent<HatrisHexCell>();
-
-                    for (int i = 0; i < meshCells.Length; i++)
+                    if (CompareTag("Hat"))
                     {
-                        if (meshCells[i].hatPieceAbove != null)
+                        for (int i = 0; i < 4; i++)
                         {
-                            count++;
+                            meshCells[i] = landCell.transform.GetChild(0).GetChild((thisHatRotInt + ((i + 4) % 6)) % 6).GetComponent<HatrisHexCell>();
+                        }
+
+                        neighbour1 = landCell.GetNeighbor((HexDirection)((thisHatRotInt + 4) % 6));
+                        neighbour2 = landCell.GetNeighbor((HexDirection)((thisHatRotInt + 5) % 6));
+
+                        if (neighbour1 != null && neighbour1.transform.GetChild(0).childCount == 6 && neighbour2 != null && neighbour2.transform.GetChild(0).childCount == 6)
+                        {
+                            
+
+                            for (int i = 0; i < 2; i++)
+                            {
+                                meshCells[i + 4] = neighbour1.transform.GetChild(0).GetChild((thisHatRotInt + ((i + 1) % 6)) % 6).GetComponent<HatrisHexCell>();
+                                meshCells[i + 6] = neighbour2.transform.GetChild(0).GetChild((thisHatRotInt + ((i + 3) % 6)) % 6).GetComponent<HatrisHexCell>();
+                            }
+                            for (int i = 0; i < meshCells.Length; i++)
+                            {
+                                if (meshCells[i].hatPieceAbove != null)
+                                {
+                                    landPiecesCount++;
+                                }
+                            }
                         }
                     }
-                }
-                else if (CompareTag("Reverse Hat"))
-                {
-                    meshCells[0] = landCell.transform.GetChild(0).GetChild((thisHatRotInt + 5) % 6).GetComponent<HatrisHexCell>();
-                    meshCells[1] = landCell.transform.GetChild(0).GetChild((thisHatRotInt + 0) % 6).GetComponent<HatrisHexCell>();
-                    meshCells[2] = landCell.transform.GetChild(0).GetChild((thisHatRotInt + 1) % 6).GetComponent<HatrisHexCell>();
-                    meshCells[3] = landCell.transform.GetChild(0).GetChild((thisHatRotInt + 2) % 6).GetComponent<HatrisHexCell>();
 
-                    neighbour1 = landCell.GetNeighbor((HexDirection)((thisHatRotInt) % 6));
-                    neighbour2 = landCell.GetNeighbor((HexDirection)((thisHatRotInt + 1) % 6));
 
-                    Debug.Log((HexDirection)((thisHatRotInt) % 6));
-                    Debug.Log((HexDirection)((thisHatRotInt + 1) % 6));
-
-                    meshCells[4] = neighbour2.transform.GetChild(0).GetChild((thisHatRotInt + 4) % 6).GetComponent<HatrisHexCell>();
-                    meshCells[5] = neighbour2.transform.GetChild(0).GetChild((thisHatRotInt + 5) % 6).GetComponent<HatrisHexCell>();
-
-                    meshCells[6] = neighbour1.transform.GetChild(0).GetChild((thisHatRotInt + 2) % 6).GetComponent<HatrisHexCell>();
-                    meshCells[7] = neighbour1.transform.GetChild(0).GetChild((thisHatRotInt + 3) % 6).GetComponent<HatrisHexCell>();
-
-                    for (int i = 0; i < meshCells.Length; i++)
+                    else if (CompareTag("Reverse Hat"))
                     {
-                        if (meshCells[i].hatPieceAbove != null)
+                        for (int i = 0; i < 4; i++)
                         {
-                            count++;
+                            meshCells[i] = landCell.transform.GetChild(0).GetChild((thisHatRotInt + ((i + 5) % 6)) % 6).GetComponent<HatrisHexCell>();
+                        }
+
+                        neighbour1 = landCell.GetNeighbor((HexDirection)((thisHatRotInt) % 6));
+                        neighbour2 = landCell.GetNeighbor((HexDirection)((thisHatRotInt + 1) % 6));
+
+                        if (neighbour1 != null && neighbour1.transform.GetChild(0).childCount == 6 && neighbour2 != null && neighbour2.transform.GetChild(0).childCount == 6)
+                        { 
+                            for (int i = 0; i < 2; i++)
+                            {
+                                meshCells[i + 4] = neighbour2.transform.GetChild(0).GetChild((thisHatRotInt + ((i + 4) % 6)) % 6).GetComponent<HatrisHexCell>();
+                                meshCells[i + 6] = neighbour1.transform.GetChild(0).GetChild((thisHatRotInt + ((i + 2) % 6)) % 6).GetComponent<HatrisHexCell>();
+                            }
+                            for (int i = 0; i < meshCells.Length; i++)
+                            {
+                                if (meshCells[i].hatPieceAbove != null)
+                                {
+                                    landPiecesCount++;
+                                }
+                            }
                         }
                     }
-                }
 
-
-                if (count == 0)
-                {
-                    if (this.CompareTag("Hat"))
-                    {
-                        landCell.hasHat = true;
-                    }
-                    else if (this.CompareTag("Reverse Hat"))
-                    {
-                        landCell.hasReverseHat = true;
-                    }
-
-                    landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
-                    landCell.hatRotInt = Mathf.RoundToInt(landCell.hatRot / 60) % 6;
-                    landCell.hatAbove = this.gameObject;
-                    isSelected = false;
-                    gameManager.tileSelected = false;
-                    gameManager.selectedTile = null;
-
-                    GameObject[] hatPieces = new GameObject[8];
+                    int meshPiecesCount = 0;
 
                     for (int i = 0; i < 8; i++)
                     {
-                        hatPieces[i] = transform.GetChild(0).GetChild(0).GetChild(i).gameObject;
-                        hatPieces[i].name = "hatPiece " + i;
-                        meshCells[i].hatPieceAbove = hatPieces[i];
-                        //meshCells[i].GetComponent<MeshRenderer>().material = teamMat;
-                    }
-
-                    
-
-                    int count2 = 0;
-                    int count3 = 0;
-                    int count4 = 0;
-
-                    for (int i = 0; i < 6; i++)
-                    {
-                        if (landCell.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove != null)
+                        if (meshCells[i] == null)
                         {
-                            count2++;
-                        }
-                        if (neighbour1.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove != null)
-                        {
-                            count3++;
-                        }
-                        if (neighbour2.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove != null)
-                        {
-                            count4++;
-                        }
-                    }
-                    
-                    if (count2 == 6)
-                    {
-                        Score(landCell);
-                    }
-                    if (count3 == 6)
-                    {
-                        Score(neighbour1);
-                    }
-                    if (count4 == 6)
-                    {
-                        Score(neighbour2);
-                    }
-
-                    int extraScore = 0;
-
-                    int[] counts = new int[3];
-
-                    counts[0] = count2;
-                    counts[1] = count3;
-                    counts[2] = count4;
-
-                    for (int i = 0; i < counts.Length; i++)
-                    {
-                        if (counts[i] % 6 == 0)
-                        {
-                            extraScore++;
+                            meshPiecesCount++;
                         }
                     }
 
-                    if (extraScore > 0)
+                    if (meshPiecesCount > 0)
                     {
-                        //scoreKeeper.AddScore(extraScore * 2 - 1);
-                        scoreKeeper.KeepScore();
+                        Debug.Log("Neighbour invalid");
                     }
+                    else
+                    {
+                        if (landPiecesCount == 0)
+                        {
+                            if (this.CompareTag("Hat"))
+                            {
+                                landCell.hasHat = true;
+                            }
+                            else if (this.CompareTag("Reverse Hat"))
+                            {
+                                landCell.hasReverseHat = true;
+                            }
 
-                    scoreKeeper.playerCount++;
-                    scoreKeeper.playerCount = scoreKeeper.playerCount % 2;
+                            landCell.hatRot = Mathf.Round(transform.eulerAngles.y);
+                            landCell.hatRotInt = Mathf.RoundToInt(landCell.hatRot / 60) % 6;
+                            landCell.hatAbove = this.gameObject;
+                            isSelected = false;
+                            gameManager.tileSelected = false;
+                            gameManager.selectedTile = null;
 
-                    ResetButton();
+                            GameObject[] hatPieces = new GameObject[8];
+
+
+                            for (int i = 0; i < 8; i++)
+                            {
+                                hatPieces[i] = transform.GetChild(0).GetChild(0).GetChild(i).gameObject;
+                                hatPieces[i].name = "hatPiece " + i;
+                                meshCells[i].hatPieceAbove = hatPieces[i];
+                            }
+
+                            int count2 = 0, count3 = 0, count4 = 0;
+
+                            for (int i = 0; i < 6; i++)
+                            {
+                                if (landCell.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove != null)
+                                {
+                                    count2++;
+                                }
+                                if (neighbour1.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove != null)
+                                {
+                                    count3++;
+                                }
+                                if (neighbour2.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove != null)
+                                {
+                                    count4++;
+                                }
+                            }
+
+                            if (count2 == 6)
+                            {
+                                Score(landCell);
+                            }
+                            if (count3 == 6)
+                            {
+                                Score(neighbour1);
+                            }
+                            if (count4 == 6)
+                            {
+                                Score(neighbour2);
+                            }
+
+                            scoreKeeper.KeepScore();
+                            scoreKeeper.playerCount++;
+                            scoreKeeper.playerCount = scoreKeeper.playerCount % 2;
+
+                            ResetButton();
+                        }
+                    }
                 }
                 else
                 {
@@ -355,7 +355,6 @@ public class HatrisHatPlacer : MonoBehaviour
         {
             Destroy(cell.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove);
             cell.transform.GetChild(0).GetChild(i).gameObject.GetComponent<MeshRenderer>().material = teamMat;
-            int teamToScore = 
             cell.playerCellScored = (int)team;
             cell.transform.GetChild(0).GetChild(i).GetComponent<HatrisHexCell>().hatPieceAbove = null;
             cell.hasHat = false;
