@@ -86,7 +86,7 @@ Transform:
   m_Children:
   - {fileID: 6873762236690247647}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &6208934001104732692
 MonoBehaviour:
@@ -110,6 +110,9 @@ MonoBehaviour:
     x: 0
     z: 0
   buttons: []
+  mat1: {fileID: 2100000, guid: 51da66ca2482a334689162196fcfa983, type: 2}
+  mat2: {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
+  matBool: 0
 --- !u!114 &3925741228918358876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -642,6 +645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &7734940781694479696
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,7 +761,6 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
   - {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

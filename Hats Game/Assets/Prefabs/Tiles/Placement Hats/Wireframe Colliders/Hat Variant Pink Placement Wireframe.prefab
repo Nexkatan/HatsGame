@@ -236,6 +236,9 @@ MonoBehaviour:
     x: 0
     z: 0
   buttons: []
+  mat1: {fileID: 2100000, guid: aeea688d193ea6243893ebdb59a13bf1, type: 2}
+  mat2: {fileID: 2100000, guid: 282f924875966cf42ac2d4f68be3162b, type: 2}
+  matBool: 1
 --- !u!114 &4148500831240154071
 MonoBehaviour:
   m_ObjectHideFlags: 0

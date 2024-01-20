@@ -139,7 +139,7 @@ Transform:
   m_Children:
   - {fileID: 9057580925428026002}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &5251171890639293380
 MonoBehaviour:
@@ -163,6 +163,9 @@ MonoBehaviour:
     x: 0
     z: 0
   buttons: []
+  mat1: {fileID: 2100000, guid: 51da66ca2482a334689162196fcfa983, type: 2}
+  mat2: {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
+  matBool: 1
 --- !u!114 &-484446874319573489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,6 +437,7 @@ GameObject:
   - component: {fileID: 4625999842257118594}
   - component: {fileID: 1472298203375728954}
   - component: {fileID: 1829376725068625838}
+  - component: {fileID: 7324546438685099663}
   m_Layer: 3
   m_Name: Shape
   m_TagString: Hat
@@ -507,6 +511,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7324546438685099663
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3609444682315600204}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2534964839176971238, guid: 16049ad93a253fb4a85af362fee2ae2c, type: 3}
 --- !u!1 &6377945113666710835
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,7 +603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &136602620231355759
 Transform:
   m_ObjectHideFlags: 0
@@ -614,6 +640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!54 &1144503160783371517
 Rigidbody:
   m_ObjectHideFlags: 0
