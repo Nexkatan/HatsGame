@@ -8,7 +8,7 @@ public class HexMapCamera : MonoBehaviour
 
     float zoom = 1f;
 
-    public float stickMinZoom, stickMaxZoom, swivelMinZoom, swivelMaxZoom, moveSpeedMinZoom, moveSpeedMaxZoom, rotationSpeed, rotationAngle;
+    public float stickMinZoom, stickMaxZoom, swivelMinZoom, swivelMaxZoom, moveSpeedMinZoom, moveSpeedMaxZoom, rotationSpeed, rotationAngle, swivelSpeed, swivelAngle;
 
     public HexGrid grid;
 
@@ -47,6 +47,11 @@ public class HexMapCamera : MonoBehaviour
         {
             AdjustPosition(xDelta, zDelta);
         }
+        float sDelta = Input.GetAxis("Swivel");
+        if (sDelta != 0f)
+        {
+            AdjustSwivel(sDelta);
+        }
     }
 
     void AdjustZoom(float delta)
@@ -57,7 +62,21 @@ public class HexMapCamera : MonoBehaviour
         stick.localPosition = new Vector3(0f, 0f, distance);
 
         float angle = Mathf.Lerp(swivelMinZoom, swivelMaxZoom, zoom);
-        swivel.localRotation = Quaternion.Euler(angle, 0f, 0f);
+        //swivel.localRotation = Quaternion.Euler(angle, 0f, 0f);
+    }
+
+    void AdjustSwivel(float sDelta)
+    {
+        swivelAngle += sDelta * swivelSpeed * Time.deltaTime;
+        if (swivelAngle < swivelMinZoom)
+        {
+            swivelAngle = swivelMinZoom;
+        }
+        if (swivelAngle > swivelMaxZoom)
+        {
+            swivelAngle = swivelMaxZoom;
+        }
+        swivel.localRotation = Quaternion.Euler(swivelAngle, 0f, 0f);
     }
 
     void AdjustPosition(float xDelta, float zDelta)
