@@ -62,7 +62,7 @@ public class Selecter : MonoBehaviour
 
 
 
-            if (birthButton.GetComponent<SpawnManager>().oppositeButton != null)
+            if (birthButton != null && birthButton.GetComponent<SpawnManager>().oppositeButton != null)
             {
                 for (int i = 0; i < buttons.Count; i++)
                 {
@@ -98,4 +98,5 @@ public class Selecter : MonoBehaviour
             hat.GetComponent<MultiHatPlacer>().isSelected = true;
         }
     }
+
 }

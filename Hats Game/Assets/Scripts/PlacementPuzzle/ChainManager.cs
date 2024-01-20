@@ -26,11 +26,7 @@ public class ChainManager : MonoBehaviour
             startChainHat = startChain.transform.parent.parent.gameObject;
             GameObject endChain = GameObject.FindObjectOfType<EndChain>().gameObject;
             endChainHat = endChain.transform.parent.parent.gameObject;
-            Debug.Log(startChain);
             chainList.Add(startChainHat);
-
-            Debug.Log(startChain.GetComponent<StartChain>().connectedHats.Count);
-            Debug.Log(startChain.GetComponent<StartChain>().connectedHats[0]);
 
             if (startChain.GetComponent<StartChain>().connectedHats.Count > 0) 
             {

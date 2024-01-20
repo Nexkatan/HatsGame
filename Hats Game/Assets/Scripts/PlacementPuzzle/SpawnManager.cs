@@ -89,7 +89,31 @@ private void OnMouseDown()
         }
         return null;
     }
-    
 
 
+    public void ResetHatrisHatTab()
+    {
+        HatTab.SetActive(true);
+        HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<UnityEngine.UI.Button>().interactable = true;
+        HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<UnityEngine.UI.Button>().interactable = true;
+    }
+
+    public void FlashButtonFunction(int amountTimes, float flashDuration)
+    {
+        StartCoroutine(FlashButton(amountTimes, flashDuration));
+    }
+
+    IEnumerator FlashButton(int amountTimes, float flashDuration)
+    {
+        Debug.Log("Flash");
+        Button button = this.GetComponent<Button>();
+        for (int i = 0; i < amountTimes; i++)
+        {
+            button.interactable = true;
+            yield return new WaitForSeconds(flashDuration);
+            button.interactable = false;
+            yield return new WaitForSeconds(flashDuration);
+        }
+    }
+        
 }

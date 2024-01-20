@@ -6,9 +6,9 @@ public class Player : MonoBehaviour
 {
     public PipeSystem pipeSystem;
 
-    public float startVelocity, rotationVelocity;
+    public float rotationVelocity;
 
-    public float[] accelerations;
+    public float[] accelerations, startVelocitys;
 
     public float acceleration, velocity;
 
@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
         currentPipe = pipeSystem.SetupFirstPipe();
         deltaToRotation = 360f / (2f * Mathf.PI * currentPipe.CurveRadius);
         acceleration = accelerations[accelerationMode];
-        velocity = startVelocity;
+        velocity = startVelocitys[accelerationMode];
         SetupCurrentPipe();
         isActive = true;
 

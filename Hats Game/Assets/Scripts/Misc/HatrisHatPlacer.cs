@@ -36,7 +36,8 @@ public class HatrisHatPlacer : MonoBehaviour
 
     private ChecksValid validityCheck;
 
-
+    private String normalTag = "Hat";
+    private String reverseTag = "Reverse Hat";
     public enum Team
     {
         None,
@@ -90,6 +91,7 @@ public class HatrisHatPlacer : MonoBehaviour
         if (isSelected)
         {
             Spin();
+            FlipHat();
         }
         if (isSelected)
         {
@@ -143,7 +145,7 @@ public class HatrisHatPlacer : MonoBehaviour
     }
     void Spin()
     {
-        if (Input.GetMouseButtonDown((1)))
+        if (Input.GetMouseButtonDown((1)) || Input.GetKeyDown(KeyCode.S))
         {
             Vector3 m_EulerAngleVelocity = new Vector3(0, 60, 0);
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity);
@@ -152,7 +154,49 @@ public class HatrisHatPlacer : MonoBehaviour
             thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
         }
     }
-    
+    private void FlipHat()
+    {
+        if (!gameManager.gameOver)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Vector3 m_EulerAngleVelocityPos = new Vector3(0, 60, 0);
+                Vector3 m_EulerAngleVelocityNeg = new Vector3(0, -60, 0);
+                Quaternion deltaRotationPos = Quaternion.Euler(m_EulerAngleVelocityPos);
+                Quaternion deltaRotationNeg = Quaternion.Euler(m_EulerAngleVelocityNeg);
+
+                if (transform.localScale.x < 0)
+                {
+                    transform.rotation *= deltaRotationNeg;
+                }
+                else
+                {
+                    transform.rotation *= deltaRotationPos;
+                }
+
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
+                if (CompareTag("Hat"))
+                {
+                    tag = reverseTag;
+                }
+                else
+                {
+                    tag = normalTag;
+                }
+
+                Selecter selecter = GetComponentInChildren<Selecter>();
+                if (selecter.birthButton != null)
+                {
+                    SpawnManager spawnManager = selecter.birthButton.GetComponent<SpawnManager>();
+                    selecter.birthButton.GetComponent<Button>().interactable = true;
+                    selecter.birthButton = spawnManager.oppositeButton;
+                    selecter.birthButton.GetComponent<Button>().interactable = false;
+                }
+            }
+
+        }
+    }
     private void Deselect()
     {
         Debug.Log("Deselect");
@@ -177,9 +221,8 @@ public class HatrisHatPlacer : MonoBehaviour
         }
         else
         {
-            if (!landCell.hasHat && !landCell.hasReverseHat)
-            {
                 HatrisHexCell[] meshCells = new HatrisHexCell[8];
+                
 
                 int landPiecesCount = 0;
 
@@ -237,6 +280,7 @@ public class HatrisHatPlacer : MonoBehaviour
                                 if (meshCells[i].hatPieceAbove != null)
                                 {
                                     landPiecesCount++;
+
                                 }
                             }
                         }
@@ -252,12 +296,22 @@ public class HatrisHatPlacer : MonoBehaviour
                         }
                     }
 
+
+
                     if (meshPiecesCount > 0)
                     {
                         Debug.Log("Neighbour invalid");
                     }
                     else
                     {
+                        for (int i = 0; i < meshCells.Length; i++)
+                        {
+                            if (meshCells[i].hatPieceAbove != null)
+                            {
+                                PlacementError(meshCells[i].hatPieceAbove.gameObject);
+                            }
+                        }
+
                         if (landPiecesCount == 0)
                         {
                             if (this.CompareTag("Hat"))
@@ -278,13 +332,33 @@ public class HatrisHatPlacer : MonoBehaviour
 
                             GameObject[] hatPieces = new GameObject[8];
 
-
+                           
                             for (int i = 0; i < 8; i++)
                             {
                                 hatPieces[i] = transform.GetChild(0).GetChild(0).GetChild(i).gameObject;
                                 hatPieces[i].name = "hatPiece " + i;
-                                meshCells[i].hatPieceAbove = hatPieces[i];
                             }
+
+                            if (CompareTag("Hat"))
+                            {
+                                for (int i = 0; i < 8; i++)
+                                {
+                                    meshCells[i].hatPieceAbove = hatPieces[i];
+                                }
+                            }
+                            else
+                            {
+                                for (int j = 0; j < 4; j++)
+                                {
+                                    meshCells[j].hatPieceAbove = hatPieces[3 - j];
+                                }
+                                for (int k = 0; k < 2; k++)
+                                {
+                                    meshCells[4 + k].hatPieceAbove = hatPieces[5 - k];
+                                    meshCells[6 + k].hatPieceAbove = hatPieces[7 - k];
+                                }
+                            }
+                            
 
                             int count2 = 0, count3 = 0, count4 = 0;
 
@@ -329,11 +403,6 @@ public class HatrisHatPlacer : MonoBehaviour
                 {
                     Debug.Log("Invalid");
                 }
-            }
-            else
-            {
-                Debug.Log("Hat Already here");
-            }
         }
     }
     HexCell GetCellUnderCursor()
@@ -384,7 +453,7 @@ public class HatrisHatPlacer : MonoBehaviour
 
     void DeleteHat()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             if (gameManager.tileSelected)
             {
@@ -401,5 +470,25 @@ public class HatrisHatPlacer : MonoBehaviour
         isSelected = true;
     }
 
+    void PlacementError(GameObject piece)
+    {
+        StartCoroutine(FlashPiece(3, piece));
+    }
 
+    IEnumerator FlashPiece(int amountTimes, GameObject piece)
+    {
+        for (int i = 0; i < amountTimes; i++)
+        {
+            if (piece != null)
+            {
+                piece.transform.localScale *= 1.5f;
+                yield return new WaitForSeconds(0.2f);
+            }
+            if (piece != null)
+            {
+                piece.transform.localScale /= 1.5f;
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+    }
 }

@@ -185,13 +185,6 @@ public class TilingHoleMaker : MonoBehaviour
         }
     }
 
-    public void ResetHats()
-    {
-        HatTab.SetActive(true);
-        HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<UnityEngine.UI.Button>().interactable = true;
-        HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<UnityEngine.UI.Button>().interactable = true;
-    }
-
     IEnumerator DestroyHatsList(List<GameObject> list)
     {
         for (int i = 0; i < list.Count; i++)
