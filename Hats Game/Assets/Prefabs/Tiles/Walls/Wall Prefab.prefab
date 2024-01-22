@@ -799,6 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &1584864076973931539
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,7 +969,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
-  - {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1026,7 +1026,7 @@ Transform:
   - {fileID: 7070886892029705755}
   - {fileID: 3632876934496269428}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1140573723385205834
 MonoBehaviour:
@@ -1422,6 +1422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &2464865916873457698
 GameObject:
   m_ObjectHideFlags: 0
@@ -2094,6 +2095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &4286284028925166671
 GameObject:
   m_ObjectHideFlags: 0
@@ -2451,7 +2453,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
-  - {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2620,7 +2621,6 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
   - {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2865,7 +2865,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
-  - {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3021,6 +3020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &5843313335069042345
 GameObject:
   m_ObjectHideFlags: 0
@@ -3402,7 +3402,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
-  - {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3717,6 +3716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &7587828115552783548
 GameObject:
   m_ObjectHideFlags: 0
@@ -3779,7 +3779,6 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
   - {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4159,6 +4158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &8628486504709423215
 GameObject:
   m_ObjectHideFlags: 0
