@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,8 @@ public class SpawnManager : MonoBehaviour
     private List<Button> buttons = new List<Button>();
 
     public Button oppositeButton;
+
+    public int numberHats;
 
     private void Awake()
     {
@@ -36,7 +39,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-private void OnMouseDown()
+    private void OnMouseDown()
     {
         SpawnHat();
     }

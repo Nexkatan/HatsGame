@@ -39,6 +39,8 @@ public class HatPlacer : MonoBehaviour
     private String normalTag = "Hat";
     private String reverseTag = "Reverse Hat";
 
+    string[] colourStrings = new string[9];
+
     void Start()
     {
         hexGrid = GameObject.FindObjectOfType<HexGrid>();
@@ -54,6 +56,16 @@ public class HatPlacer : MonoBehaviour
                 buttons.Add(button);
             }
         }
+
+        colourStrings[0] = "Pink_mat (Instance) (UnityEngine.Material)";
+        colourStrings[1] = "Pink_Darker_mat (Instance) (UnityEngine.Material)";
+        colourStrings[2] = "Pink_DarkerStill_mat (Instance) (UnityEngine.Material)";
+        colourStrings[3] = "Yellow_mat (Instance) (UnityEngine.Material)";
+        colourStrings[4] = "Blue_Light_mat (Instance) (UnityEngine.Material)";
+        colourStrings[5] = "Blue_Dark_mat (Instance) (UnityEngine.Material)";
+        colourStrings[6] = "Green_Light_mat (Instance) (UnityEngine.Material)";
+        colourStrings[7] = "Green_Dark_mat (Instance) (UnityEngine.Material)";
+        colourStrings[8] = "Purple_mat (Instance) (UnityEngine.Material)";
     }
 
     void FixedUpdate()
@@ -117,10 +129,6 @@ public class HatPlacer : MonoBehaviour
             gameManager.tileSelected = false;
             gameManager.selectedTile = null;
             Destroy(gameObject);
-            for (int i = 0; i < buttons.Count; i++)
-            {
-                buttons[i].interactable = true;
-            }
         }
         else
         {
@@ -149,7 +157,15 @@ public class HatPlacer : MonoBehaviour
                         Debug.Log("No more reverseHats");
                         HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<SpawnManager>().FlashButtonFunction(5, 0.1f);
                     }
-                    
+
+                    if (gameManager.GetComponent<TilingHoleMaker>().colourMode)
+                    {
+                        if (landCell.hatAboveMat.ToString() != this.GetComponentInChildren<MeshRenderer>().material.ToString())
+                        {
+                            validityCheck.isValid = false;
+                            Debug.Log("Colour mismatch");
+                        }
+                    }
                 }
 
                 if (validityCheck.isValid)
@@ -167,14 +183,11 @@ public class HatPlacer : MonoBehaviour
                     landCell.hatRotInt = Mathf.RoundToInt(landCell.hatRot / 60) % 6;
                     landCell.hatAbove = this.gameObject;
                     landCell.hatMatIndex = validityCheck.hatMatIndex;
+                    landCell.hatAboveMat = transform.GetComponentInChildren<MeshRenderer>().material;
                     isSelected = false;
                     gameManager.tileSelected = false;
                     gameManager.selectedTile = null;
                     
-                    for (int i = 0; i < buttons.Count; i++)
-                    {
-                        buttons[i].interactable = true;
-                    }
 
                     if (gameManager.GetComponent<ChainManager>())
                     {
@@ -187,29 +200,58 @@ public class HatPlacer : MonoBehaviour
                     if (tilingHoleMaker)
                     {
                         
+                       
+
+                        if (tilingHoleMaker.colourMode)
+                        {
+                            for (int i = 0; i < 9; i++)
+                            {
+                                if (this.GetComponentInChildren<MeshRenderer>().material.ToString() == colourStrings[i])
+                                {
+                                    gameManager.GetComponent<TilingHoleMaker>().colourHats[i] -= 1;
+                                    if (gameManager.GetComponent<TilingHoleMaker>().colourHats[i] < 1)
+                                    {
+                                        buttons[i].interactable = false;
+                                    }
+                                }
+
+                                
+                            }
+                        }
+                        else
+                        {
+                            if (gameManager.GetComponent<TilingHoleMaker>().hats < 1)
+                            {
+                                hatButton.GetComponent<Button>().interactable = false;
+                            }
+                            else if (gameManager.GetComponent<TilingHoleMaker>().reverseHats < 1)
+                            {
+                                reverseHatButton.gameObject.GetComponent<Button>().interactable = false;
+                            }
+                        }
                         if (this.CompareTag("Hat"))
                         {
-                           gameManager.GetComponent<TilingHoleMaker>().hats -= 1;
-                           
+                            gameManager.GetComponent<TilingHoleMaker>().hats -= 1;
+
                         }
                         else if (this.CompareTag("Reverse Hat"))
                         {
-                          
                             gameManager.GetComponent<TilingHoleMaker>().reverseHats -= 1;
-                          
-                            
                         }
-                        if (gameManager.GetComponent<TilingHoleMaker>().hats < 1)
-                        {
-                            hatButton.GetComponent<Button>().interactable = false;
-                        }
-                        else if (gameManager.GetComponent<TilingHoleMaker>().reverseHats < 1)
-                        {
-                            reverseHatButton.gameObject.GetComponent<Button>().interactable = false;
-                        }
+
+
+
                         if (gameManager.GetComponent<TilingHoleMaker>().hats + gameManager.GetComponent<TilingHoleMaker>().reverseHats == 0)
                         {
                             tilingHoleMaker.LevelComplete();
+                        }
+                    }
+                    else
+                    {
+
+                        for (int i = 0; i < buttons.Count; i++)
+                        {
+                            buttons[i].interactable = true;
                         }
                     }
                 }

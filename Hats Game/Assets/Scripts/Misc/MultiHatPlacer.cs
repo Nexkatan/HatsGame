@@ -145,6 +145,7 @@ public class MultiHatPlacer : MonoBehaviour
                 currentCells[i] = landCells[i];
                 currentCells[i].hatAbove = validHats[i].gameObject;
                 currentCells[i].hatMatIndex = validHats[i].GetComponent<ChecksValid>().hatMatIndex;
+                currentCells[i].hatAboveMat = validHats[i].GetComponentInChildren<MeshRenderer>().material;
 
                 if (!landCells[i].hasHat && !landCells[i].hasReverseHat)
                 {

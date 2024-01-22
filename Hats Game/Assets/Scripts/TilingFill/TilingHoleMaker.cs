@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class TilingHoleMaker : MonoBehaviour
 {
@@ -14,8 +14,15 @@ public class TilingHoleMaker : MonoBehaviour
     public GameObject cam;
     private HexGrid hexGrid;
 
+    public int colours;
+
     List<HexCell> hatsList = new List<HexCell>();
     List<HexCell> reverseHatsList = new List<HexCell>();
+
+    List<HexCell>[] colourHatsList = new List<HexCell>[9];
+
+    string[] colourStrings = new string[9];
+
 
     public int width;
     public int height;
@@ -26,19 +33,52 @@ public class TilingHoleMaker : MonoBehaviour
 
     public int hats;
     public int reverseHats;
+    public int[] colourHats = new int[9];
+
     public TextMeshProUGUI hatsNumber;
     public TextMeshProUGUI reverseHatsNumber;
 
+    public TextMeshProUGUI[] colourHatNumbers = new TextMeshProUGUI[9];
+
+
+
     public GameObject HatTab;
     public GameObject levelCompleteButtons;
+    private List<Button> buttons = new List<Button>();
+
+    public bool colourMode;
 
     void Start()
     {
+        for (int i = 0; i < 9; i++)
+        {
+            colourHatsList[i] = new List<HexCell>();
+        }
+
+        colourStrings[0] = "Pink_mat (Instance) (UnityEngine.Material)";
+        colourStrings[1] = "Pink_Darker_mat (Instance) (UnityEngine.Material)";
+        colourStrings[2] = "Pink_DarkerStill_mat (Instance) (UnityEngine.Material)";
+        colourStrings[3] = "Yellow_mat (Instance) (UnityEngine.Material)";
+        colourStrings[4] = "Blue_Light_mat (Instance) (UnityEngine.Material)";
+        colourStrings[5] = "Blue_Dark_mat (Instance) (UnityEngine.Material)";
+        colourStrings[6] = "Green_Light_mat (Instance) (UnityEngine.Material)";
+        colourStrings[7] = "Green_Dark_mat (Instance) (UnityEngine.Material)";
+        colourStrings[8] = "Purple_mat (Instance) (UnityEngine.Material)";
+
 
         tiling = GameObject.FindGameObjectWithTag("Tiling");
         difficulty = GameManager.tilingDifficulty;
         hexGrid = GameObject.FindObjectOfType<HexGrid>();
         HatTab = GameObject.Find("HatTab");
+
+        if (HatTab)
+        {
+            foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
+            {
+                buttons.Add(button);
+            }
+        }
+
         StartCoroutine("CountDown");
     }
 
@@ -46,10 +86,15 @@ public class TilingHoleMaker : MonoBehaviour
     {
         hatsNumber.SetText(hats.ToString());
         reverseHatsNumber.SetText(reverseHats.ToString());
+
+        for (int i = 0; i < 9; i++)
+        {
+            colourHatNumbers[i].SetText(colourHats[i].ToString());
+        }
     }
 
-      
-        IEnumerator CountDown()
+
+    IEnumerator CountDown()
     {
         yield return new WaitForSeconds(.01f);
         DestroyHats();
@@ -57,11 +102,9 @@ public class TilingHoleMaker : MonoBehaviour
 
     public void DestroyHats()
     {
+        //ResetButtons();
 
         List<GameObject> hatsToDestroy = new List<GameObject>();
-       
-
-
         float divisor = difficulty;
         float divisor2 = (2 + divisor) / divisor;
         if (divisor2 > 2)
@@ -78,7 +121,7 @@ public class TilingHoleMaker : MonoBehaviour
        */
 
 
-        Vector3 cellCoords = new Vector3(xVal,0,zVal);
+        Vector3 cellCoords = new Vector3(xVal, 0, zVal);
         randomCell = hexGrid.GetCell(cellCoords);
         cam.transform.position = new Vector3(xVal, 150, zVal);
         if (randomCell.hatAbove != null)
@@ -149,6 +192,11 @@ public class TilingHoleMaker : MonoBehaviour
         hatsList.Clear();
         reverseHatsList.Clear();
 
+        for (int i = 0; i < 9; i++)
+        {
+            colourHatsList[i].Clear();
+        }
+
         for (int i = 0; i < hatsToDestroy.Count; i++)
         {
             if (hatsToDestroy[i].CompareTag("Hat"))
@@ -159,13 +207,21 @@ public class TilingHoleMaker : MonoBehaviour
             {
                 reverseHatsList.Add(hexGrid.GetCell(hatsToDestroy[i].transform.position));
             }
-        }
 
+            for (int j = 0; j < 9; j++)
+            {
+                if (hatsToDestroy[i].GetComponentInChildren<MeshRenderer>().material.ToString() == colourStrings[j])
+                {
+                    colourHatsList[j].Add(hexGrid.GetCell(hatsToDestroy[i].transform.position));
+                }
+            }
+        }
         hats = hatsList.Count;
         reverseHats = reverseHatsList.Count;
         hatsNumber.SetText(hatsList.Count.ToString());
         reverseHatsNumber.SetText(reverseHatsList.Count.ToString());
 
+        ResetButtons();
 
         StartCoroutine(DestroyHatsList(hatsToDestroy));
     }
@@ -196,6 +252,30 @@ public class TilingHoleMaker : MonoBehaviour
             hexGrid.GetCell(list[i].transform.position).hatRotInt = 0;
             hexGrid.GetCell(list[i].transform.position).hatAbove = null;
             Destroy(list[i]);
+        }
+    }
+
+    void ResetButtons()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            colourHats[i] = colourHatsList[i].Count;
+            colourHatNumbers[i].SetText(colourHatsList[i].Count.ToString());
+
+            buttons[i].GetComponent<SpawnManager>().numberHats = colourHatsList[i].Count;
+
+            if (colourHats[i] < 1)
+            {
+                buttons[i].interactable = false;
+            }
+        }
+    }
+
+    public void pReset()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            buttons[i].interactable = true;
         }
     }
 }

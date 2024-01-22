@@ -30,10 +30,16 @@ public class BinButton : MonoBehaviour
             gameManager.tileSelected = false;
             gameManager.selectedTile = null;
         }
-        
-        for (int i = 0; i < buttons.Count; i++)
+        if (gameManager.GetComponent<TilingHoleMaker>())
         {
-            buttons[i].interactable = true;
+            Debug.Log("Bin");
+        }
+        else
+        {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].interactable = true;
+            }
         }
     }
 }

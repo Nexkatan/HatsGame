@@ -13,6 +13,9 @@ public class Selecter : MonoBehaviour
     public List<Button> buttons = new List<Button>();
     public Button birthButton;
 
+    string[] colourStrings = new string[9];
+
+
     // Update is called once per frame
     void Start()
     {
@@ -26,6 +29,18 @@ public class Selecter : MonoBehaviour
                 buttons.Add(button);
             }
         }
+
+       
+
+        colourStrings[0] = "Pink_mat (Instance) (UnityEngine.Material)";
+        colourStrings[1] = "Pink_Darker_mat (Instance) (UnityEngine.Material)";
+        colourStrings[2] = "Pink_DarkerStill_mat (Instance) (UnityEngine.Material)";
+        colourStrings[3] = "Yellow_mat (Instance) (UnityEngine.Material)";
+        colourStrings[4] = "Blue_Light_mat (Instance) (UnityEngine.Material)";
+        colourStrings[5] = "Blue_Dark_mat (Instance) (UnityEngine.Material)";
+        colourStrings[6] = "Green_Light_mat (Instance) (UnityEngine.Material)";
+        colourStrings[7] = "Green_Dark_mat (Instance) (UnityEngine.Material)";
+        colourStrings[8] = "Purple_mat (Instance) (UnityEngine.Material)";
     }
 
     private void OnMouseDown()
@@ -44,7 +59,14 @@ public class Selecter : MonoBehaviour
                 landCell.hatRot = 0;
                 landCell.hatRotInt = 0;
                 landCell.hatAbove = null;
-                landCell.hatAboveMat = null;
+                if (gameManager.GetComponent<TilingHoleMaker>())
+                {
+
+                }
+                else
+                {
+                    landCell.hatAboveMat = null;
+                }
             }
             else if (hat.GetComponent<MultiHatPlacer>())
             {
@@ -55,8 +77,15 @@ public class Selecter : MonoBehaviour
                     landCell.hasReverseHat = false;
                     landCell.hatRot = 0;
                     landCell.hatRotInt = 0;
-                    landCell.hatAbove = null;
-                    landCell.hatAboveMat = null;
+                    landCell.hatAbove = null; 
+                    if (gameManager.GetComponent<TilingHoleMaker>())
+                    {
+
+                    }
+                    else
+                    {
+                        landCell.hatAboveMat = null;
+                    }
                 }
             }
 
@@ -80,6 +109,25 @@ public class Selecter : MonoBehaviour
                 {
                     gameManager.GetComponent<TilingHoleMaker>().reverseHats += 1;
                 }
+
+                if (gameManager.GetComponent<TilingHoleMaker>().colourMode)
+                {
+                    for (int i = 0;  i < 9 ; i++)
+                    {
+                        Debug.Log(transform.root.GetComponentInChildren<MeshRenderer>().material.ToString());
+                        Debug.Log(colourStrings[i]);
+                        if (transform.root.GetComponentInChildren<MeshRenderer>().material.ToString() == colourStrings[i])
+                        {
+                            gameManager.GetComponent<TilingHoleMaker>().colourHats[i] += 1;
+                        }
+                        if (gameManager.GetComponent<TilingHoleMaker>().colourHats[i] > 0)
+                        {
+                            buttons[i].interactable = true;
+                        }
+                    }
+                        
+                }
+
             }
             StartCoroutine(TrueSelecta(hat));
             gameManager.selectedTile = hat.gameObject;
