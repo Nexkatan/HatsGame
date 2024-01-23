@@ -21,7 +21,7 @@ public class Selecter : MonoBehaviour
     {
         hexGrid = GameObject.FindObjectOfType<HexGrid>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        HatTab = GameObject.Find("HatTab");
+        HatTab = GameObject.FindGameObjectWithTag("Hat Tab");
         if (HatTab)
         {
             foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
@@ -29,8 +29,6 @@ public class Selecter : MonoBehaviour
                 buttons.Add(button);
             }
         }
-
-       
 
         colourStrings[0] = "Pink_mat (Instance) (UnityEngine.Material)";
         colourStrings[1] = "Pink_Darker_mat (Instance) (UnityEngine.Material)";
@@ -50,6 +48,7 @@ public class Selecter : MonoBehaviour
         {
             Debug.Log("Select");
             gameManager.tileSelected = true;
+
 
             if (hat.GetComponent<HatPlacer>())
             {
@@ -114,8 +113,6 @@ public class Selecter : MonoBehaviour
                 {
                     for (int i = 0;  i < 9 ; i++)
                     {
-                        Debug.Log(transform.root.GetComponentInChildren<MeshRenderer>().material.ToString());
-                        Debug.Log(colourStrings[i]);
                         if (transform.root.GetComponentInChildren<MeshRenderer>().material.ToString() == colourStrings[i])
                         {
                             gameManager.GetComponent<TilingHoleMaker>().colourHats[i] += 1;
@@ -125,9 +122,7 @@ public class Selecter : MonoBehaviour
                             buttons[i].interactable = true;
                         }
                     }
-                        
                 }
-
             }
             StartCoroutine(TrueSelecta(hat));
             gameManager.selectedTile = hat.gameObject;

@@ -699,9 +699,10 @@ MonoBehaviour:
     x: 0
     z: 0
   buttons: []
-  mat1: {fileID: 0}
-  mat2: {fileID: 0}
+  mat1: {fileID: 2100000, guid: 1bbaae227f523fd4b85ba2d555709e0d, type: 2}
+  mat2: {fileID: 2100000, guid: 1bbaae227f523fd4b85ba2d555709e0d, type: 2}
   matBool: 0
+  cantFlip: 1
 --- !u!114 &6771322018081595374
 MonoBehaviour:
   m_ObjectHideFlags: 0

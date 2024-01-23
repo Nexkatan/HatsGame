@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public Slider _slider;
     public TextMeshProUGUI sliderText;
     public static int tilingDifficulty = 1;
-
+    public static bool tilingFillColourMode;
 
     public void Start()
     {
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainScreen");
         tilingDifficulty = 1;
+        tilingFillColourMode = false;
     }
    public void LoadHoleInTheWall()
     {
@@ -60,5 +61,16 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Hatris");
     }
 
+    public void ColourModeAction()
+    {
+        if (tilingFillColourMode)
+        {
+            tilingFillColourMode = false;
+        }
+        else
+        {
+            tilingFillColourMode = true;
+        }
+    }
    
 }

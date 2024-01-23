@@ -58,7 +58,7 @@ public class MultiHatPlacer : MonoBehaviour
             landCells[i] = hexGrid.GetCell(validHatsList[i].transform.position);
             currentCells[i] = landCells[i];
         }
-        HatTab = GameObject.Find("HatTab");
+        HatTab = GameObject.FindGameObjectWithTag("Hat Tab");
         if (HatTab)
         {
             foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
@@ -81,11 +81,16 @@ public class MultiHatPlacer : MonoBehaviour
         {
             Spin();
         }
-        if (Input.GetMouseButtonDown(0) && EventSystem.current.currentSelectedGameObject == null)
-            if (isSelected)
+        if (isSelected)
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                Deselect();
+                if (!EventSystem.current.IsPointerOverGameObject())
+                {
+                    Deselect();
+                }
             }
+        }
     }
 
     void MouseMove()

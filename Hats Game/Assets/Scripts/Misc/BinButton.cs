@@ -11,7 +11,7 @@ public class BinButton : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        HatTab = GameObject.Find("HatTab");
+        HatTab = GameObject.FindGameObjectWithTag("Hat Tab");
         if (HatTab)
         {
             foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
@@ -26,6 +26,10 @@ public class BinButton : MonoBehaviour
     {
         if (gameManager.tileSelected)
         {
+
+            Debug.Log(gameManager.selectedTile.gameObject.GetComponentInChildren<Selecter>());
+            Button spawnButton = gameManager.selectedTile.gameObject.GetComponentInChildren<Selecter>().birthButton;
+            spawnButton.interactable = true;
             Destroy(gameManager.selectedTile.gameObject);
             gameManager.tileSelected = false;
             gameManager.selectedTile = null;

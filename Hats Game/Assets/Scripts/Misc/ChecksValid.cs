@@ -65,21 +65,6 @@ public class ChecksValid : MonoBehaviour
         }
        
         
-        /*
-        Longbois[0] = landCell.GetNeighbor(HexDirection.SW).GetNeighbor(HexDirection.SW);
-        
-        Longbois[1] = landCell.GetNeighbor(HexDirection.SW).GetNeighbor(HexDirection.W);
-        Longbois[2] = landCell.GetNeighbor(HexDirection.W).GetNeighbor(HexDirection.W);
-        Longbois[3] = landCell.GetNeighbor(HexDirection.W).GetNeighbor(HexDirection.NW);
-        Longbois[4] = landCell.GetNeighbor(HexDirection.NW).GetNeighbor(HexDirection.NW);
-        Longbois[5] = landCell.GetNeighbor(HexDirection.NW).GetNeighbor(HexDirection.NE);
-        Longbois[6] = landCell.GetNeighbor(HexDirection.NE).GetNeighbor(HexDirection.NE);
-        Longbois[7] = landCell.GetNeighbor(HexDirection.NE).GetNeighbor(HexDirection.E);
-        Longbois[8] = landCell.GetNeighbor(HexDirection.E).GetNeighbor(HexDirection.E);
-        Longbois[9] = landCell.GetNeighbor(HexDirection.E).GetNeighbor(HexDirection.SE);
-        Longbois[10] = landCell.GetNeighbor(HexDirection.SE).GetNeighbor(HexDirection.SE);
-        Longbois[11] = landCell.GetNeighbor(HexDirection.SE).GetNeighbor(HexDirection.SW);
-        */
         for (int j = 0; j < NeighboursBool.Length; j++)
         {
             NeighboursBool[j] = true;

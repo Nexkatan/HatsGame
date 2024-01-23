@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 201263797}
   m_Layer: 5
   m_Name: HatTab
-  m_TagString: Untagged
+  m_TagString: Hat Tab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1128,6 +1128,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1215336405 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5850618788336560276, guid: 050564c20270c55479ef04478a53e5ec, type: 3}
+  m_PrefabInstance: {fileID: 8042451987182866092}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1223208171 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7362099012764479767, guid: 7dea5c55d08af1b41b42fc27af1eadcd, type: 3}
+  m_PrefabInstance: {fileID: 2385091054698086553}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1239870995 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4595938350963747424, guid: e1c65597e0136d84ab2f9d12a7bef9ea, type: 3}
@@ -1311,6 +1333,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3146882446240990243, guid: 2dbc6b4323d8bb0429b4c34d2d458c91, type: 3}
   m_PrefabInstance: {fileID: 6635770987188684692}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1421235986 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3438499956296157618, guid: 7dea5c55d08af1b41b42fc27af1eadcd, type: 3}
+  m_PrefabInstance: {fileID: 2385091054698086553}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1461138358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1489,6 +1522,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3605053721392123754, guid: 2bd348b1ff4cedb4d80959ec0278e4b9, type: 3}
   m_PrefabInstance: {fileID: 8231737991491723919}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1524155232 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8644074076583093364, guid: 050564c20270c55479ef04478a53e5ec, type: 3}
+  m_PrefabInstance: {fileID: 8042451987182866092}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1535131007
 GameObject:
   m_ObjectHideFlags: 0
@@ -2625,7 +2669,7 @@ PrefabInstance:
     - target: {fileID: 883556848331946289, guid: 7dea5c55d08af1b41b42fc27af1eadcd, type: 3}
       propertyPath: oppositeButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1421235986}
     - target: {fileID: 1864898361259091814, guid: 7dea5c55d08af1b41b42fc27af1eadcd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2721,7 +2765,7 @@ PrefabInstance:
     - target: {fileID: 5030636440759714196, guid: 7dea5c55d08af1b41b42fc27af1eadcd, type: 3}
       propertyPath: oppositeButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1223208171}
     - target: {fileID: 7362099012764479767, guid: 7dea5c55d08af1b41b42fc27af1eadcd, type: 3}
       propertyPath: m_Navigation.m_Mode
       value: 0
@@ -3204,7 +3248,7 @@ PrefabInstance:
     - target: {fileID: 2134006785537813586, guid: 050564c20270c55479ef04478a53e5ec, type: 3}
       propertyPath: oppositeButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1215336405}
     - target: {fileID: 3289906095632652198, guid: 050564c20270c55479ef04478a53e5ec, type: 3}
       propertyPath: m_Name
       value: MonochromeButtons
@@ -3216,7 +3260,7 @@ PrefabInstance:
     - target: {fileID: 4276724766974550194, guid: 050564c20270c55479ef04478a53e5ec, type: 3}
       propertyPath: oppositeButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1524155232}
     - target: {fileID: 5850618788336560276, guid: 050564c20270c55479ef04478a53e5ec, type: 3}
       propertyPath: m_Navigation.m_Mode
       value: 0

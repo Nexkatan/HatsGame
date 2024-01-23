@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        HatTab = GameObject.Find("HatTab");
+        HatTab = GameObject.FindGameObjectWithTag("Hat Tab");
         if (HatTab)
         {
             foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
@@ -50,9 +50,15 @@ public class SpawnManager : MonoBehaviour
         if (gameManager.selectedTile != null)
         {
             Destroy(gameManager.selectedTile.gameObject);
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].interactable = true;
+            }
         }
+        
         if (!isSelected) 
         {
+            GetComponent<Button>().interactable = false;
             Vector3 mousePos = Input.mousePosition;
             GameObject hatObj = Instantiate(hat, mousePos, hat.transform.rotation);
             hatObj.transform.GetComponentInChildren<Selecter>().birthButton = GetComponent<Button>();
@@ -68,6 +74,7 @@ public class SpawnManager : MonoBehaviour
             gameManager.tileSelected = true;
             gameManager.selectedTile = hatObj.gameObject;
 
+            /*
             if (oppositeButton != null)
             {
                 for (int i = 0; i < buttons.Count; i++)
@@ -76,7 +83,7 @@ public class SpawnManager : MonoBehaviour
                 }
                 oppositeButton.interactable = true;
             }
-            
+            */
         }
         
     }
@@ -93,11 +100,32 @@ public class SpawnManager : MonoBehaviour
         return null;
     }
 
+    public void ResetHatTab()
+    {
+        /*gameManager.GetComponent<TilingHoleMaker>().HatTab.SetActive(true);
+        Debug.Log(gameManager.GetComponent<TilingHoleMaker>().HatTab);
+        foreach (Button button in gameManager.GetComponent<TilingHoleMaker>().HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
+        {
+            buttons.Add(button);
+        }
+        Debug.Log(buttons.Count);
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            Debug.Log(buttons[i].GetComponent<SpawnManager>().numberHats);
+            if (buttons[i].GetComponent<SpawnManager>().numberHats > 0)
+            {
+                buttons[i].interactable = true;
+            }
+        }
+        */
+        gameManager.GetComponent<TilingHoleMaker>().HatTab.SetActive(true);
+        gameManager.GetComponent<TilingHoleMaker>().ResetButtons();
+    }
 
     public void ResetHatrisHatTab()
     {
         HatTab.SetActive(true);
-        HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<UnityEngine.UI.Button>().interactable = true;
+        HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(1).gameObject.GetComponent<Button>().interactable = true;
         HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<UnityEngine.UI.Button>().interactable = true;
     }
 

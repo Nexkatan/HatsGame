@@ -952,8 +952,8 @@ GameObject:
   - component: {fileID: 201263796}
   - component: {fileID: 201263797}
   m_Layer: 5
-  m_Name: HatTab
-  m_TagString: Untagged
+  m_Name: HatTabColour
+  m_TagString: Hat Tab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4288,7 +4288,7 @@ RectTransform:
   m_GameObject: {fileID: 1137774140}
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2002405378}
@@ -4296,7 +4296,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -63.8, y: -7.83}
+  m_AnchoredPosition: {x: 23.72, y: -7.83}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1137774142
@@ -5179,7 +5179,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 50, y: -265}
-  m_SizeDelta: {x: 100, y: 370}
+  m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1361974915
 MonoBehaviour:
@@ -5829,9 +5829,10 @@ MonoBehaviour:
   - {fileID: 1117224236}
   - {fileID: 1137774142}
   - {fileID: 479988051}
-  HatTab: {fileID: 2098366857}
+  HatTab: {fileID: 1651152622}
+  HatTabColour: {fileID: 201263795}
   levelCompleteButtons: {fileID: 102393165}
-  colourMode: 1
+  colourMode: 0
 --- !u!1 &1546911961
 GameObject:
   m_ObjectHideFlags: 0
@@ -6086,12 +6087,12 @@ GameObject:
   - component: {fileID: 1651152623}
   - component: {fileID: 1651152624}
   m_Layer: 5
-  m_Name: HatTab (1)
-  m_TagString: Untagged
+  m_Name: HatTab
+  m_TagString: Hat Tab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1651152623
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9314,30 +9315,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1535131011}
         m_TargetAssemblyTypeName: TilingHoleMaker, Assembly-CSharp
-        m_MethodName: pReset
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 605952391}
-        m_TargetAssemblyTypeName: SpawnManager, Assembly-CSharp
-        m_MethodName: ResetHatrisHatTab
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1535131011}
-        m_TargetAssemblyTypeName: TilingHoleMaker, Assembly-CSharp
         m_MethodName: DestroyHats
         m_Mode: 1
         m_Arguments:
@@ -9352,6 +9329,30 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1535131011}
+        m_TargetAssemblyTypeName: TilingHoleMaker, Assembly-CSharp
+        m_MethodName: pReset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 605952391}
+        m_TargetAssemblyTypeName: SpawnManager, Assembly-CSharp
+        m_MethodName: ResetHatTab
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10038,10 +10039,10 @@ RectTransform:
   m_Father: {fileID: 1361974914}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -185}
-  m_SizeDelta: {x: 100, y: 370}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2058335824 stripped
 GameObject:
@@ -10452,9 +10453,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 201263796}
+  - {fileID: 1651152623}
   - {fileID: 102393166}
   - {fileID: 3406484131001420951}
-  - {fileID: 1651152623}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11041,6 +11042,10 @@ PrefabInstance:
     - target: {fileID: 6310008515401255458, guid: 605e8b295aa67cc478ce9edff3dbd7b7, type: 3}
       propertyPath: m_Name
       value: HatTabBinButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6665549182337553944, guid: 605e8b295aa67cc478ce9edff3dbd7b7, type: 3}
+      propertyPath: m_LayoutPriority
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2790698163102205829, guid: 605e8b295aa67cc478ce9edff3dbd7b7, type: 3}

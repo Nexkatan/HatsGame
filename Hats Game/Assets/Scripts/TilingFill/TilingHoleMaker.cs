@@ -43,10 +43,25 @@ public class TilingHoleMaker : MonoBehaviour
 
 
     public GameObject HatTab;
+    public GameObject HatTabColour;
     public GameObject levelCompleteButtons;
     private List<Button> buttons = new List<Button>();
 
     public bool colourMode;
+
+    private void Awake()
+    {
+        colourMode = GameManager.tilingFillColourMode;
+
+        if (colourMode)
+        {
+            HatTab.SetActive(false);
+        }
+        else
+        {
+            HatTabColour.SetActive(false);
+        }
+    }
 
     void Start()
     {
@@ -69,9 +84,9 @@ public class TilingHoleMaker : MonoBehaviour
         tiling = GameObject.FindGameObjectWithTag("Tiling");
         difficulty = GameManager.tilingDifficulty;
         hexGrid = GameObject.FindObjectOfType<HexGrid>();
-        HatTab = GameObject.Find("HatTab");
+        HatTab = GameObject.FindGameObjectWithTag("Hat Tab");
 
-        if (HatTab)
+        if (HatTab != null)
         {
             foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
             {
@@ -102,8 +117,6 @@ public class TilingHoleMaker : MonoBehaviour
 
     public void DestroyHats()
     {
-        //ResetButtons();
-
         List<GameObject> hatsToDestroy = new List<GameObject>();
         float divisor = difficulty;
         float divisor2 = (2 + divisor) / divisor;
@@ -114,12 +127,6 @@ public class TilingHoleMaker : MonoBehaviour
 
         float xVal = Random.Range(tiling.transform.position.x - (width * divisor2 * 1.5f), tiling.transform.position.x + (width * divisor2));
         float zVal = Random.Range(tiling.transform.position.z - (height * divisor2 * 1.2f), tiling.transform.position.z + (height * divisor2));
-
-        /*
-        float xVal = tiling.transform.position.x - (width * divisor2 * 1.5f);
-        float zVal = tiling.transform.position.z - (height * divisor2 * 1.2f);
-       */
-
 
         Vector3 cellCoords = new Vector3(xVal, 0, zVal);
         randomCell = hexGrid.GetCell(cellCoords);
@@ -221,7 +228,10 @@ public class TilingHoleMaker : MonoBehaviour
         hatsNumber.SetText(hatsList.Count.ToString());
         reverseHatsNumber.SetText(reverseHatsList.Count.ToString());
 
-        ResetButtons();
+        if (colourMode)
+        {
+            ResetColourButtons();
+        }
 
         StartCoroutine(DestroyHatsList(hatsToDestroy));
     }
@@ -255,7 +265,28 @@ public class TilingHoleMaker : MonoBehaviour
         }
     }
 
-    void ResetButtons()
+    public void ResetButtons()
+    {
+        if (!colourMode)
+        {
+            hatsNumber.SetText(hats.ToString());
+            reverseHatsNumber.SetText(reverseHats.ToString());
+            if (hats > 0)
+            {
+                buttons[1].interactable = true;
+            }
+            if (reverseHats > 0)
+            {
+                buttons[0].interactable = true;
+            }
+        }
+      else
+        {
+            ResetColourButtons();
+        }
+    }
+
+    public void ResetColourButtons()
     {
         for (int i = 0; i < 9; i++)
         {
@@ -273,6 +304,7 @@ public class TilingHoleMaker : MonoBehaviour
 
     public void pReset()
     {
+        if (colourMode)
         for (int i = 0; i < 9; i++)
         {
             buttons[i].interactable = true;

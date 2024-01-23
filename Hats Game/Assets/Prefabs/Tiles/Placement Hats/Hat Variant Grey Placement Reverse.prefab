@@ -663,8 +663,8 @@ MonoBehaviour:
     x: 0
     z: 0
   buttons: []
-  mat1: {fileID: 0}
-  mat2: {fileID: 0}
+  mat1: {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
+  mat2: {fileID: 2100000, guid: 227cd9a42a2061d4cb24d474201d4134, type: 2}
   matBool: 0
 --- !u!114 &-3773030478218213933
 MonoBehaviour:

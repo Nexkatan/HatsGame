@@ -8,7 +8,6 @@ using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
 public class HatPlacer : MonoBehaviour
 {
     public Color[] colors;
@@ -41,6 +40,8 @@ public class HatPlacer : MonoBehaviour
 
     string[] colourStrings = new string[9];
 
+    public bool cantFlip;
+
     void Start()
     {
         hexGrid = GameObject.FindObjectOfType<HexGrid>();
@@ -48,7 +49,9 @@ public class HatPlacer : MonoBehaviour
         landCell = hexGrid.GetCell(transform.position);
         currentCell = landCell;
         validityCheck = this.GetComponent<ChecksValid>();
-        HatTab = GameObject.Find("HatTab");
+
+        HatTab = GameObject.FindGameObjectWithTag("Hat Tab");
+
         if (HatTab)
         {
             foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
@@ -80,16 +83,21 @@ public class HatPlacer : MonoBehaviour
         if (isSelected)
         {
             Spin();
-            FlipHat();
+            if (!cantFlip)
+            {
+                FlipHat();
+            }
         }
         if (isSelected)
         {
-            if (Input.GetMouseButtonDown(0) && EventSystem.current.currentSelectedGameObject == null)
+            if (Input.GetMouseButtonDown(0))
             {
-                Deselect();
+                if (!EventSystem.current.IsPointerOverGameObject()) 
+                {
+                    Deselect();
+                }
             }
         }
-            
     }
 
     void MouseMove()
@@ -154,7 +162,6 @@ public class HatPlacer : MonoBehaviour
                     else if (this.CompareTag("Reverse Hat") && tilingHoleMaker.reverseHats < 1)
                     {
                         validityCheck.isValid = false;
-                        Debug.Log("No more reverseHats");
                         HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<SpawnManager>().FlashButtonFunction(5, 0.1f);
                     }
 
@@ -163,7 +170,6 @@ public class HatPlacer : MonoBehaviour
                         if (landCell.hatAboveMat.ToString() != this.GetComponentInChildren<MeshRenderer>().material.ToString())
                         {
                             validityCheck.isValid = false;
-                            Debug.Log("Colour mismatch");
                         }
                     }
                 }
@@ -191,44 +197,19 @@ public class HatPlacer : MonoBehaviour
 
                     if (gameManager.GetComponent<ChainManager>())
                     {
+                        Debug.Log("S");
                         gameManager.GetComponent<ChainManager>().AddHatsToList();
+                        for (int i = 0; i < buttons.Count; i++)
+                        {
+                            buttons[i].interactable = true;
+                        }
                     }
-                    GameObject hatButton = HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(1).gameObject;
-                    GameObject reverseHatButton = HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject;
+
+                   
 
                     TilingHoleMaker tilingHoleMaker = gameManager.GetComponent<TilingHoleMaker>();
                     if (tilingHoleMaker)
                     {
-                        
-                       
-
-                        if (tilingHoleMaker.colourMode)
-                        {
-                            for (int i = 0; i < 9; i++)
-                            {
-                                if (this.GetComponentInChildren<MeshRenderer>().material.ToString() == colourStrings[i])
-                                {
-                                    gameManager.GetComponent<TilingHoleMaker>().colourHats[i] -= 1;
-                                    if (gameManager.GetComponent<TilingHoleMaker>().colourHats[i] < 1)
-                                    {
-                                        buttons[i].interactable = false;
-                                    }
-                                }
-
-                                
-                            }
-                        }
-                        else
-                        {
-                            if (gameManager.GetComponent<TilingHoleMaker>().hats < 1)
-                            {
-                                hatButton.GetComponent<Button>().interactable = false;
-                            }
-                            else if (gameManager.GetComponent<TilingHoleMaker>().reverseHats < 1)
-                            {
-                                reverseHatButton.gameObject.GetComponent<Button>().interactable = false;
-                            }
-                        }
                         if (this.CompareTag("Hat"))
                         {
                             gameManager.GetComponent<TilingHoleMaker>().hats -= 1;
@@ -238,17 +219,53 @@ public class HatPlacer : MonoBehaviour
                         {
                             gameManager.GetComponent<TilingHoleMaker>().reverseHats -= 1;
                         }
+                        if (tilingHoleMaker.colourMode)
+                        {
+                            for (int i = 0; i < 9; i++)
+                            {
+                                if (this.GetComponentInChildren<MeshRenderer>().material.ToString() == colourStrings[i])
+                                {
+                                    gameManager.GetComponent<TilingHoleMaker>().colourHats[i] -= 1;
+                                    GetComponentInChildren<Selecter>().birthButton.GetComponent<SpawnManager>().numberHats -= 1;
+                                    if (gameManager.GetComponent<TilingHoleMaker>().colourHats[i] < 1)
+                                    {
+                                        buttons[i].interactable = false;
+                                    }
+                                    else
+                                    {
+                                        buttons[i].interactable = true;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            GameObject hatButton = HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(1).gameObject;
+                            GameObject reverseHatButton = HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject;
 
-
-
+                            if (gameManager.GetComponent<TilingHoleMaker>().hats > 0)
+                            {
+                                hatButton.GetComponent<Button>().interactable = true;
+                            }
+                            if (gameManager.GetComponent<TilingHoleMaker>().reverseHats > 0)
+                            {
+                                reverseHatButton.GetComponent<Button>().interactable = true;
+                            }
+                        }
                         if (gameManager.GetComponent<TilingHoleMaker>().hats + gameManager.GetComponent<TilingHoleMaker>().reverseHats == 0)
                         {
                             tilingHoleMaker.LevelComplete();
                         }
-                    }
+                        if (GetComponentInChildren<Selecter>().birthButton)
+                        {
+                            if (GetComponentInChildren<Selecter>().birthButton.GetComponent<SpawnManager>().numberHats > 0)
+                            {
+                                GetComponentInChildren<Selecter>().birthButton.interactable = true;
+                            }
+                        }
+                    }  
                     else
                     {
-
                         for (int i = 0; i < buttons.Count; i++)
                         {
                             buttons[i].interactable = true;
@@ -260,8 +277,6 @@ public class HatPlacer : MonoBehaviour
                     Debug.Log("Invalid");
                     FlashOutlineFunction(3);
                 }
-
-
             }
             else
             {
@@ -275,47 +290,53 @@ public class HatPlacer : MonoBehaviour
     {
         if (!gameManager.gameOver)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (gameManager.GetComponent<TilingHoleMaker>() && gameManager.GetComponent<TilingHoleMaker>().colourMode)
             {
-                Vector3 m_EulerAngleVelocityPos = new Vector3(0, 60, 0);
-                Vector3 m_EulerAngleVelocityNeg = new Vector3(0, -60, 0);
-                Quaternion deltaRotationPos = Quaternion.Euler(m_EulerAngleVelocityPos);
-                Quaternion deltaRotationNeg = Quaternion.Euler(m_EulerAngleVelocityNeg);
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Vector3 m_EulerAngleVelocityPos = new Vector3(0, 60, 0);
+                    Vector3 m_EulerAngleVelocityNeg = new Vector3(0, -60, 0);
+                    Quaternion deltaRotationPos = Quaternion.Euler(m_EulerAngleVelocityPos);
+                    Quaternion deltaRotationNeg = Quaternion.Euler(m_EulerAngleVelocityNeg);
 
-                if (transform.localScale.x < 0)
-                {
-                    transform.rotation *= deltaRotationNeg;
-                }
-                else
-                {
-                    transform.rotation *= deltaRotationPos;
-                }
+                    if (transform.localScale.x < 0)
+                    {
+                        transform.rotation *= deltaRotationNeg;
+                    }
+                    else
+                    {
+                        transform.rotation *= deltaRotationPos;
+                    }
 
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
 
-                if (matBool)
-                {
-                    transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = mat2;
-                    matBool = !matBool;
-                    tag = reverseTag;
-                }
-                else
-                {
-                    transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = mat1;
-                    matBool = !matBool;
-                    tag = normalTag;
-                }
+                    if (matBool)
+                    {
+                        transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = mat2;
+                        matBool = !matBool;
+                        tag = reverseTag;
+                    }
+                    else
+                    {
+                        transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = mat1;
+                        matBool = !matBool;
+                        tag = normalTag;
+                    }
 
-                Selecter selecter = GetComponentInChildren<Selecter>();
-                if (selecter.birthButton != null)
-                {
-                    SpawnManager spawnManager = selecter.birthButton.GetComponent<SpawnManager>();
-                    selecter.birthButton.GetComponent<Button>().interactable = true;
-                    selecter.birthButton = spawnManager.oppositeButton;
-                    selecter.birthButton.GetComponent<Button>().interactable = false;
+                    Selecter selecter = GetComponentInChildren<Selecter>();
+
+                    if (selecter.birthButton != null)
+                    {
+                        SpawnManager spawnManager = selecter.birthButton.GetComponent<SpawnManager>();
+                        selecter.birthButton.GetComponent<Button>().interactable = true;
+                        selecter.birthButton = spawnManager.oppositeButton;
+                        selecter.birthButton.GetComponent<Button>().interactable = false;
+                    }
                 }
             }
-
         }
     }
 
