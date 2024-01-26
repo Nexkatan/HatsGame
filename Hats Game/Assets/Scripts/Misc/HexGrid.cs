@@ -16,7 +16,6 @@ public class HexGrid : MonoBehaviour
     public HatrisHexCell cellCellPrefab;
 
     public HexCell[] cells;
-    HatrisHexCell[] cellCells;
 
     public TextMeshProUGUI cellLabelPrefab;
     
@@ -48,10 +47,12 @@ public class HexGrid : MonoBehaviour
     public GameObject backgrounds;
     public int backgroundNumber;
 
+    private GameManager gameManager;
+
     void Awake()
     {
         HexMetrics.materials = materials;
-        
+        HexMapRadius = GameManager.hatrisBoardSize;
         if (isHatris)
         {
             LoadHatrisHex();

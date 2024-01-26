@@ -11,19 +11,35 @@ public class GameManager : MonoBehaviour
     public GameObject selectedTile;
     public bool gameOver = false;
     public int difficulty = 2;
-    public Slider _slider;
-    public TextMeshProUGUI sliderText;
+
+
+    public Slider tilingFill_slider;
+    public TextMeshProUGUI tilingFill_sliderText;
     public static int tilingDifficulty = 1;
     public static bool tilingFillColourMode;
 
+
+    public Slider hatris_slider;
+    public TextMeshProUGUI hatrisSliderText;
+    public static int hatrisBoardSize = 3;
+
     public void Start()
     {
-        if (_slider != null)
+        if (tilingFill_slider != null)
         {
-            _slider.onValueChanged.AddListener(value =>
+            tilingFill_slider.onValueChanged.AddListener(value =>
             {
                 tilingDifficulty = (int)value;
-                sliderText.text = value.ToString();
+                tilingFill_sliderText.text = value.ToString();
+            });
+        }
+
+        if (hatris_slider != null)
+        {
+            hatris_slider.onValueChanged.AddListener(value =>
+            {
+                hatrisBoardSize = (int)value;
+                hatrisSliderText.text = value.ToString();
             });
         }
     }

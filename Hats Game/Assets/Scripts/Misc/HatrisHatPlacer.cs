@@ -131,14 +131,17 @@ public class HatrisHatPlacer : MonoBehaviour
             {
                 neighbour1 = currentCell.GetNeighbor((HexDirection)((thisHatRotInt) % 6));
                 neighbour2 = currentCell.GetNeighbor((HexDirection)((thisHatRotInt + 1) % 6));
-               
-                if (currentCell.isHatrisCell && neighbour1.isHatrisCell && neighbour2.isHatrisCell)
+
+                if (neighbour1 && neighbour2)
                 {
-                    transform.position = new Vector3(transform.position.x, 5f, transform.position.z);
-                }
-                else
-                {
-                    transform.position = new Vector3(transform.position.x, -1f, transform.position.z);
+                    if (currentCell.isHatrisCell && neighbour1.isHatrisCell && neighbour2.isHatrisCell)
+                    {
+                        transform.position = new Vector3(transform.position.x, 5f, transform.position.z);
+                    }
+                    else
+                    {
+                        transform.position = new Vector3(transform.position.x, -1f, transform.position.z);
+                    }
                 }
             }
         }
@@ -207,7 +210,6 @@ public class HatrisHatPlacer : MonoBehaviour
         currentCell = landCell;
 
 
-
         if (landCell.isBinHat)
         {
             gameManager.tileSelected = false;
@@ -222,8 +224,6 @@ public class HatrisHatPlacer : MonoBehaviour
         else
         {
                 HatrisHexCell[] meshCells = new HatrisHexCell[8];
-                
-
                 int landPiecesCount = 0;
 
                 if (landCell != null && landCell.transform.GetChild(0).childCount == 6)
@@ -240,8 +240,6 @@ public class HatrisHatPlacer : MonoBehaviour
 
                         if (neighbour1 != null && neighbour1.transform.GetChild(0).childCount == 6 && neighbour2 != null && neighbour2.transform.GetChild(0).childCount == 6)
                         {
-                            
-
                             for (int i = 0; i < 2; i++)
                             {
                                 meshCells[i + 4] = neighbour1.transform.GetChild(0).GetChild((thisHatRotInt + ((i + 1) % 6)) % 6).GetComponent<HatrisHexCell>();
@@ -295,8 +293,6 @@ public class HatrisHatPlacer : MonoBehaviour
                             meshPiecesCount++;
                         }
                     }
-
-
 
                     if (meshPiecesCount > 0)
                     {
@@ -392,8 +388,6 @@ public class HatrisHatPlacer : MonoBehaviour
                             }
 
                             scoreKeeper.KeepScore();
-                            scoreKeeper.playerCount++;
-                            scoreKeeper.playerCount = scoreKeeper.playerCount % 2;
 
                             ResetButton();
                         }
