@@ -10,6 +10,8 @@ public class HatrisScoreKeeper : MonoBehaviour
     public TextMeshProUGUI team1Score;
     public TextMeshProUGUI team2Score;
 
+    public TextMeshProUGUI winner;
+
     public int score1 = 0;
     public int score2 = 0;
 
@@ -26,6 +28,8 @@ public class HatrisScoreKeeper : MonoBehaviour
     public HexGrid grid;
     public HatrisHexCell[] cellCells;
     public List<HexCell> cellList;
+    public List<HexCell> possibleCells;
+    public bool cellFlash;
 
     public Material origin;
     public Material potentialMat;
@@ -94,6 +98,7 @@ public class HatrisScoreKeeper : MonoBehaviour
     public void FindHatMoves()
     {
         Debug.Log("Searching for hat moves");
+        possibleCells.Clear();
         foreach (HexCell cell in cellList)
         {
             for (int i = 0; i < 6; i++)
@@ -122,7 +127,11 @@ public class HatrisScoreKeeper : MonoBehaviour
                     }
                     if (landPiecesCount == 0)
                     {
-                        FlashCells(cell);
+                        possibleCells.Add(cell); 
+                        if (cellFlash)
+                        {
+                            FlashCells(cell);
+                        }
                     }
                 }
             }
@@ -132,6 +141,7 @@ public class HatrisScoreKeeper : MonoBehaviour
     public void FindReverseHatMoves()
     {
         Debug.Log("Searching for reverse hat moves");
+        possibleCells.Clear();
         foreach (HexCell cell in cellList)
         {
             for (int i = 0; i < 6; i++)
@@ -147,8 +157,8 @@ public class HatrisScoreKeeper : MonoBehaviour
                     }
                     for (int j = 0; j < 2; j++)
                     {
-                        meshCells[j + 4] = neighbour1.transform.GetChild(0).GetChild((i % 6) % 6).GetComponent<HatrisHexCell>();
-                        meshCells[j + 6] = neighbour2.transform.GetChild(0).GetChild((i + ((j + 1) % 6)) % 6).GetComponent<HatrisHexCell>();
+                        meshCells[j + 4] = neighbour1.transform.GetChild(0).GetChild((i + ((j + 2) % 6)) % 6).GetComponent<HatrisHexCell>();
+                        meshCells[j + 6] = neighbour2.transform.GetChild(0).GetChild((i + ((j + 4) % 6)) % 6).GetComponent<HatrisHexCell>();
                     }
                     int landPiecesCount = 0;
                     for (int k = 0; k < meshCells.Length; k++)
@@ -160,7 +170,11 @@ public class HatrisScoreKeeper : MonoBehaviour
                     }
                     if (landPiecesCount == 0)
                     {
-                        FlashCells(cell);
+                        possibleCells.Add(cell);
+                        if (cellFlash)
+                        {
+                            FlashCells(cell);
+                        }
                     }
                 }
             }
@@ -174,18 +188,62 @@ public class HatrisScoreKeeper : MonoBehaviour
 
     IEnumerator FlashCell(HexCell cell)
     {
-        for (int j = 0; j < 3; j++)
+        for (int j = 0; j < 2; j++)
         {
             for (int i = 0; i < 6; i++)
             {
                 cell.transform.GetChild(0).GetChild(i).GetComponent<MeshRenderer>().material = potentialMat;
             }
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             for (int i = 0; i < 6; i++)
             {
                 cell.transform.GetChild(0).GetChild(i).GetComponent<MeshRenderer>().material = origin;
             }
             yield return new WaitForSeconds(0.5f);
         }
+    }
+
+    public void CheckGameOver()
+    {
+        FindHatMoves();
+        if (possibleCells.Count == 0)
+        {
+            FindReverseHatMoves();
+            if (possibleCells.Count == 0)
+            {
+                GameOver();
+            }
+        }
+    }
+
+    public void GameOver()
+    {
+        GameObject HatTab = GameObject.FindGameObjectWithTag("Hat Tab");
+        HatTab.SetActive(false);
+        winner.gameObject.SetActive(true);
+        if (score1 > score2)
+        {
+            winner.text = "Player 1 wins!";
+        }
+        else if (score1 < score2)
+        {
+            winner.text = "Player 2 wins!";
+        }
+        else
+        {
+            winner.text = "It's a draw";
+        }
+    }
+
+    public void cellFlashOn()
+    {
+        StartCoroutine(flashBool());
+    }
+
+    IEnumerator flashBool()
+    {
+        cellFlash = true;
+        yield return new WaitForSeconds(1);
+        cellFlash = false;
     }
 }

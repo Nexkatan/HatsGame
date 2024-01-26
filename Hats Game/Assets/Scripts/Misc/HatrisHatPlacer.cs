@@ -388,8 +388,9 @@ public class HatrisHatPlacer : MonoBehaviour
                             }
 
                             scoreKeeper.KeepScore();
-
                             ResetButton();
+
+                        scoreKeeper.CheckGameOver();
                         }
                     }
                 }
