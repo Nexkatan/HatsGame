@@ -56,6 +56,9 @@ MonoBehaviour:
   generators:
   - {fileID: 8893192157902747464, guid: 2c6d9ccd0e00450489d76bffd45a0648, type: 3}
   gateRot: 0
+  reverseColour: 0
+  pipeMaterial1: {fileID: 2100000, guid: 7c9c11fec9ac42c4397ace22d3592f93, type: 2}
+  pipeMaterial2: {fileID: 2100000, guid: 7ec05d82e4ffdc54a8a8934577534231, type: 2}
 --- !u!33 &4731366601815547753
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -104,7 +104,7 @@ public class Player : MonoBehaviour
 
     private void UpdateAvatarRotation()
     {
-        avatarRotation +=
+        /*avatarRotation +=
             rotationVelocity * Time.deltaTime * Input.GetAxis("Horizontal");
         if (avatarRotation < 0f)
         {
@@ -113,14 +113,22 @@ public class Player : MonoBehaviour
         else if (avatarRotation >= 360f)
         {
             avatarRotation -= 360f;
-        }
-        if (Input.GetKeyDown(KeyCode.S))
+        }*/
+        if (Input.GetKeyDown(KeyCode.S) || (Input.GetKeyDown(KeyCode.RightArrow)))
         {
             Vector3 m_EulerAngleVelocity = new Vector3(-60, 0, 0);
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity);
             rotater.GetChild(0).rotation *= deltaRotation;
             rotater.localRotation = Quaternion.Euler(avatarRotation, 0f, 0f);
         }
+        if (Input.GetKeyDown(KeyCode.W) || (Input.GetKeyDown(KeyCode.LeftArrow)))
+        {
+            Vector3 m_EulerAngleVelocity = new Vector3(60, 0, 0);
+            Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity);
+            rotater.GetChild(0).rotation *= deltaRotation;
+            rotater.localRotation = Quaternion.Euler(avatarRotation, 0f, 0f);
+        }
+
     }
 
     private void FlipHat()

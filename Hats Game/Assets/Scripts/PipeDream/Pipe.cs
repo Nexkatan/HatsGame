@@ -29,6 +29,12 @@ public class Pipe : MonoBehaviour
 
     public float gateRot;
 
+    public bool reverseColour;
+    public Material pipeMaterial1;
+    public Material pipeMaterial2;
+
+
+
     private void Awake()
     {
         GetComponent<MeshFilter>().mesh = mesh = new Mesh();
@@ -157,6 +163,14 @@ public class Pipe : MonoBehaviour
         if(withItems)
         {
             generators[Random.Range(0, generators.Length)].GenerateItems(this);
+            if (reverseColour)
+            {
+                GetComponent<MeshRenderer>().material = pipeMaterial2;
+            }
+            else
+            {
+                GetComponent<MeshRenderer>().material = pipeMaterial1;
+            }
         }
     }
 

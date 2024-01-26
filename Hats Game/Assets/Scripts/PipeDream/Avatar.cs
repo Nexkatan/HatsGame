@@ -21,6 +21,7 @@ public class Avatar : MonoBehaviour
     {
         if (deathCountdown >= 0f)
         {
+            this.transform.GetChild(0).gameObject.SetActive(false);
             ParticleSystem.MainModule main = burst.main;
             var em = main.maxParticles;
             burst.Emit(em);
