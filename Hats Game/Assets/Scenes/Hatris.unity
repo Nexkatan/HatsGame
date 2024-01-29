@@ -1158,8 +1158,24 @@ MonoBehaviour:
   grid: {fileID: 238719235}
   cellCells: []
   cellList: []
-  possibleCells: []
+  possibleMoves: []
+  onePtHatMoves: []
+  twoPtHatMoves: []
+  threePtHatMoves: []
+  onePtReverseHatMoves: []
+  twoPtReverseHatMoves: []
+  threePtReverseHatMoves: []
+  onePtMoves: []
+  twoPtMoves: []
+  threePtMoves: []
   cellFlash: 0
+  AIMove: {fileID: 0}
+  AIMoveIsReverse: 0
+  AIMoveIntRotation: 0
+  AIHat: {fileID: 428455810980651803, guid: 76644e39d15ea534a864b74a9cbc5336, type: 3}
+  scoreCell: 0
+  scoreNeighbour1: 0
+  scoreNeighbour2: 0
   origin: {fileID: 2100000, guid: 696b7dc96bf76fa49bfa66c86b991263, type: 2}
   potentialMat: {fileID: 2100000, guid: 8b447962926af094b8d4d58bfc613361, type: 2}
 --- !u!1 &1546911961

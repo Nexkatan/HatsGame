@@ -33,6 +33,9 @@ public class HexCell : MonoBehaviour
     public bool isHatrisCell;
     public int playerCellScored;
 
+    public bool isReverseHatMove;
+    public int moveIntRotation;
+
     public HexCell GetNeighbor(HexDirection direction)
     {
         return neighbors[(int)direction];

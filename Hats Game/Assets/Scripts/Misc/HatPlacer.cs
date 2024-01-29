@@ -326,6 +326,9 @@ public class HatPlacer : MonoBehaviour
                         tag = normalTag;
                     }
 
+                    thisHatRot = transform.eulerAngles;
+                    thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
+
                     Selecter selecter = GetComponentInChildren<Selecter>();
 
                     if (selecter.birthButton != null)

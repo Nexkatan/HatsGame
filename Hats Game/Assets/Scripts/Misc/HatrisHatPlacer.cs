@@ -157,7 +157,7 @@ public class HatrisHatPlacer : MonoBehaviour
             thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
         }
     }
-    private void FlipHat()
+    public void FlipHat()
     {
         if (!gameManager.gameOver)
         {
@@ -181,12 +181,16 @@ public class HatrisHatPlacer : MonoBehaviour
 
                 if (CompareTag("Hat"))
                 {
-                    tag = reverseTag;
+                    tag = reverseTag; 
                 }
                 else
                 {
                     tag = normalTag;
+                    thisHatRotInt = (thisHatRotInt + 5) % 6;
                 }
+
+                thisHatRot = transform.eulerAngles;
+                thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
 
                 Selecter selecter = GetComponentInChildren<Selecter>();
                 if (selecter.birthButton != null)
@@ -390,7 +394,8 @@ public class HatrisHatPlacer : MonoBehaviour
                             scoreKeeper.KeepScore();
                             ResetButton();
 
-                        scoreKeeper.CheckGameOver();
+                        //scoreKeeper.CheckGameOver();
+                        scoreKeeper.MoveAIPlayerHat();
                         }
                     }
                 }
