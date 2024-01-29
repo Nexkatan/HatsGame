@@ -28,6 +28,9 @@ public class HatrisScoreKeeper : MonoBehaviour
     public HexGrid grid;
     public HatrisHexCell[] cellCells;
     public List<HexCell> cellList;
+
+    public List<HexCell> possibleHatMoves;
+    public List<HexCell> possibleReverseHatMoves;
     public List<HexCell> possibleMoves;
 
     public List<HexCell> onePtHatMoves;
@@ -52,8 +55,13 @@ public class HatrisScoreKeeper : MonoBehaviour
     public bool scoreNeighbour1;
     public bool scoreNeighbour2;
 
+    public bool didDeselect;
+
     public Material origin;
     public Material potentialMat;
+
+
+    public HatrisHexCell[] meshCells = new HatrisHexCell[8];
 
     private void Start()
     {
@@ -64,7 +72,7 @@ public class HatrisScoreKeeper : MonoBehaviour
 
         grid = FindObjectOfType<HexGrid>();
         cellCells = FindObjectsOfType<HatrisHexCell>();
-        
+
         foreach (var cell in cellCells)
         {
             HexCell parentHexCell = cell.transform.parent.parent.GetComponent<HexCell>();
@@ -77,7 +85,6 @@ public class HatrisScoreKeeper : MonoBehaviour
 
     public void AddScore(int scoreToAdd)
     {
-        Debug.Log("Score Add");
         if (playerCount == 0)
         {
             score1 = score1 + scoreToAdd;
@@ -99,11 +106,11 @@ public class HatrisScoreKeeper : MonoBehaviour
         {
             if (cell.isHatrisCell)
             {
-               if (cell.playerCellScored == 1)
+                if (cell.playerCellScored == 1)
                 {
                     score1++;
                 }
-               else if (cell.playerCellScored == 2)
+                else if (cell.playerCellScored == 2)
                 {
                     score2++;
                 }
@@ -118,7 +125,6 @@ public class HatrisScoreKeeper : MonoBehaviour
 
     public void FindHatMoves()
     {
-        Debug.Log("Searching for hat moves");
         ClearHatsLists();
         foreach (HexCell cell in cellList)
         {
@@ -148,10 +154,14 @@ public class HatrisScoreKeeper : MonoBehaviour
                     }
                     if (landPiecesCount == 0)
                     {
-                        possibleMoves.Add(cell);
+                        possibleHatMoves.Add(cell);
+                        if (!didDeselect)
+                        {
+                            cell.moveIntRotation = i;
+                        }
                         if (cellFlash)
                         {
-                            FlashCells(cell);
+                            //FlashCells(cell);
                         }
 
 
@@ -208,7 +218,6 @@ public class HatrisScoreKeeper : MonoBehaviour
 
     public void FindReverseHatMoves()
     {
-        Debug.Log("Searching for reverse hat moves");
         ClearReverseHatsLists();
         foreach (HexCell cell in cellList)
         {
@@ -238,10 +247,14 @@ public class HatrisScoreKeeper : MonoBehaviour
                     }
                     if (landPiecesCount == 0)
                     {
-                        possibleMoves.Add(cell);
+                        possibleReverseHatMoves.Add(cell); 
+                        if (!didDeselect)
+                        {
+                            cell.moveIntRotation = i;
+                        }
                         if (cellFlash)
                         {
-                            FlashCells(cell);
+                            //FlashCells(cell);
                         }
 
 
@@ -250,7 +263,6 @@ public class HatrisScoreKeeper : MonoBehaviour
                         {
                             count3++;
                             cell.isReverseHatMove = true;
-                            Debug.Log(cell + ": i: " + i);
                             cell.moveIntRotation = i;
                         }
 
@@ -270,13 +282,11 @@ public class HatrisScoreKeeper : MonoBehaviour
                         if (count1 == 4)
                         {
                             count3++;
-                            Debug.Log(cell + ": i: " + i);
                             cell.moveIntRotation = i;
                         }
                         if (count2 == 4)
                         {
                             count3++;
-                            Debug.Log(cell + ": i: " + i);
                             cell.moveIntRotation = i;
                         }
 
@@ -293,7 +303,7 @@ public class HatrisScoreKeeper : MonoBehaviour
                             onePtReverseHatMoves.Add(cell);
                         }
 
-                        
+
                     }
                 }
             }
@@ -302,7 +312,7 @@ public class HatrisScoreKeeper : MonoBehaviour
 
     public void FlashCells(HexCell cell)
     {
-       StartCoroutine(FlashCell(cell));
+        StartCoroutine(FlashCell(cell));
     }
 
     IEnumerator FlashCell(HexCell cell)
@@ -325,18 +335,17 @@ public class HatrisScoreKeeper : MonoBehaviour
     public void CheckGameOver()
     {
         FindHatMoves();
-        if (possibleMoves.Count == 0)
+        FindReverseHatMoves();
+        if (possibleHatMoves.Count == 0 && possibleReverseHatMoves.Count == 0)
         {
-            FindReverseHatMoves();
-            if (possibleMoves.Count == 0)
-            {
-                GameOver();
-            }
+            GameOver();
         }
+
     }
 
     public void GameOver()
     {
+        GetComponent<GameManager>().gameOver = true;
         GameObject HatTab = GameObject.FindGameObjectWithTag("Hat Tab");
         HatTab.SetActive(false);
         winner.gameObject.SetActive(true);
@@ -368,7 +377,7 @@ public class HatrisScoreKeeper : MonoBehaviour
 
     void ClearHatsLists()
     {
-        possibleMoves.Clear();
+        possibleHatMoves.Clear();
         onePtHatMoves.Clear();
         twoPtHatMoves.Clear();
         threePtHatMoves.Clear();
@@ -380,11 +389,10 @@ public class HatrisScoreKeeper : MonoBehaviour
 
     void ClearReverseHatsLists()
     {
-        possibleMoves.Clear();
+        possibleReverseHatMoves.Clear();
         onePtReverseHatMoves.Clear();
         twoPtReverseHatMoves.Clear();
         threePtReverseHatMoves.Clear();
-
 
         scoreCell = false;
         scoreNeighbour1 = false;
@@ -394,42 +402,59 @@ public class HatrisScoreKeeper : MonoBehaviour
 
     public void MoveAIPlayerHat()
     {
+
         ClearHatsLists();
         ClearReverseHatsLists();
 
         onePtMoves.Clear();
         twoPtMoves.Clear();
         threePtMoves.Clear();
+        possibleMoves.Clear();
 
         FindHatMoves();
-        //FindReverseHatMoves();
+        FindReverseHatMoves();
         AddMovesToList();
 
-        if (threePtMoves.Count > 0)
+        if (playerCount > 0)
         {
-            ChooseRandomMoveFromList(threePtMoves);
-        }
-        else if (twoPtMoves.Count > 0)
-        {
-            ChooseRandomMoveFromList(twoPtMoves);
-        }
-        else if (onePtMoves.Count > 0)
-        {
-            ChooseRandomMoveFromList(onePtMoves);
-        }
+            if (threePtMoves.Count > 0)
+            {
+                ChooseRandomMoveFromList(threePtMoves);
+            }
+            else if (twoPtMoves.Count > 0)
+            {
+                ChooseRandomMoveFromList(twoPtMoves);
+            }
+            else if (onePtMoves.Count > 0)
+            {
+                ChooseRandomMoveFromList(onePtMoves);
+            }
+            else if (possibleMoves.Count > 0)
+            {
+                for (int i = 0; i < possibleMoves.Count; i++)
+                {
+                    if (CheckValid(possibleMoves[i], AIMoveIntRotation))
+                    {
+                        ChooseRandomMoveFromList(possibleMoves);
+                    }
+                }
+            }
+            MoveThere(AIMove);
 
-        MoveThere(AIMove);
+        }
     }
 
     void AddMovesToList()
     {
-        if (possibleMoves.Count > 0)
+        if (possibleHatMoves.Count > 0 || possibleReverseHatMoves.Count > 0)
         {
             if (threePtHatMoves.Count > 0 || threePtReverseHatMoves.Count > 0)
             {
                 if (threePtHatMoves.Count >= threePtReverseHatMoves.Count)
                 {
+                    FindHatMoves();
                     AIMoveIsReverse = false;
+                    threePtMoves.Clear();
                     for (int i = 0; i < threePtHatMoves.Count; i++)
                     {
                         threePtMoves.Add(threePtHatMoves[i]);
@@ -437,18 +462,22 @@ public class HatrisScoreKeeper : MonoBehaviour
                 }
                 else if (threePtHatMoves.Count < threePtReverseHatMoves.Count)
                 {
+                    FindReverseHatMoves();
                     AIMoveIsReverse = true;
+                    threePtMoves.Clear();
                     for (int i = 0; i < threePtReverseHatMoves.Count; i++)
                     {
                         threePtMoves.Add(threePtReverseHatMoves[i]);
                     }
                 }
             }
-            if (twoPtHatMoves.Count > 0 || twoPtReverseHatMoves.Count > 0)
+            else if (twoPtHatMoves.Count > 0 || twoPtReverseHatMoves.Count > 0)
             {
                 if (twoPtHatMoves.Count >= twoPtReverseHatMoves.Count)
                 {
+                    FindHatMoves();
                     AIMoveIsReverse = false;
+                    twoPtMoves.Clear();
                     for (int i = 0; i < twoPtHatMoves.Count; i++)
                     {
                         twoPtMoves.Add(twoPtHatMoves[i]);
@@ -456,18 +485,22 @@ public class HatrisScoreKeeper : MonoBehaviour
                 }
                 else if (twoPtHatMoves.Count < twoPtReverseHatMoves.Count)
                 {
+                    FindReverseHatMoves();
                     AIMoveIsReverse = true;
+                    twoPtMoves.Clear();
                     for (int i = 0; i < twoPtReverseHatMoves.Count; i++)
                     {
                         twoPtMoves.Add(twoPtReverseHatMoves[i]);
                     }
                 }
             }
-            if (onePtHatMoves.Count > 0 || onePtReverseHatMoves.Count > 0)
+            else if (onePtHatMoves.Count > 0 || onePtReverseHatMoves.Count > 0)
             {
                 if (onePtHatMoves.Count >= onePtReverseHatMoves.Count)
                 {
+                    FindHatMoves();
                     AIMoveIsReverse = false;
+                    onePtMoves.Clear();
                     for (int i = 0; i < onePtHatMoves.Count; i++)
                     {
                         onePtMoves.Add(onePtHatMoves[i]);
@@ -475,52 +508,152 @@ public class HatrisScoreKeeper : MonoBehaviour
                 }
                 else if (onePtHatMoves.Count < onePtReverseHatMoves.Count)
                 {
+                    FindReverseHatMoves();
                     AIMoveIsReverse = true;
+                    onePtMoves.Clear();
                     for (int i = 0; i < onePtReverseHatMoves.Count; i++)
                     {
                         onePtMoves.Add(onePtReverseHatMoves[i]);
                     }
                 }
             }
-
             else
             {
-                HexCell cellFlash = possibleMoves[Random.Range(0, possibleMoves.Count)];
-                Debug.Log("0pts at: " + cellFlash);
-                FlashCells(cellFlash);
+                if (possibleHatMoves.Count >= possibleReverseHatMoves.Count)
+                {
+                    FindHatMoves();
+                    AIMoveIsReverse = false;
+                    possibleMoves.Clear();
+                    for (int i = 0; i < possibleHatMoves.Count; i++)
+                    {
+                        possibleMoves.Add(possibleHatMoves[i]);
+                    }
+                }
+                else if (possibleHatMoves.Count < possibleReverseHatMoves.Count)
+                {
+                    FindReverseHatMoves();
+                    AIMoveIsReverse = true;
+                    possibleMoves.Clear();
+                    for (int i = 0; i < possibleReverseHatMoves.Count; i++)
+                    {
+                        possibleMoves.Add(possibleReverseHatMoves[i]);
+                    }
+                }
             }
         }
     }
 
-    void ChooseRandomMoveFromList(List<HexCell> list)
-    {
-        HexCell cellFlash = list[Random.Range(0, list.Count)];
-        FlashCells(cellFlash);
-        AIMove = cellFlash;
-       
-        AIMoveIntRotation = cellFlash.moveIntRotation;
-        Debug.Log(cellFlash);
-    }
+        void ChooseRandomMoveFromList(List<HexCell> list)
+        {
+            HexCell cellFlash = list[Random.Range(0, list.Count)];
+            AIMove = cellFlash;
+
+            AIMoveIntRotation = cellFlash.moveIntRotation;
+        }
 
     void MoveThere(HexCell AImoveCell)
     {
         HatrisHatPlacer AIHatToMove = Instantiate(AIHat, AImoveCell.transform.position + new Vector3(0, 5, 0), AIHat.transform.rotation).GetComponent<HatrisHatPlacer>();
         if (AIMoveIsReverse)
         {
-            Debug.Log("ReverseMove");
+            AIHatToMove.tag = "Reverse Hat";
             AIHatToMove.transform.localScale = new Vector3(-AIHatToMove.transform.localScale.x, AIHatToMove.transform.localScale.y, AIHatToMove.transform.localScale.z);
         }
-        
+
         RotateAIHat(AIHatToMove);
-
+        AIHatToMove.Start();
+        
+            AIHatToMove.Deselect();
+        
+        
     }
 
-    void RotateAIHat(HatrisHatPlacer AIHat)
-    {
-        Vector3 m_EulerAngleVelocity = new Vector3(0, 60 * AIMoveIntRotation, 0);
-        Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity);
-        AIHat.transform.rotation *= deltaRotation;
-        AIHat.thisHatRot = transform.eulerAngles;
-        AIHat.thisHatRotInt = Mathf.RoundToInt(AIHat.thisHatRot.y / 60) % 6;
+
+        void RotateAIHat(HatrisHatPlacer AIHat)
+        {
+            Vector3 m_EulerAngleVelocity = new Vector3(0, 60 * AIMoveIntRotation, 0);
+            Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity);
+            AIHat.transform.rotation *= deltaRotation;
+            AIHat.thisHatRot = transform.eulerAngles;
+            AIHat.thisHatRotInt = Mathf.RoundToInt(AIHat.thisHatRot.y / 60) % 6;
+        }
+
+     bool CheckValid(HexCell cell, int hatRotInt)
+     {
+        int landPiecesCount = 0;
+
+        if (cell != null && cell.transform.GetChild(0).childCount == 6)
+        {
+            Debug.Log("ChecK");
+
+            if (!AIMoveIsReverse)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    meshCells[i] = cell.transform.GetChild(0).GetChild((hatRotInt + ((i + 1) % 6)) % 6).GetComponent<HatrisHexCell>();
+                }
+
+                HexCell neighbour1 = cell.GetNeighbor((HexDirection)((hatRotInt + 1) % 6));
+                HexCell neighbour2 = cell.GetNeighbor((HexDirection)((hatRotInt + 2) % 6));
+
+                if (neighbour1 != null && neighbour1.transform.GetChild(0).childCount == 6 && neighbour2 != null && neighbour2.transform.GetChild(0).childCount == 6)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        meshCells[i + 4] = neighbour1.transform.GetChild(0).GetChild((hatRotInt + ((i + 4) % 6)) % 6).GetComponent<HatrisHexCell>();
+                        meshCells[i + 6] = neighbour2.transform.GetChild(0).GetChild((hatRotInt + ((i) % 6)) % 6).GetComponent<HatrisHexCell>();
+                    }
+                    for (int i = 0; i < meshCells.Length; i++)
+                    {
+                        if (meshCells[i].hatPieceAbove != null)
+                        {
+                            landPiecesCount++;
+                        }
+                    }
+                }
+            }
+
+            else
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    meshCells[i] = cell.transform.GetChild(0).GetChild((hatRotInt + ((i + 2) % 6)) % 6).GetComponent<HatrisHexCell>();
+                }
+
+                HexCell neighbour1 = cell.GetNeighbor((HexDirection)((hatRotInt + 3) % 6));
+                HexCell neighbour2 = cell.GetNeighbor((HexDirection)((hatRotInt + 4) % 6));
+
+                if (neighbour1 != null && neighbour1.transform.GetChild(0).childCount == 6 && neighbour2 != null && neighbour2.transform.GetChild(0).childCount == 6)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        meshCells[i + 4] = neighbour2.transform.GetChild(0).GetChild((hatRotInt + ((i + 1) % 6)) % 6).GetComponent<HatrisHexCell>();
+                        meshCells[i + 6] = neighbour1.transform.GetChild(0).GetChild((hatRotInt + ((i + 5) % 6)) % 6).GetComponent<HatrisHexCell>();
+                    }
+                    for (int i = 0; i < meshCells.Length; i++)
+                    {
+                        if (meshCells[i].hatPieceAbove != null)
+                        {
+                            landPiecesCount++;
+                        }
+                    }
+                }
+            }
+
+            if (landPiecesCount > 0)
+            {
+                Debug.Log("Invalid placement at: " + cell);
+                return false;
+            }
+            else
+            {
+                Debug.Log("VALID");
+                return true;
+            }
+        }
+        else
+        {
+            return true;
+        }
     }
-}
+    }

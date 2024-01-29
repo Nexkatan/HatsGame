@@ -54,7 +54,7 @@ public class HatrisHatPlacer : MonoBehaviour
 
     public HatrisScoreKeeper scoreKeeper;
 
-    void Start()
+    public void Start()
     {
         hexGrid = GameObject.FindObjectOfType<HexGrid>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -204,13 +204,13 @@ public class HatrisHatPlacer : MonoBehaviour
 
         }
     }
-    private void Deselect()
+    public void Deselect()
     {
         Debug.Log("Deselect");
         thisHatRot = transform.eulerAngles;
         thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
 
-        landCell = hexGrid.GetCell(transform.position);
+        landCell = hexGrid.GetCell(this.transform.position);
         currentCell = landCell;
 
 
@@ -301,9 +301,11 @@ public class HatrisHatPlacer : MonoBehaviour
                     if (meshPiecesCount > 0)
                     {
                         Debug.Log("Neighbour invalid");
+                        scoreKeeper.didDeselect = false;
                     }
                     else
                     {
+                        scoreKeeper.didDeselect = true;
                         for (int i = 0; i < meshCells.Length; i++)
                         {
                             if (meshCells[i].hatPieceAbove != null)
@@ -394,14 +396,18 @@ public class HatrisHatPlacer : MonoBehaviour
                             scoreKeeper.KeepScore();
                             ResetButton();
 
-                        //scoreKeeper.CheckGameOver();
-                        scoreKeeper.MoveAIPlayerHat();
+                        scoreKeeper.CheckGameOver();
+                        if (!gameManager.gameOver)
+                        {
+                            scoreKeeper.MoveAIPlayerHat();
+                        }
                         }
                     }
                 }
                 else
                 {
                     Debug.Log("Invalid");
+                    scoreKeeper.didDeselect = false;
                 }
         }
     }

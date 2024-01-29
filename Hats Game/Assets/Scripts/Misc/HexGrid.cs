@@ -109,7 +109,7 @@ public class HexGrid : MonoBehaviour
         HexCell cell = cells[i] = Instantiate<HexCell>(cellPrefab);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-
+        cell.name = cellPrefab.name + " " + i;
 
         if (x > 0)
         {
