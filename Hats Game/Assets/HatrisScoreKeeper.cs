@@ -142,7 +142,7 @@ public class HatrisScoreKeeper : MonoBehaviour
                         possibleHatMoves.Add(cell);
                         if (cellFlash)
                         {
-                            //FlashCells(cell);
+                            FlashCells(cell);
                         }
 
 
@@ -231,7 +231,7 @@ public class HatrisScoreKeeper : MonoBehaviour
                         possibleReverseHatMoves.Add(cell);
                         if (cellFlash)
                         {
-                            //FlashCells(cell);
+                            FlashCells(cell);
                         }
 
 
@@ -294,18 +294,14 @@ public class HatrisScoreKeeper : MonoBehaviour
 
     IEnumerator FlashCell(HexCell cell)
     {
+        
         for (int j = 0; j < 2; j++)
         {
-            for (int i = 0; i < 6; i++)
-            {
-                cell.transform.GetChild(0).GetChild(i).GetComponent<MeshRenderer>().material = potentialMat;
-            }
-            yield return new WaitForSeconds(0.5f);
-            for (int i = 0; i < 6; i++)
-            {
-                cell.transform.GetChild(0).GetChild(i).GetComponent<MeshRenderer>().material = origin;
-            }
-            yield return new WaitForSeconds(0.5f);
+            HexCell cellAbove = Instantiate(grid.cellPrefab, cell.transform.position + new Vector3(0, 5.2f, 0), cell.transform.rotation);
+            cellAbove.GetComponent<MeshRenderer>().material = origin;
+            yield return new WaitForSeconds(0.4f);
+            Destroy(cellAbove.gameObject);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
@@ -443,13 +439,11 @@ public class HatrisScoreKeeper : MonoBehaviour
             }
             else if (onePtMoves.Count > 0)
             {
-                Debug.Log("1pt available");
                 ChooseRandomMoveFromList(onePtMoves);
                 MoveThere(AIMove);
             }
             else if (possibleMoves.Count > 0)
             {
-                Debug.Log("0pts available");
                 ChooseRandomMoveFromList(possibleMoves);
                 while (!CheckValid(AIMove, AIMoveIntRotation) && AIMoveIntRotation < 12)
                 {
@@ -690,6 +684,10 @@ public class HatrisScoreKeeper : MonoBehaviour
 
     IEnumerator PretendThinking(HatrisHatPlacer AIhat, int amountTimes)
     {
+        foreach (Button button in HatTab.transform.GetChild(0).gameObject.GetComponentsInChildren<Button>())
+        {
+            button.interactable = false;
+        }
         for (int i = 0; i < amountTimes; i++)
         {
             AIhat.gameObject.SetActive(false);
@@ -699,5 +697,6 @@ public class HatrisScoreKeeper : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
         AIhat.Deselect();
+
     }
     }
