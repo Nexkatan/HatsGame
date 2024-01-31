@@ -301,11 +301,9 @@ public class HatrisHatPlacer : MonoBehaviour
                     if (meshPiecesCount > 0)
                     {
                         Debug.Log("Neighbour invalid");
-                        scoreKeeper.didDeselect = false;
                     }
                     else
                     {
-                        scoreKeeper.didDeselect = true;
                         for (int i = 0; i < meshCells.Length; i++)
                         {
                             if (meshCells[i].hatPieceAbove != null)
@@ -407,7 +405,6 @@ public class HatrisHatPlacer : MonoBehaviour
                 else
                 {
                     Debug.Log("Invalid");
-                    scoreKeeper.didDeselect = false;
                 }
         }
     }

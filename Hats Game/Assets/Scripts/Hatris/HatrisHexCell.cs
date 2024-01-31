@@ -11,6 +11,7 @@ public class HatrisHexCell : MonoBehaviour
     public float floorRadius;
     public float height;
 
+
     void OnEnable()
     {
         var mesh = new Mesh
