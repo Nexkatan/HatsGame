@@ -42,6 +42,8 @@ public class HatPlacer : MonoBehaviour
 
     public bool cantFlip;
 
+    private SFXClips rotateClips;
+
     void Start()
     {
         hexGrid = GameObject.FindObjectOfType<HexGrid>();
@@ -59,6 +61,8 @@ public class HatPlacer : MonoBehaviour
                 buttons.Add(button);
             }
         }
+
+        rotateClips = GetComponent<SFXClips>();
 
         colourStrings[0] = "Pink_mat (Instance) (UnityEngine.Material)";
         colourStrings[1] = "Pink_Darker_mat (Instance) (UnityEngine.Material)";
@@ -121,6 +125,10 @@ public class HatPlacer : MonoBehaviour
             this.transform.rotation *= deltaRotation;
             thisHatRot = transform.eulerAngles;
             thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
+            if (rotateClips.rotateClips.Length  > 0)
+            {
+                rotateClips.PlayRandomRotateClip();
+            }
         }
     }
     

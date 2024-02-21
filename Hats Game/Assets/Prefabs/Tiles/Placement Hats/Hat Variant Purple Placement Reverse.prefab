@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 549049024853817}
   - component: {fileID: -3204098481600285977}
   - component: {fileID: 1047146598214426155}
+  - component: {fileID: -2292282915685636964}
   m_Layer: 3
   m_Name: Hat Variant Purple Placement Reverse
   m_TagString: Reverse Hat
@@ -333,6 +334,7 @@ MonoBehaviour:
   mat1: {fileID: 2100000, guid: aeea688d193ea6243893ebdb59a13bf1, type: 2}
   mat2: {fileID: 2100000, guid: 282f924875966cf42ac2d4f68be3162b, type: 2}
   matBool: 0
+  cantFlip: 0
 --- !u!114 &-3204098481600285977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,6 +489,19 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 0
+--- !u!114 &-2292282915685636964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4256428953982782798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bcf21920f754a64883a0567b45f9d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateClips: []
 --- !u!1 &4782795325492259820
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,6 +31,8 @@ public class MultiHatPlacer : MonoBehaviour
 
     public int multiHatRotInt;
 
+    private SFXClips rotateClips
+;
     private void Awake()
     {
         hexGrid = GameObject.FindObjectOfType<HexGrid>();
@@ -66,6 +68,8 @@ public class MultiHatPlacer : MonoBehaviour
                 buttons.Add(button);
             }
         }
+
+        rotateClips = GetComponent<SFXClips>();
     }
 
     void FixedUpdate()
@@ -121,7 +125,10 @@ public class MultiHatPlacer : MonoBehaviour
                 hat.thisHatRot = hat.transform.eulerAngles.y;
                 hat.thisHatRotInt = Mathf.RoundToInt(hat.thisHatRot / 60) % 6;
             }
-            
+            if (rotateClips.rotateClips.Length > 0)
+            {
+                rotateClips.PlayRandomRotateClip();
+            }
         }
     }
   

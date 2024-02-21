@@ -981,6 +981,7 @@ GameObject:
   - component: {fileID: 2680116666646265481}
   - component: {fileID: 5992012054409532099}
   - component: {fileID: 773731161755229436}
+  - component: {fileID: 3325357620953719610}
   m_Layer: 3
   m_Name: Hat Variant Placement End Reverse
   m_TagString: Reverse Hat
@@ -1027,6 +1028,10 @@ MonoBehaviour:
     x: 0
     z: 0
   buttons: []
+  mat1: {fileID: 0}
+  mat2: {fileID: 0}
+  matBool: 0
+  cantFlip: 0
 --- !u!114 &2680116666646265481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1199,6 +1204,19 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 0
+--- !u!114 &3325357620953719610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7873439885868220321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bcf21920f754a64883a0567b45f9d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateClips: []
 --- !u!1 &7874248529714852513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,6 +1488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &8484203879016744511
 GameObject:
   m_ObjectHideFlags: 0

@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 549049024853817}
   - component: {fileID: -3204098481600285977}
   - component: {fileID: 7524649251032548030}
+  - component: {fileID: 255566418059455166}
   m_Layer: 3
   m_Name: Hat Variant Purple Placement
   m_TagString: Hat
@@ -333,6 +334,7 @@ MonoBehaviour:
   mat1: {fileID: 0}
   mat2: {fileID: 0}
   matBool: 0
+  cantFlip: 0
 --- !u!114 &-3204098481600285977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,6 +489,19 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 0
+--- !u!114 &255566418059455166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4256428953982782798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bcf21920f754a64883a0567b45f9d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateClips: []
 --- !u!1 &4782795325492259820
 GameObject:
   m_ObjectHideFlags: 0

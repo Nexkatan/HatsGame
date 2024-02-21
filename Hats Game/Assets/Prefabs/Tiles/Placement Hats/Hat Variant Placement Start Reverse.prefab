@@ -439,6 +439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &4560155776122188068
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,6 +1429,7 @@ GameObject:
   - component: {fileID: 9191540090254281473}
   - component: {fileID: 3582249591746557264}
   - component: {fileID: 7706156480801494811}
+  - component: {fileID: 6304471700566445611}
   m_Layer: 3
   m_Name: Hat Variant Placement Start Reverse
   m_TagString: Reverse Hat
@@ -1474,6 +1476,10 @@ MonoBehaviour:
     x: 0
     z: 0
   buttons: []
+  mat1: {fileID: 0}
+  mat2: {fileID: 0}
+  matBool: 0
+  cantFlip: 0
 --- !u!114 &9191540090254281473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1646,6 +1652,19 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 0
+--- !u!114 &6304471700566445611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8178099636383394061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bcf21920f754a64883a0567b45f9d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateClips: []
 --- !u!1 &8238082887083498448
 GameObject:
   m_ObjectHideFlags: 0

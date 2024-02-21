@@ -415,6 +415,7 @@ GameObject:
   - component: {fileID: -3773030478218213933}
   - component: {fileID: 6311842506273178927}
   - component: {fileID: 3735440812008600375}
+  - component: {fileID: 9092123902862058143}
   m_Layer: 3
   m_Name: Hat Variant Grey Wall
   m_TagString: Hat
@@ -463,6 +464,7 @@ MonoBehaviour:
   mat1: {fileID: 0}
   mat2: {fileID: 0}
   matBool: 1
+  cantFlip: 0
 --- !u!114 &-3773030478218213933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,6 +637,19 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 0
+--- !u!114 &9092123902862058143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6346532002515524784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bcf21920f754a64883a0567b45f9d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateClips: []
 --- !u!1 &6556661124535487827
 GameObject:
   m_ObjectHideFlags: 0

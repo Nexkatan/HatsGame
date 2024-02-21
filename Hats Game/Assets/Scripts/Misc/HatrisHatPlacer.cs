@@ -54,6 +54,7 @@ public class HatrisHatPlacer : MonoBehaviour
 
     public HatrisScoreKeeper scoreKeeper;
 
+    private SFXClips rotateClips;
     public void Start()
     {
         hexGrid = GameObject.FindObjectOfType<HexGrid>();
@@ -77,6 +78,8 @@ public class HatrisHatPlacer : MonoBehaviour
         teamMat = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material;
 
         scoreKeeper = GameObject.Find("GameManager").GetComponent<HatrisScoreKeeper>();
+
+        rotateClips = GetComponent<SFXClips>();
     }
 
     void FixedUpdate()
@@ -155,6 +158,10 @@ public class HatrisHatPlacer : MonoBehaviour
             this.transform.rotation *= deltaRotation;
             thisHatRot = transform.eulerAngles;
             thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
+            if (rotateClips.rotateClips.Length > 0)
+            {
+                rotateClips.PlayRandomRotateClip();
+            }
         }
     }
     public void FlipHat()
@@ -212,23 +219,8 @@ public class HatrisHatPlacer : MonoBehaviour
 
         landCell = hexGrid.GetCell(this.transform.position);
         currentCell = landCell;
-
-
-        if (landCell.isBinHat)
-        {
-            gameManager.tileSelected = false;
-            gameManager.selectedTile = null;
-            Destroy(gameObject);
-            for (int i = 0; i < player1buttons.Count; i++)
-            {
-                player1buttons[i].interactable = true;
-                player2buttons[i].interactable = true;
-            }
-        }
-        else
-        {
-                HatrisHexCell[] meshCells = new HatrisHexCell[8];
-                int landPiecesCount = 0;
+        HatrisHexCell[] meshCells = new HatrisHexCell[8];
+        int landPiecesCount = 0;
 
                 if (landCell != null && landCell.transform.GetChild(0).childCount == 6)
                 {
@@ -359,6 +351,7 @@ public class HatrisHatPlacer : MonoBehaviour
                                 }
                             }
                             
+                            Destroy(GetComponent<LineRenderer>());
 
                             int count2 = 0, count3 = 0, count4 = 0;
 
@@ -394,6 +387,7 @@ public class HatrisHatPlacer : MonoBehaviour
                             scoreKeeper.KeepScore();
                             ResetButton();
 
+
                         scoreKeeper.CheckGameOver();
                         if (!gameManager.gameOver)
                         {
@@ -406,8 +400,17 @@ public class HatrisHatPlacer : MonoBehaviour
                 {
                     Debug.Log("Invalid");
                 }
-        }
     }
+
+    void CheckValid()
+    {
+        thisHatRot = transform.eulerAngles;
+        thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
+
+        landCell = hexGrid.GetCell(this.transform.position);
+        currentCell = landCell;
+    }
+
     HexCell GetCellUnderCursor()
     {
         Vector3 mousePos = Input.mousePosition;
