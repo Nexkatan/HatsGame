@@ -396,8 +396,10 @@ MonoBehaviour:
   selectedTile: {fileID: 0}
   gameOver: 0
   difficulty: 2
-  _slider: {fileID: 0}
-  sliderText: {fileID: 0}
+  tilingFill_slider: {fileID: 0}
+  tilingFill_sliderText: {fileID: 0}
+  hatris_slider: {fileID: 0}
+  hatrisSliderText: {fileID: 0}
 --- !u!1001 &1873732723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -716,6 +718,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 617661931}
+    - target: {fileID: 7148745846253836534, guid: 6b0c75d3d5d20f74a94cc8383331ede3, type: 3}
+      propertyPath: pipeSystem
+      value: 
+      objectReference: {fileID: 1494284419}
     - target: {fileID: 8955672958198396936, guid: 6b0c75d3d5d20f74a94cc8383331ede3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 1
@@ -740,6 +746,10 @@ PrefabInstance:
       propertyPath: hud
       value: 
       objectReference: {fileID: 1101217554}
+    - target: {fileID: 1983933123346961993, guid: 22aef877be3c5ad47a1fb798a7d2e113, type: 3}
+      propertyPath: pipeMat
+      value: 
+      objectReference: {fileID: 2100000, guid: c2260f6d6da133d47aa3651f76e56f21, type: 2}
     - target: {fileID: 1983933123346961993, guid: 22aef877be3c5ad47a1fb798a7d2e113, type: 3}
       propertyPath: mainMenu
       value: 

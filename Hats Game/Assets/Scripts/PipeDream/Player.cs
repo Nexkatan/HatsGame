@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public ParticleSystem burst;
     
     private bool matBool;
+    public Material pipeMat;
     public Material mat1;
     public Material mat2;
 
@@ -59,30 +60,36 @@ public class Player : MonoBehaviour
 
         hud.gameObject.SetActive(true);
         hud.SetValues(distanceTraveled, velocity);
+
+
     }
 
     private void Update()
     {
-        velocity += acceleration * Time.deltaTime;
-        float delta = velocity * Time.deltaTime;
-        distanceTraveled += delta;
-        systemRotation += delta * deltaToRotation;
-        if (isActive)
+        if (velocity > 0f)
         {
-            if (systemRotation >= currentPipe.CurveAngle)
+            velocity += acceleration * Time.deltaTime;
+            float delta = velocity * Time.deltaTime;
+            distanceTraveled += delta;
+            systemRotation += delta * deltaToRotation;
+            if (isActive)
             {
-                delta = (systemRotation - currentPipe.CurveAngle) / deltaToRotation;
-                currentPipe = pipeSystem.SetupNextPipe();
-                SetupCurrentPipe();
-                systemRotation = delta * deltaToRotation;
+                if (systemRotation >= currentPipe.CurveAngle)
+                {
+                    delta = (systemRotation - currentPipe.CurveAngle) / deltaToRotation;
+                    currentPipe = pipeSystem.SetupNextPipe();
+                    SetupCurrentPipe();
+                    systemRotation = delta * deltaToRotation;
+                }
+
+                pipeSystem.transform.localRotation =
+                   Quaternion.Euler(0f, 0f, systemRotation);
+                FlipHat();
+                UpdateAvatarRotation();
+
+                worldRot = UnityEditor.TransformUtils.GetInspectorRotation(world.transform).x;
             }
-
-            pipeSystem.transform.localRotation =
-               Quaternion.Euler(0f, 0f, systemRotation);
-            FlipHat();
-            UpdateAvatarRotation();
-
-            worldRot = UnityEditor.TransformUtils.GetInspectorRotation(world.transform).x;
+       
         }
         hud.SetValues(distanceTraveled, velocity);
     }
@@ -104,16 +111,6 @@ public class Player : MonoBehaviour
 
     private void UpdateAvatarRotation()
     {
-        /*avatarRotation +=
-            rotationVelocity * Time.deltaTime * Input.GetAxis("Horizontal");
-        if (avatarRotation < 0f)
-        {
-            avatarRotation += 360f;
-        }
-        else if (avatarRotation >= 360f)
-        {
-            avatarRotation -= 360f;
-        }*/
         if (Input.GetKeyDown(KeyCode.S) || (Input.GetKeyDown(KeyCode.RightArrow)))
         {
             Vector3 m_EulerAngleVelocity = new Vector3(-60, 0, 0);
@@ -169,11 +166,7 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("dead");
-        gameObject.SetActive(false);
-        
         hud.gameObject.SetActive(false);
-
         mainMenu.EndGame(distanceTraveled);
     }
 }

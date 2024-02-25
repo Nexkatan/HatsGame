@@ -44,11 +44,7 @@ public class Avatar : MonoBehaviour
         {
             if (transform.GetChild(0).localScale.x < 0)
             {
-                if (wrap == reverseGateWrap)
-                {
-                    Debug.Log("Pass");
-                }
-                else
+                if (wrap != reverseGateWrap)
                 {
                     if (deathCountdown < 0)
                     {
@@ -66,11 +62,7 @@ public class Avatar : MonoBehaviour
         {
             if (transform.GetChild(0).localScale.x > 0)
             {
-                if (wrap == gateWrap)
-                {
-                    Debug.Log("Pass");
-                }
-                else
+                if (wrap != gateWrap)
                 {
                     if (deathCountdown < 0)
                     {
@@ -88,7 +80,6 @@ public class Avatar : MonoBehaviour
 
     private void Dying(Collider other)
     {
-        Debug.Log(other.transform.parent.parent.GetChild(0).gameObject);
         other.transform.parent.parent.GetChild(1).gameObject.SetActive(true);
         other.transform.parent.gameObject.SetActive(false);
 

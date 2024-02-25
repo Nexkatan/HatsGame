@@ -10,7 +10,7 @@ public class PipeSystem : MonoBehaviour
     public int pipeCount;
     public int emptyPipeCount;
 
-    private Pipe[] pipes;
+    public Pipe[] pipes;
 
     private void Awake()
     {

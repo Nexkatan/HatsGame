@@ -49,7 +49,6 @@ public class HatController : MonoBehaviour
         landCell = hexGrid.GetCell(transform.position);
         currentCell = landCell;
         checkTime = gameManager.difficulty;
-        Debug.Log((1 / checkTime) / 2);
         StartCoroutine(CheckValid(1 / checkTime));
         thisHatRot = transform.eulerAngles;
         thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;

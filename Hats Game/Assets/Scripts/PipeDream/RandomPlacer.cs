@@ -12,7 +12,6 @@ public class RandomPlacer : PipeItemGenerator
     public override void GenerateItems(Pipe pipe)
     {
         reverseColour = Random.value > .5;
-        Debug.Log(reverseColour);
 
         if (reverseColour)
         {
