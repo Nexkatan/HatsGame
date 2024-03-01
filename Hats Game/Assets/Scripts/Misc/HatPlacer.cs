@@ -125,7 +125,7 @@ public class HatPlacer : MonoBehaviour
             this.transform.rotation *= deltaRotation;
             thisHatRot = transform.eulerAngles;
             thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
-            if (rotateClips.rotateClips.Length  > 0)
+            if (rotateClips != null && rotateClips.rotateClips.Length  > 0)
             {
                 rotateClips.PlayRandomRotateClip();
             }
@@ -172,14 +172,6 @@ public class HatPlacer : MonoBehaviour
                         validityCheck.isValid = false;
                         HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<SpawnManager>().FlashButtonFunction(5, 0.1f);
                     }
-
-                    if (gameManager.GetComponent<TilingHoleMaker>().colourMode)
-                    {
-                        if (landCell.hatAboveMat.ToString() != this.GetComponentInChildren<MeshRenderer>().material.ToString())
-                        {
-                            validityCheck.isValid = false;
-                        }
-                    }
                 }
 
                 if (validityCheck.isValid)
@@ -201,7 +193,8 @@ public class HatPlacer : MonoBehaviour
                     isSelected = false;
                     gameManager.tileSelected = false;
                     gameManager.selectedTile = null;
-                    
+
+                    GetComponent<LineRenderer>().material.color = Color.black;
 
                     if (gameManager.GetComponent<ChainManager>())
                     {

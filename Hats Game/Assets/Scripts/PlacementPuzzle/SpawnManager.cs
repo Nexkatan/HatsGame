@@ -49,11 +49,35 @@ public class SpawnManager : MonoBehaviour
     {
         if (gameManager.selectedTile != null)
         {
-            Destroy(gameManager.selectedTile.gameObject);
-            for (int i = 0; i < buttons.Count; i++)
+            if (gameManager.GetComponent<TilingHoleMaker>() == null)
             {
-                buttons[i].interactable = true;
+                for (int i = 0; i < buttons.Count; i++)
+                {
+                    buttons[i].interactable = true;
+                }
             }
+            else
+            {
+                string[] colourStrings = new string[9];
+                colourStrings[0] = "Pink_mat (Instance) (UnityEngine.Material)";
+                colourStrings[1] = "Pink_Darker_mat (Instance) (UnityEngine.Material)";
+                colourStrings[2] = "Pink_DarkerStill_mat (Instance) (UnityEngine.Material)";
+                colourStrings[3] = "Yellow_mat (Instance) (UnityEngine.Material)";
+                colourStrings[4] = "Blue_Light_mat (Instance) (UnityEngine.Material)";
+                colourStrings[5] = "Blue_Dark_mat (Instance) (UnityEngine.Material)";
+                colourStrings[6] = "Green_Light_mat (Instance) (UnityEngine.Material)";
+                colourStrings[7] = "Green_Dark_mat (Instance) (UnityEngine.Material)";
+                colourStrings[8] = "Purple_mat (Instance) (UnityEngine.Material)";
+
+                for (int i = 0; i < colourStrings.Length;i++)
+                {
+                    if (gameManager.selectedTile.GetComponentInChildren<MeshRenderer>().material.ToString() == colourStrings[i])
+                    {
+                        buttons[i].interactable = true;
+                    }
+                }
+            }
+            Destroy(gameManager.selectedTile.gameObject);
         }
         
         if (!isSelected) 

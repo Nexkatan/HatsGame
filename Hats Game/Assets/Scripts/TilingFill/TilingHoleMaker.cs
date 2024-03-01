@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using TMPro;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Collections;
@@ -18,7 +19,6 @@ public class TilingHoleMaker : MonoBehaviour
 
     List<HexCell> hatsList = new List<HexCell>();
     List<HexCell> reverseHatsList = new List<HexCell>();
-
     List<HexCell>[] colourHatsList = new List<HexCell>[9];
 
     string[] colourStrings = new string[9];
@@ -48,6 +48,15 @@ public class TilingHoleMaker : MonoBehaviour
     private List<Button> buttons = new List<Button>();
 
     public bool colourMode;
+    public TextMeshProUGUI winText;
+    public List<Material> colourHatsListColours = new List<Material>();
+
+
+
+    List<GameObject> hatsToDestroy = new List<GameObject>();
+    public HexCell[] colourHatsToDestroy = new HexCell[0];
+
+    public bool retry;
 
     private void Awake()
     {
@@ -68,7 +77,10 @@ public class TilingHoleMaker : MonoBehaviour
         for (int i = 0; i < 9; i++)
         {
             colourHatsList[i] = new List<HexCell>();
+
         }
+
+        colourHatsListColours = new List<Material>();
 
         colourStrings[0] = "Pink_mat (Instance) (UnityEngine.Material)";
         colourStrings[1] = "Pink_Darker_mat (Instance) (UnityEngine.Material)";
@@ -112,25 +124,36 @@ public class TilingHoleMaker : MonoBehaviour
     IEnumerator CountDown()
     {
         yield return new WaitForSeconds(.01f);
-        DestroyHats();
+        DestroyHats(randomCell);
     }
 
-    public void DestroyHats()
+    public void DestroyHats(HexCell randomHatFromBefore)
     {
-        List<GameObject> hatsToDestroy = new List<GameObject>();
-        float divisor = difficulty;
-        float divisor2 = (2 + divisor) / divisor;
-        if (divisor2 > 2)
+        hatsToDestroy.Clear();
+
+        if (retry)
         {
-            divisor2 = 2;
+            randomCell = randomHatFromBefore;
         }
+        else
+        {
+            colourHatsListColours.Clear();
+            float divisor = difficulty;
+            float divisor2 = (2 + divisor) / divisor;
 
-        float xVal = Random.Range(tiling.transform.position.x - (width * divisor2 * 1.5f), tiling.transform.position.x + (width * divisor2));
-        float zVal = Random.Range(tiling.transform.position.z - (height * divisor2 * 1.2f), tiling.transform.position.z + (height * divisor2));
+            if (divisor2 > 2)
+            {
+                divisor2 = 2;
+            }
 
-        Vector3 cellCoords = new Vector3(xVal, 0, zVal);
-        randomCell = hexGrid.GetCell(cellCoords);
-        cam.transform.position = new Vector3(xVal, 150, zVal);
+            float xVal = Random.Range(tiling.transform.position.x - (width * divisor2 * 1.5f), tiling.transform.position.x + (width * divisor2));
+            float zVal = Random.Range(tiling.transform.position.z - (height * divisor2 * 1.2f), tiling.transform.position.z + (height * divisor2));
+
+            Vector3 cellCoords = new Vector3(xVal, 0, zVal);
+            randomCell = hexGrid.GetCell(cellCoords);
+            cam.transform.position = new Vector3(xVal, 150, zVal);
+        }
+        
         if (randomCell.hatAbove != null)
         {
             hatsToDestroy.Add(randomCell.hatAbove);
@@ -204,6 +227,8 @@ public class TilingHoleMaker : MonoBehaviour
             colourHatsList[i].Clear();
         }
 
+        colourHatsToDestroy = new HexCell[hatsToDestroy.Count];
+
         for (int i = 0; i < hatsToDestroy.Count; i++)
         {
             if (hatsToDestroy[i].CompareTag("Hat"))
@@ -220,6 +245,8 @@ public class TilingHoleMaker : MonoBehaviour
                 if (hatsToDestroy[i].GetComponentInChildren<MeshRenderer>().material.ToString() == colourStrings[j])
                 {
                     colourHatsList[j].Add(hexGrid.GetCell(hatsToDestroy[i].transform.position));
+                    colourHatsToDestroy[i] = hexGrid.GetCell(hatsToDestroy[i].transform.position);
+                    colourHatsListColours.Add(hatsToDestroy[i].GetComponentInChildren<MeshRenderer>().material);
                 }
             }
         }
@@ -228,16 +255,33 @@ public class TilingHoleMaker : MonoBehaviour
         hatsNumber.SetText(hatsList.Count.ToString());
         reverseHatsNumber.SetText(reverseHatsList.Count.ToString());
 
-        if (colourMode)
-        {
-            ResetColourButtons();
-        }
+        ResetColourButtons();
 
         StartCoroutine(DestroyHatsList(hatsToDestroy));
     }
 
     public void LevelComplete()
     {
+        int count = 0;
+        if (colourMode)
+        {
+            winText.gameObject.SetActive(true);
+            for (int i = 0; i < colourHatsToDestroy.Length; i++)
+            {
+                if (colourHatsToDestroy[i].GetComponent<HexCell>().hatAboveMat.ToString() != colourHatsListColours[i].ToString())
+                {
+                    count++;
+                }
+            }
+            if (count < 1)
+            {
+                winText.text = "PERFECT! You got all the colours in the right place";
+            }
+            else
+            {
+                winText.text = "Well done! You fit the shapes in but you did not manage to get all of the colours in the right place. Take a deep breath and think about your actions";
+            }
+        }
         HatTab.SetActive(false);
         levelCompleteButtons.SetActive(true);
         foreach (HatPlacer placedHat in GameObject.FindObjectsOfType<HatPlacer>())
@@ -253,15 +297,17 @@ public class TilingHoleMaker : MonoBehaviour
 
     IEnumerator DestroyHatsList(List<GameObject> list)
     {
+        
         for (int i = 0; i < list.Count; i++)
         {
-            yield return new WaitForSeconds(15 / (list.Count + 10));
-            hexGrid.GetCell(list[i].transform.position).hasHat = false;
-            hexGrid.GetCell(list[i].transform.position).hasReverseHat = false;
-            hexGrid.GetCell(list[i].transform.position).hatRot = 0;
-            hexGrid.GetCell(list[i].transform.position).hatRotInt = 0;
-            hexGrid.GetCell(list[i].transform.position).hatAbove = null;
-            Destroy(list[i]);
+            yield return new WaitForSeconds(0.2f);
+            GameObject hatToBun = list[i];
+            hexGrid.GetCell(hatToBun.transform.position).hasHat = false;
+            hexGrid.GetCell(hatToBun.transform.position).hasReverseHat = false;
+            hexGrid.GetCell(hatToBun.transform.position).hatRot = 0;
+            hexGrid.GetCell(hatToBun.transform.position).hatRotInt = 0;
+            hexGrid.GetCell(hatToBun.transform.position).hatAbove = null;
+            Destroy(hatToBun.gameObject);
         }
     }
 
@@ -280,10 +326,6 @@ public class TilingHoleMaker : MonoBehaviour
                 buttons[0].interactable = true;
             }
         }
-      else
-        {
-            ResetColourButtons();
-        }
     }
 
     public void ResetColourButtons()
@@ -295,6 +337,8 @@ public class TilingHoleMaker : MonoBehaviour
 
             buttons[i].GetComponent<SpawnManager>().numberHats = colourHatsList[i].Count;
 
+            Debug.Log(colourHats[i]);
+
             if (colourHats[i] < 1)
             {
                 buttons[i].interactable = false;
@@ -304,10 +348,22 @@ public class TilingHoleMaker : MonoBehaviour
 
     public void pReset()
     {
+        retry = false;
         if (colourMode)
-        for (int i = 0; i < 9; i++)
-        {
-            buttons[i].interactable = true;
-        }
+            for (int i = 0; i < 9; i++)
+            {
+                buttons[i].interactable = true;
+            }
+        winText.gameObject.SetActive(false);
+
+        colourHatsToDestroy = new HexCell[0];
+        
+        StartCoroutine("CountDown");
+    }
+
+    public void Retry()
+    {
+        pReset();
+        retry = true;
     }
 }
