@@ -240,22 +240,53 @@ public class TilingHoleMaker : MonoBehaviour
                 reverseHatsList.Add(hexGrid.GetCell(hatsToDestroy[i].transform.position));
             }
 
-            for (int j = 0; j < 9; j++)
+            if (colourMode)
             {
-                if (hatsToDestroy[i].GetComponentInChildren<MeshRenderer>().material.ToString() == colourStrings[j])
+                for (int j = 0; j < 9; j++)
                 {
-                    colourHatsList[j].Add(hexGrid.GetCell(hatsToDestroy[i].transform.position));
-                    colourHatsToDestroy[i] = hexGrid.GetCell(hatsToDestroy[i].transform.position);
-                    colourHatsListColours.Add(hatsToDestroy[i].GetComponentInChildren<MeshRenderer>().material);
+                    if (hatsToDestroy[i].GetComponentInChildren<MeshRenderer>().material.ToString() == colourStrings[j])
+                    {
+                        colourHatsList[j].Add(hexGrid.GetCell(hatsToDestroy[i].transform.position));
+                        colourHatsToDestroy[i] = hexGrid.GetCell(hatsToDestroy[i].transform.position);
+                        if (!retry)
+                        {
+                            colourHatsListColours.Add(hatsToDestroy[i].GetComponentInChildren<MeshRenderer>().material);
+                        }
+                    }
                 }
             }
+            
         }
+
         hats = hatsList.Count;
         reverseHats = reverseHatsList.Count;
         hatsNumber.SetText(hatsList.Count.ToString());
         reverseHatsNumber.SetText(reverseHatsList.Count.ToString());
 
-        ResetColourButtons();
+        if (hats < 1)
+        {
+            HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetComponent<Button>().interactable = false;
+        }
+        if (reverseHats < 1)
+        {
+            HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<Button>().interactable = false;
+        }
+
+        if (colourMode)
+        {
+            ResetColourButtons();
+        }
+        else
+        {
+            if (hats > 0)
+            {
+                HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetComponent<Button>().interactable = true;
+            }
+            if (reverseHats > 0)
+            {
+                HatTab.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<Button>().interactable = true;
+            }
+        }
 
         StartCoroutine(DestroyHatsList(hatsToDestroy));
     }
@@ -281,6 +312,11 @@ public class TilingHoleMaker : MonoBehaviour
             {
                 winText.text = "Well done! You fit the shapes in but you did not manage to get all of the colours in the right place. Take a deep breath and think about your actions";
             }
+        }
+        else
+        {
+            winText.gameObject.SetActive(true);
+            winText.text = "PERFECT! You got all the shapes in the right place";
         }
         HatTab.SetActive(false);
         levelCompleteButtons.SetActive(true);
@@ -354,6 +390,7 @@ public class TilingHoleMaker : MonoBehaviour
             {
                 buttons[i].interactable = true;
             }
+        levelCompleteButtons.SetActive(false);
         winText.gameObject.SetActive(false);
 
         colourHatsToDestroy = new HexCell[0];
