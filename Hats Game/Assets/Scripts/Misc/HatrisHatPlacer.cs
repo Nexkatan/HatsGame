@@ -158,7 +158,7 @@ public class HatrisHatPlacer : MonoBehaviour
             this.transform.rotation *= deltaRotation;
             thisHatRot = transform.eulerAngles;
             thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
-            if (rotateClips.rotateClips.Length > 0)
+            if (rotateClips != null && rotateClips.rotateClips.Length > 0)
             {
                 rotateClips.PlayRandomRotateClip();
             }
@@ -391,7 +391,15 @@ public class HatrisHatPlacer : MonoBehaviour
                         scoreKeeper.CheckGameOver();
                         if (!gameManager.gameOver)
                         {
+                        bool AImodeCheck = GameManager.AIMode;
+                        if (AImodeCheck == true)
+                        {
                             scoreKeeper.MoveAIPlayerHat();
+                        }
+                        else
+                        {
+
+                        }
                         }
                         }
                     }

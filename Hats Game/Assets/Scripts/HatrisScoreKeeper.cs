@@ -10,7 +10,8 @@ public class HatrisScoreKeeper : MonoBehaviour
     public TextMeshProUGUI team1Score;
     public TextMeshProUGUI team2Score;
 
-    public TextMeshProUGUI winner;
+    public GameObject gameOverPanel;
+
     public GameObject HatTab;
     public GameObject GameOverButtons;
 
@@ -320,8 +321,11 @@ public class HatrisScoreKeeper : MonoBehaviour
         playerCount = 0;
         GetComponent<GameManager>().gameOver = true;
         HatTab.SetActive(false);
+
+        gameOverPanel.SetActive(true);
+        TextMeshProUGUI winner = gameOverPanel.GetComponentInChildren<TextMeshProUGUI>();
+
         winner.gameObject.SetActive(true);
-        GameOverButtons.SetActive(true);
         if (score1 > score2)
         {
             winner.text = "Player 1 wins!";
@@ -340,8 +344,7 @@ public class HatrisScoreKeeper : MonoBehaviour
     {
         GetComponent<GameManager>().gameOver = false;
         HatTab.SetActive(true);
-        winner.gameObject.SetActive(false);
-        GameOverButtons.SetActive(false);
+        gameOverPanel.gameObject.SetActive(false);
         score1 = 0;
         score2 = 0;
         team1Score.text = score1.ToString();
@@ -583,9 +586,7 @@ public class HatrisScoreKeeper : MonoBehaviour
 
         StartCoroutine(PretendThinking(AIHatToMove, 2));
     }
-
-
-        void RotateAIHat(HatrisHatPlacer AIHat)
+    void RotateAIHat(HatrisHatPlacer AIHat)
         {
             Vector3 m_EulerAngleVelocity = new Vector3(0, 60 * AIMoveIntRotation, 0);
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity);
@@ -593,8 +594,7 @@ public class HatrisScoreKeeper : MonoBehaviour
             AIHat.thisHatRot = transform.eulerAngles;
             AIHat.thisHatRotInt = Mathf.RoundToInt(AIHat.thisHatRot.y / 60) % 6;
         }
-
-     bool CheckValid(HexCell cell, int hatRotInt)
+    bool CheckValid(HexCell cell, int hatRotInt)
      {
         int landPiecesCount = 0;
 

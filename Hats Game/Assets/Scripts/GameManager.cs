@@ -16,8 +16,9 @@ public class GameManager : MonoBehaviour
     public Slider tilingFill_slider;
     public TextMeshProUGUI tilingFill_sliderText;
     public static int tilingDifficulty = 1;
-    public static bool tilingFillColourMode;
 
+    public static bool tilingFillColourMode;
+    public static bool AIMode;
 
     public Slider hatris_slider;
     public TextMeshProUGUI hatrisSliderText;
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MainScreen");
         tilingDifficulty = 1;
         tilingFillColourMode = false;
+        AIMode = false;
     }
    public void LoadHoleInTheWall()
     {
@@ -88,5 +90,15 @@ public class GameManager : MonoBehaviour
             tilingFillColourMode = true;
         }
     }
-   
+    public void AIModeAction()
+    {
+        if (AIMode)
+        {
+            AIMode = false;
+        }
+        else
+        {
+            AIMode = true;
+        }
+    }
 }

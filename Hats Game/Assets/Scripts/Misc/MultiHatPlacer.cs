@@ -125,7 +125,7 @@ public class MultiHatPlacer : MonoBehaviour
                 hat.thisHatRot = hat.transform.eulerAngles.y;
                 hat.thisHatRotInt = Mathf.RoundToInt(hat.thisHatRot / 60) % 6;
             }
-            if (rotateClips.rotateClips.Length > 0)
+            if (rotateClips != null && rotateClips.rotateClips.Length > 0)
             {
                 rotateClips.PlayRandomRotateClip();
             }
