@@ -307,7 +307,7 @@ Transform:
   m_Children:
   - {fileID: 6751820368167175222}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &549049024853817
 MonoBehaviour:
@@ -702,7 +702,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6386872405059916354}
-  m_Mesh: {fileID: 2534964839176971238, guid: 8c13f4bbb5030804e871c586daf5f626, type: 3}
+  m_Mesh: {fileID: 7781384919829632867, guid: 8c13f4bbb5030804e871c586daf5f626, type: 3}
 --- !u!23 &8605487526556566433
 MeshRenderer:
   m_ObjectHideFlags: 0

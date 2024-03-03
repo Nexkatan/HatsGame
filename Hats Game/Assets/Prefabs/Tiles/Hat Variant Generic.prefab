@@ -139,7 +139,7 @@ Transform:
   m_Children:
   - {fileID: 9057580925428026002}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &5251171890639293380
 MonoBehaviour:
@@ -163,6 +163,10 @@ MonoBehaviour:
     x: 0
     z: 0
   buttons: []
+  mat1: {fileID: 0}
+  mat2: {fileID: 0}
+  matBool: 0
+  cantFlip: 0
 --- !u!114 &-484446874319573489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,7 +468,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3609444682315600204}
-  m_Mesh: {fileID: 2534964839176971238, guid: 8c13f4bbb5030804e871c586daf5f626, type: 3}
+  m_Mesh: {fileID: 7781384919829632867, guid: 8c13f4bbb5030804e871c586daf5f626, type: 3}
 --- !u!23 &1829376725068625838
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -614,6 +618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!54 &1144503160783371517
 Rigidbody:
   m_ObjectHideFlags: 0

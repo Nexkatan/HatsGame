@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &428455810980651803
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +101,7 @@ Transform:
   m_Children:
   - {fileID: 9033964644102136958}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &5301044757174447030
 MonoBehaviour:
@@ -124,6 +125,10 @@ MonoBehaviour:
     x: 0
     z: 0
   buttons: []
+  mat1: {fileID: 0}
+  mat2: {fileID: 0}
+  matBool: 0
+  cantFlip: 0
 --- !u!114 &4148500831240154071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,6 +369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!54 &8249430966401967689
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -458,6 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &5666765934304639123
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,6 +532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &5929431305417934205
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,6 +600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &6404132351613301809
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,6 +668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &7116658643191832563
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,6 +736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &7369754995444926744
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,6 +804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
 --- !u!1 &8276899145320142723
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,7 +846,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8276899145320142723}
-  m_Mesh: {fileID: 2534964839176971238, guid: 8c13f4bbb5030804e871c586daf5f626, type: 3}
+  m_Mesh: {fileID: 7781384919829632867, guid: 8c13f4bbb5030804e871c586daf5f626, type: 3}
 --- !u!23 &3876812271967236155
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -945,3 +957,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
+  birthButton: {fileID: 0}
