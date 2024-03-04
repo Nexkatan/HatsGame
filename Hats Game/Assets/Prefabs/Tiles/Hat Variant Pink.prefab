@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 1210867646244318610}
   - component: {fileID: 5301044757174447030}
   - component: {fileID: 4148500831240154071}
-  - component: {fileID: 7821192948024130504}
+  - component: {fileID: 45103297350344026}
   m_Layer: 3
   m_Name: Hat Variant Pink
   m_TagString: Hat
@@ -166,7 +166,7 @@ MonoBehaviour:
   thisHatRot: 0
   thisHatRotInt: 0
   hatMatIndex: 0
---- !u!120 &7821192948024130504
+--- !u!120 &45103297350344026
 LineRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -846,7 +846,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8276899145320142723}
-  m_Mesh: {fileID: 7781384919829632867, guid: 8c13f4bbb5030804e871c586daf5f626, type: 3}
+  m_Mesh: {fileID: 3797343234550416649, guid: 1b94f346bc117af4b8cb731639d34047, type: 3}
 --- !u!23 &3876812271967236155
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -219,6 +219,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6149539404630779051}
     m_Modifications:
+    - target: {fileID: 1332705033721502659, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: aeea688d193ea6243893ebdb59a13bf1, type: 2}
+    - target: {fileID: 1952682666555910604, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: aeea688d193ea6243893ebdb59a13bf1, type: 2}
     - target: {fileID: 2673410919230552599, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -283,10 +291,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: HatPieces
       objectReference: {fileID: 0}
+    - target: {fileID: 4585485354558004163, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: aeea688d193ea6243893ebdb59a13bf1, type: 2}
+    - target: {fileID: 5707058500402497515, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: aeea688d193ea6243893ebdb59a13bf1, type: 2}
+    - target: {fileID: 6989323459640931426, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: aeea688d193ea6243893ebdb59a13bf1, type: 2}
+    - target: {fileID: 7777315864412359196, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: aeea688d193ea6243893ebdb59a13bf1, type: 2}
+    - target: {fileID: 7900764897732557602, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: aeea688d193ea6243893ebdb59a13bf1, type: 2}
     - target: {fileID: 8496974355860978930, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
       propertyPath: m_Name
       value: HatPiece (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 8675874316386201169, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: aeea688d193ea6243893ebdb59a13bf1, type: 2}
     m_RemovedComponents:
     - {fileID: 5501872312334249999, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
     - {fileID: -784651627697322309, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}

@@ -8,6 +8,8 @@ public class Avatar : MonoBehaviour
 {
     private Player player;
 
+    public float explosionRadius;
+
     private ParticleSystem burst;
     private float deathCountdown = -1f;
 
@@ -80,8 +82,13 @@ public class Avatar : MonoBehaviour
 
     private void Dying(Collider other)
     {
-        other.transform.parent.parent.GetChild(1).gameObject.SetActive(true);
-        other.transform.parent.gameObject.SetActive(false);
+        GameObject gateObj = other.transform.parent.parent.GetChild(0).gameObject;
+        GameObject brokenGateObj = other.transform.parent.parent.GetChild(1).gameObject;
+        Debug.Log(gateObj);
+        Debug.Log(brokenGateObj);
+
+        gateObj.SetActive(false);
+        brokenGateObj.SetActive(true);
 
         ParticleSystem.MainModule main = burst.main;
         deathCountdown = main.startLifetime.constant;

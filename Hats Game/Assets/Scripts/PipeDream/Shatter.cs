@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class Shatter : MonoBehaviour
 {
-    public float radius, upForce;
+    public float radius;
 
-    public GameObject brokenGate;
-    private void OnCollisionEnter(Collision collision)
+    private void OnEnable()
     {
+        Player player = FindObjectOfType<Player>();
+
         Debug.Log("Hit");
         Vector3 explosionPos = transform.position;
+
         Collider[] colliders = Physics.OverlapSphere(explosionPos, radius);
-        GameObject brokenModel = Instantiate(brokenGate, transform);
-        this.gameObject.SetActive(false);
+
+        Debug.Log(colliders.Length);
+
         foreach (Collider hit in colliders)
         {
             if (hit.GetComponent<Rigidbody>())
             {
-                Debug.Log("Hit");
-                hit.gameObject.AddComponent<Rigidbody>();
-                hit.GetComponent<Rigidbody>().AddExplosionForce(5 * collision.relativeVelocity.magnitude, explosionPos, radius, 1);
+                hit.GetComponent<Rigidbody>().AddExplosionForce(player.velocity, explosionPos, radius, 1);
             }
         }
     }

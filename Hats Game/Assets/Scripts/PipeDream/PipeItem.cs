@@ -21,7 +21,6 @@ public class PipeItem : MonoBehaviour
     {
         if (staticGateRot)
         {
-
             rotater.localRotation = Quaternion.Euler(transform.parent.gameObject.GetComponent<Pipe>().gateRot - player.worldRot, 0, 0);
         }
     }

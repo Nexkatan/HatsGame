@@ -109,7 +109,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309251412427853502}
-  m_Mesh: {fileID: 7781384919829632867, guid: 8c13f4bbb5030804e871c586daf5f626, type: 3}
+  m_Mesh: {fileID: 3797343234550416649, guid: 1b94f346bc117af4b8cb731639d34047, type: 3}
 --- !u!23 &1761936667584525105
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -413,8 +413,8 @@ GameObject:
   - component: {fileID: 7409354849515025979}
   - component: {fileID: 8734412724438186215}
   - component: {fileID: -3773030478218213933}
-  - component: {fileID: 3735440812008600375}
   - component: {fileID: 1402786289489069532}
+  - component: {fileID: 5967669430771674187}
   m_Layer: 3
   m_Name: Hat Variant Grey Placement
   m_TagString: Hat
@@ -501,7 +501,20 @@ MonoBehaviour:
   thisHatRot: 0
   thisHatRotInt: 0
   hatMatIndex: 2
---- !u!120 &3735440812008600375
+--- !u!114 &1402786289489069532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6346532002515524784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bcf21920f754a64883a0567b45f9d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateClips: []
+--- !u!120 &5967669430771674187
 LineRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -618,19 +631,6 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 0
---- !u!114 &1402786289489069532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6346532002515524784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bcf21920f754a64883a0567b45f9d5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateClips: []
 --- !u!1 &6556661124535487827
 GameObject:
   m_ObjectHideFlags: 0
