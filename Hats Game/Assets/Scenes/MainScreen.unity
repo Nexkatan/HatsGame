@@ -1461,6 +1461,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: TilingFillButton
       objectReference: {fileID: 0}
+    - target: {fileID: 8561156006030793183, guid: 44e5a202e6072b141a06633942d6ba2a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8561156006030793183, guid: 44e5a202e6072b141a06633942d6ba2a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8561156006030793183, guid: 44e5a202e6072b141a06633942d6ba2a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 85.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8561156006030793183, guid: 44e5a202e6072b141a06633942d6ba2a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8763931566395926482, guid: 44e5a202e6072b141a06633942d6ba2a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2

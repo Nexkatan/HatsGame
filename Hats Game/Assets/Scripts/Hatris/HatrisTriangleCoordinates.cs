@@ -37,14 +37,5 @@ public struct HatrisTriangleCoordinates
         return X.ToString();
     }
 
-    public static HatrisTriangleCoordinates FromCell(HatrisHexCell cell)
-    {
-
-        
-
-        int iX = Mathf.RoundToInt(UnityEditor.TransformUtils.GetInspectorRotation(cell.transform).y);
-
-        return new HatrisTriangleCoordinates(iX);
-    }
 }
 

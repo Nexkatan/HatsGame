@@ -19,6 +19,7 @@ public class PipeSystem : MonoBehaviour
         {
             Pipe pipe = pipes[i] = Instantiate<Pipe>(pipePrefab);
             pipe.transform.SetParent(transform, false);
+            pipe.name = "pipe " + i.ToString();
         }
     }
 

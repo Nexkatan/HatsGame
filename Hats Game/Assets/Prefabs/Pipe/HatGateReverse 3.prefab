@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   staticGateRot: 1
   isReverse: 1
+  world: {fileID: 0}
+  gateRot: 180
 --- !u!1 &1513860168122161903
 GameObject:
   m_ObjectHideFlags: 0

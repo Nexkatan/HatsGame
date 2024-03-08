@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3714935214224501651}
   - component: {fileID: 8893192157902747464}
   m_Layer: 0
-  m_Name: RandomGateGenerator
+  m_Name: RandomGateGeneratorBoth 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +45,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemPrefabs:
-  - {fileID: 192101382020657321, guid: 3198be2ffe01da64f8701e39cb14bbed, type: 3}
-  itemPrefabs2: []
-  reverseColour: 0
+  - {fileID: 192101382020657321, guid: 3c30f490c6faa3b469a3919decc0aa77, type: 3}
+  - {fileID: 192101382020657321, guid: 3c30f490c6faa3b469a3919decc0aa77, type: 3}
+  - {fileID: 192101382020657321, guid: 3c30f490c6faa3b469a3919decc0aa77, type: 3}
+  - {fileID: 192101382020657321, guid: 3c30f490c6faa3b469a3919decc0aa77, type: 3}
+  - {fileID: 192101382020657321, guid: 3c30f490c6faa3b469a3919decc0aa77, type: 3}
+  - {fileID: 192101382020657321, guid: 3c30f490c6faa3b469a3919decc0aa77, type: 3}
+  itemPrefabs2:
+  - {fileID: 192101382020657321, guid: d56269449ae6ac240b19e5b91a3a2d10, type: 3}
+  - {fileID: 192101382020657321, guid: d56269449ae6ac240b19e5b91a3a2d10, type: 3}
+  - {fileID: 192101382020657321, guid: d56269449ae6ac240b19e5b91a3a2d10, type: 3}
+  - {fileID: 192101382020657321, guid: d56269449ae6ac240b19e5b91a3a2d10, type: 3}
+  - {fileID: 192101382020657321, guid: d56269449ae6ac240b19e5b91a3a2d10, type: 3}
+  - {fileID: 192101382020657321, guid: d56269449ae6ac240b19e5b91a3a2d10, type: 3}
+  reverseColour: 1

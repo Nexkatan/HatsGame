@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public float acceleration, velocity;
 
     public Pipe currentPipe;
+    public Pipe previousPipe;
 
     private float distanceTraveled;
 
@@ -22,7 +23,7 @@ public class Player : MonoBehaviour
     private float worldRotation, avatarRotation;
 
     public float worldRot;
-
+    public float worldRot2;
     private Camera mainCam;
 
     public ParticleSystem burst;
@@ -61,7 +62,7 @@ public class Player : MonoBehaviour
         hud.gameObject.SetActive(true);
         hud.SetValues(distanceTraveled, velocity);
 
-
+        previousPipe = pipeSystem.pipes[0];
     }
 
     private void Update()
@@ -77,6 +78,7 @@ public class Player : MonoBehaviour
                 if (systemRotation >= currentPipe.CurveAngle)
                 {
                     delta = (systemRotation - currentPipe.CurveAngle) / deltaToRotation;
+                    previousPipe = currentPipe;
                     currentPipe = pipeSystem.SetupNextPipe();
                     SetupCurrentPipe();
                     systemRotation = delta * deltaToRotation;
@@ -87,11 +89,25 @@ public class Player : MonoBehaviour
                 FlipHat();
                 UpdateAvatarRotation();
 
-                worldRot = UnityEditor.TransformUtils.GetInspectorRotation(world.transform).x;
+                float newAngle = UnwrapAngle(world.GetComponent<PipeWorld>().myRotation);
+                worldRot = newAngle;
             }
-       
+
         }
         hud.SetValues(distanceTraveled, velocity);
+    }
+
+    float UnwrapAngle(float angle)
+    {
+        if (angle > 180)
+        {
+            angle -= 360;
+        }
+        if (angle < -180)
+        {
+            angle += 360;
+        }
+        return angle;
     }
 
     private void SetupCurrentPipe()
@@ -117,6 +133,8 @@ public class Player : MonoBehaviour
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity);
             rotater.GetChild(0).rotation *= deltaRotation;
             rotater.localRotation = Quaternion.Euler(avatarRotation, 0f, 0f);
+            rotater.GetChild(0).GetComponent<Avatar>().rotFromStart = UnwrapAngle(rotater.GetChild(0).GetComponent<Avatar>().rotFromStart - 60);
+
         }
         if (Input.GetKeyDown(KeyCode.W) || (Input.GetKeyDown(KeyCode.LeftArrow)))
         {
@@ -124,6 +142,8 @@ public class Player : MonoBehaviour
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity);
             rotater.GetChild(0).rotation *= deltaRotation;
             rotater.localRotation = Quaternion.Euler(avatarRotation, 0f, 0f);
+            rotater.GetChild(0).GetComponent<Avatar>().rotFromStart = UnwrapAngle(rotater.GetChild(0).GetComponent<Avatar>().rotFromStart + 60);
+
         }
 
     }
@@ -160,7 +180,15 @@ public class Player : MonoBehaviour
                 playerHat.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = mat1;
                 matBool = !matBool;
             }
-            
+
+            if (this.CompareTag("Hat"))
+            {
+                this.tag = "Reverse Hat";
+            }
+            else if (this.CompareTag("Reverse Hat"))
+            {
+                this.tag = "Hat";
+            }
         }
     }
 

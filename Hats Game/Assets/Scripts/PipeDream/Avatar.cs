@@ -13,11 +13,17 @@ public class Avatar : MonoBehaviour
     private ParticleSystem burst;
     private float deathCountdown = -1f;
 
+    public float rotFromStart;
 
     private void Awake()
     {
         player = transform.root.GetComponent<Player>();
         burst = player.burst;
+    }
+
+    private void Start()
+    {
+        rotFromStart = 120;
     }
     private void Update()
     {
@@ -38,38 +44,71 @@ public class Avatar : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        float wrap = ((UnityEditor.TransformUtils.GetInspectorRotation(this.transform).x + 360) % 360);
-        float gateWrap = ((UnityEditor.TransformUtils.GetInspectorRotation(other.transform.parent).x + 240) % 360);
-        float reverseGateWrap = ((UnityEditor.TransformUtils.GetInspectorRotation(other.transform.parent).x + 300) % 360);
+        float wrap = Mathf.Round(rotFromStart + 360) % 360;
+        float gateWrap = Mathf.Round(other.transform.parent.parent.parent.GetComponent<PipeItem>().gateRot + 360) % 360;
+        float reverseGateWrap = Mathf.Round(other.transform.parent.parent.parent.GetComponent<PipeItem>().gateRot + 420) % 360;
+
+
+        wrapNumbers(wrap);
+        wrapNumbers(gateWrap);
+        wrapNumbers(reverseGateWrap);
+       
 
         if (other.transform.GetComponentInParent<PipeItem>().isReverse)
         {
-            if (transform.GetChild(0).localScale.x < 0)
+            if (transform.parent.parent.CompareTag("Hat"))
             {
-                if (wrap != reverseGateWrap)
-                {
-                    if (deathCountdown < 0)
-                    {
-                        Dying(other);
-                    }
-                }
+                Debug.Log("Not Same");
+                Dying(other);
             }
             else
             {
-                Dying(other);
+                if (transform.GetChild(0).localScale.x < 0)
+                {
+                    if (Mathf.Abs(wrap - reverseGateWrap) > 1)
+                    {
+                        if (deathCountdown < 0)
+                        {
+                            Debug.Log("Not Safe Reverse");
+                            Debug.Log("Wrap: " + wrap);
+                            Debug.Log("reverse Gate: " + reverseGateWrap);
+                            Dying(other);
+                        }
+                    }
+                    else
+                    {
+                    }
+                }
+                else
+                {
+                    Dying(other);
+                }
+
             }
+            
             
         }
         else if (!other.transform.GetComponentInParent<PipeItem>().isReverse)
         {
+            if (transform.parent.parent.CompareTag("Reverse Hat"))
+            {
+                Debug.Log("Not Same");
+                Dying(other);
+            }
             if (transform.GetChild(0).localScale.x > 0)
             {
-                if (wrap != gateWrap)
+                if (Mathf.Abs(wrap -gateWrap) > 1)
                 {
                     if (deathCountdown < 0)
                     {
+                        Debug.Log("Not Safe");
+                        Debug.Log("Wrap: " + wrap);
+                        Debug.Log("Gate: " + gateWrap);
                         Dying(other);
                     }
+                }
+                else
+                {
                 }
             }
             else
@@ -80,12 +119,27 @@ public class Avatar : MonoBehaviour
        
     }
 
+    float wrapNumbers(float wrapp)
+    {
+
+        if (wrapp == 360)
+        {
+            wrapp = 0;
+        }
+       
+        if (wrapp == 180)
+        {
+            wrapp = -180;
+        }
+      return wrapp;
+    }
+
     private void Dying(Collider other)
     {
         GameObject gateObj = other.transform.parent.parent.GetChild(0).gameObject;
         GameObject brokenGateObj = other.transform.parent.parent.GetChild(1).gameObject;
-        Debug.Log(gateObj);
-        Debug.Log(brokenGateObj);
+
+        Debug.Log(player.worldRot);
 
         gateObj.SetActive(false);
         brokenGateObj.SetActive(true);

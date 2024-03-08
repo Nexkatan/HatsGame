@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Pipe : MonoBehaviour
@@ -27,23 +28,16 @@ public class Pipe : MonoBehaviour
 
     public PipeItemGenerator[] generators;
 
-    public float gateRot;
+    public Quaternion gateRot;
 
     public bool reverseColour;
     public Material pipeMaterial1;
     public Material pipeMaterial2;
 
-
-
     private void Awake()
     {
         GetComponent<MeshFilter>().mesh = mesh = new Mesh();
         mesh.name = "Pipe";
-    }
-
-    private void Update()
-    {
-        gateRot = -UnityEditor.TransformUtils.GetInspectorRotation(gameObject.transform).x;
     }
 
     private void SetVertices() 

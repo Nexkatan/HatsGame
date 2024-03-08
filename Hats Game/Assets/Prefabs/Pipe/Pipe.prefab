@@ -55,10 +55,24 @@ MonoBehaviour:
   maxCurveSegmentCount: 20
   generators:
   - {fileID: 8893192157902747464, guid: 2c6d9ccd0e00450489d76bffd45a0648, type: 3}
+  euler: {x: 0, y: 0, z: 0}
+  eulerRots: {x: 0, y: 0, z: 0}
+  EulerRotFloats: {x: 0, y: 0, z: 0}
   gateRot: 0
+  gateRot2: 0
   reverseColour: 0
   pipeMaterial1: {fileID: 2100000, guid: 7c9c11fec9ac42c4397ace22d3592f93, type: 2}
   pipeMaterial2: {fileID: 2100000, guid: 7ec05d82e4ffdc54a8a8934577534231, type: 2}
+  check: 0
+  checkX1: 0
+  checkX2: 0
+  checkX3: 0
+  checkY1: 0
+  checkY2: 0
+  checkZ: 0
+  check1: 0
+  check2: 0
+  check3: 0
 --- !u!33 &4731366601815547753
 MeshFilter:
   m_ObjectHideFlags: 0
