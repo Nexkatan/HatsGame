@@ -40,8 +40,6 @@ public class HexGrid : MonoBehaviour
     public Vector2 centrePoint;
     public int HexMapRadius;
 
-    public SaveLoadMenu SaveLoadMenu;
-
     public HexMapCamera cam;
 
     public GameObject backgrounds;
@@ -258,95 +256,6 @@ public class HexGrid : MonoBehaviour
         {
             cells[i].Save(writer);
         }
-    }
-
-    public void Load(BinaryReader reader, int header)
-    {
-        int x = cellCountX, z = cellCountZ;
-        if (header >= 1)
-        {
-            x = reader.ReadInt32();
-            z = reader.ReadInt32();
-        }
-
-        if (x != cellCountX || z != cellCountZ)
-        {
-            if (!CreateMap(x, z))
-            {
-                return;
-            }
-        }
-
-        CreateMap(x, z);
-
-        int backgroundChanger = (int)Mathf.Floor(x / 20);
-        if (backgroundChanger > 3)
-        {
-            backgroundChanger = 3;
-        }
-
-        
-        for (int i = 0; i < backgrounds.transform.childCount; i++)
-        {
-            backgrounds.transform.GetChild(i).gameObject.SetActive(false);
-        }
-        backgrounds.transform.GetChild(backgroundChanger).gameObject.SetActive(true);
-        
-
-        
-        var multiHats = GameObject.FindObjectsOfType<MultiHatPlacer>();
-
-        if (multiHats.Length > 0)
-        {
-            foreach (MultiHatPlacer multiHat in multiHats)
-            {
-                Destroy(multiHat.gameObject);
-            }
-        }
-
-        var hats = GameObject.FindObjectsOfType<HatPlacer>();
-
-        if (hats.Length > 0)
-        {
-            foreach (HatPlacer hat in hats)
-            {
-                Destroy(hat.gameObject);
-            }
-        }
-
-        
-
-        for (int i = 0; i < cells.Length; i++)
-        {
-            cells[i].Load(reader);
-            if (cells[i].hasHat)
-            {
-                GameObject hat = Instantiate(hatPrefab);
-                hat.transform.position = cells[i].transform.position;
-                cells[i].hatAbove = hat;
-                cells[i].hasHat = true;
-                hat.transform.rotation = Quaternion.Euler(0f, (cells[i].hatRotInt) * 60f, 0f);
-                hat.GetComponentInChildren<MeshRenderer>().material = hatMats[cells[i].hatMatIndex];
-            }
-            else if (cells[i].hasReverseHat)
-            {
-                GameObject hat = Instantiate(hatPrefab);
-                hat.transform.position = cells[i].transform.position;
-                hat.transform.localScale = new Vector3(-hat.transform.localScale.x, hat.transform.localScale.y, hat.transform.localScale.z);
-                hat.transform.rotation = Quaternion.Euler(0f, (cells[i].hatRotInt) * 60f, 0f);
-                hat.tag = "Reverse Hat";
-                cells[i].hatAbove = hat;
-                cells[i].hasReverseHat = true;
-
-                hat.GetComponentInChildren<MeshRenderer>().material = hatMats[cells[i].hatMatIndex];
-            }
-        }
-        for (int i = 0; i < chunks.Length; i++)
-        {
-            chunks[i].Refresh();
-        }
-
-       
     }
 
     void LoadHatrisHex()

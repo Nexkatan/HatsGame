@@ -49,15 +49,7 @@ public class SpawnManager : MonoBehaviour
     {
         if (gameManager.selectedTile != null)
         {
-            if (gameManager.GetComponent<TilingHoleMaker>() == null)
-            {
-                for (int i = 0; i < buttons.Count; i++)
-                {
-                    buttons[i].interactable = true;
-                }
-            }
-            else
-            {
+           
                 string[] colourStrings = new string[9];
                 colourStrings[0] = "Pink_mat (Instance) (UnityEngine.Material)";
                 colourStrings[1] = "Pink_Darker_mat (Instance) (UnityEngine.Material)";
@@ -76,7 +68,6 @@ public class SpawnManager : MonoBehaviour
                         buttons[i].interactable = true;
                     }
                 }
-            }
             Destroy(gameManager.selectedTile.gameObject);
         }
         
@@ -85,16 +76,7 @@ public class SpawnManager : MonoBehaviour
             GetComponent<Button>().interactable = false;
             Vector3 mousePos = Input.mousePosition;
             GameObject hatObj = Instantiate(hat, mousePos, hat.transform.rotation);
-            hatObj.transform.GetComponentInChildren<Selecter>().birthButton = GetComponent<Button>();
-
-            if (this.CompareTag("Hat") || this.CompareTag("Reverse Hat"))
-            {
-                hatObj.gameObject.GetComponent<HatPlacer>().isSelected = true;
-            }
-            else if ((this.CompareTag("Multi Hat"))) 
-            {
-                hatObj.gameObject.GetComponent<MultiHatPlacer>().isSelected = true;
-            }
+           
             gameManager.tileSelected = true;
             gameManager.selectedTile = hatObj.gameObject;
 
@@ -142,8 +124,6 @@ public class SpawnManager : MonoBehaviour
             }
         }
         */
-        gameManager.GetComponent<TilingHoleMaker>().HatTab.SetActive(true);
-        gameManager.GetComponent<TilingHoleMaker>().ResetButtons();
     }
 
     public void ResetHatrisHatTab()

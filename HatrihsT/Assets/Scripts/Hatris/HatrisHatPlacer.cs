@@ -197,15 +197,6 @@ public class HatrisHatPlacer : MonoBehaviour
 
                 thisHatRot = transform.eulerAngles;
                 thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
-
-                Selecter selecter = GetComponentInChildren<Selecter>();
-                if (selecter.birthButton != null)
-                {
-                    SpawnManager spawnManager = selecter.birthButton.GetComponent<SpawnManager>();
-                    selecter.birthButton.GetComponent<Button>().interactable = true;
-                    selecter.birthButton = spawnManager.oppositeButton;
-                    selecter.birthButton.GetComponent<Button>().interactable = false;
-                }
             }
 
         }
