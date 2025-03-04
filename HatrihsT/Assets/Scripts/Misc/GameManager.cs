@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     public Slider hatris_slider;
     public TextMeshProUGUI hatrisSliderText;
+
+    [SerializeField]
     public static int hatrisBoardSize = 3;
 
     public void Start()
