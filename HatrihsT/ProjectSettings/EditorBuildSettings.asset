@@ -9,24 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScreen.unity
     guid: e29525f400a39cc40b169f72ebf9acd8
   - enabled: 1
-    path: Assets/Scenes/Level Editor.unity
-    guid: ff728b1831be0b044a585a27c52b42c3
-  - enabled: 1
-    path: Assets/Scenes/Tiling Fill.unity
-    guid: 2d2a7b9e7396ad24bbd3e15969cc0e3c
-  - enabled: 1
     path: Assets/Scenes/Hatris.unity
     guid: 6c19d2559aae4d1498c7e153c6e94af2
-  - enabled: 1
-    path: Assets/Scenes/Hole in the Wall.unity
-    guid: 170572e6d75125548b7c8f6f1ea63d8c
-  - enabled: 1
-    path: Assets/Scenes/Placement Puzzle.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/Placement Puzzle Level Selector.unity
-    guid: a7170490fd1cc764e825722daa857d61
-  - enabled: 1
-    path: Assets/Scenes/Pipe Dream.unity
-    guid: 0ee688643d322f740bb376a226692f23
   m_configObjects: {}

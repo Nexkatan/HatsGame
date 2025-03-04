@@ -233,13 +233,11 @@ public class ChecksValid : MonoBehaviour
         for (int i = 0; i < NeighboursBool.Length; i++)
             if (!NeighboursBool[i])
             {
-                Debug.Log(((HexDirection)((i + thisHatRotInt) % 6)).Opposite());
                 return false;
             }
         for (int j = 0; j < LongboisBool.Length; j++)
             if (!LongboisBool[j])
             {
-                Debug.Log(((LongboiDirection)((j + thisHatRotInt) % 12)));
                 return false;
             }
         return true;

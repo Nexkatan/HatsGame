@@ -359,9 +359,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4409514502814867592, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 957700035599651953}
-    - targetCorrespondingSourceObject: {fileID: 4409514502814867592, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 4302895357430407118}
   m_SourcePrefab: {fileID: 100100000, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
 --- !u!1 &5430525310162065420 stripped
@@ -369,20 +366,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4409514502814867592, guid: 8a0b8ba97868e4e4c9ff25178b9d3444, type: 3}
   m_PrefabInstance: {fileID: 8533380029030922372}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &957700035599651953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5430525310162065420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 650ab9905e068254bab27723c820afb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttons: []
-  birthButton: {fileID: 0}
 --- !u!54 &4302895357430407118
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -120,13 +120,16 @@ public class HatrisHatPlacer : MonoBehaviour
                 neighbour1 = currentCell.GetNeighbor((HexDirection)((thisHatRotInt + 4) % 6));
                 neighbour2 = currentCell.GetNeighbor((HexDirection)((thisHatRotInt + 5) % 6));
 
-                if (currentCell.isHatrisCell && neighbour1.isHatrisCell && neighbour2.isHatrisCell)
+                if (neighbour1 && neighbour2)
                 {
-                    transform.position = new Vector3(transform.position.x, 5f, transform.position.z);
-                }
-                else
-                {
-                    transform.position = new Vector3(transform.position.x, -1f, transform.position.z);
+                    if (currentCell.isHatrisCell && neighbour1.isHatrisCell && neighbour2.isHatrisCell)
+                    {
+                        transform.position = new Vector3(transform.position.x, 5f, transform.position.z);
+                    }
+                    else
+                    {
+                        transform.position = new Vector3(transform.position.x, -1f, transform.position.z);
+                    }
                 }
             }
             else if (this.CompareTag("Reverse Hat"))
@@ -203,7 +206,6 @@ public class HatrisHatPlacer : MonoBehaviour
     }
     public void Deselect()
     {
-        Debug.Log("Deselect");
         thisHatRot = transform.eulerAngles;
         thisHatRotInt = Mathf.RoundToInt(thisHatRot.y / 60) % 6;
 
@@ -382,21 +384,13 @@ public class HatrisHatPlacer : MonoBehaviour
                         if (!gameManager.gameOver)
                         {
                         bool AImodeCheck = GameManager.AIMode;
-                        if (AImodeCheck == true)
+                        if (GameManager.AIMode)
                         {
                             scoreKeeper.MoveAIPlayerHat();
-                        }
-                        else
-                        {
-
                         }
                         }
                         }
                     }
-                }
-                else
-                {
-                    Debug.Log("Invalid");
                 }
     }
 
@@ -437,20 +431,23 @@ public class HatrisHatPlacer : MonoBehaviour
 
     void ResetButton()
     {
-        if (scoreKeeper.playerCount == 0)
+        if (!GameManager.AIMode)
         {
-            for (int i = 0; i < player1buttons.Count; i++)
+            if (scoreKeeper.playerCount == 0)
             {
-                player1buttons[i].interactable = true;
-                player2buttons[i].interactable = false;
+                for (int i = 0; i < player1buttons.Count; i++)
+                {
+                    player1buttons[i].interactable = true;
+                    player2buttons[i].interactable = false;
+                }
             }
-        }
-        else
-        {
-            for (int i = 0; i < player1buttons.Count; i++)
+            else
             {
-                player1buttons[i].interactable = false;
-                player2buttons[i].interactable = true;
+                for (int i = 0; i < player1buttons.Count; i++)
+                {
+                    player1buttons[i].interactable = false;
+                    player2buttons[i].interactable = true;
+                }
             }
         }
     }

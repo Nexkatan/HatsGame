@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,8 +13,12 @@ public class GameManager : MonoBehaviour
 
     public static bool AIMode;
 
+    public GameObject MainScreen;
     public Slider hatris_slider;
     public TextMeshProUGUI hatrisSliderText;
+
+    public HexGrid grid;
+    public HatrisScoreKeeper scoreKeeper;
 
     [SerializeField]
     public static int hatrisBoardSize = 3;
@@ -29,10 +35,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void LoadHatris()
+    public void LoadGame()
     {
-        SceneManager.LoadScene("Hatris");
+        grid.LoadHatrisHex();
+        scoreKeeper.LoadNewGame();
+        MainScreen.SetActive(false);
     }
+
+    public void ReloadGame()
+    {
+        scoreKeeper.Reset();
+        LoadGame();
+     }
 
     public void AIModeAction()
     {

@@ -17,6 +17,8 @@ public class SpawnManager : MonoBehaviour
     private GameObject HatTab;
     private List<Button> buttons = new List<Button>();
 
+    private GameObject hatObj;
+
     public Button oppositeButton;
 
     public int numberHats;
@@ -39,60 +41,31 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
-    {
-        SpawnHat();
-    }
-
-
     public void SpawnHat()
     {
-        if (gameManager.selectedTile != null)
+        if (gameManager.tileSelected == false)
         {
-           
-                string[] colourStrings = new string[9];
-                colourStrings[0] = "Pink_mat (Instance) (UnityEngine.Material)";
-                colourStrings[1] = "Pink_Darker_mat (Instance) (UnityEngine.Material)";
-                colourStrings[2] = "Pink_DarkerStill_mat (Instance) (UnityEngine.Material)";
-                colourStrings[3] = "Yellow_mat (Instance) (UnityEngine.Material)";
-                colourStrings[4] = "Blue_Light_mat (Instance) (UnityEngine.Material)";
-                colourStrings[5] = "Blue_Dark_mat (Instance) (UnityEngine.Material)";
-                colourStrings[6] = "Green_Light_mat (Instance) (UnityEngine.Material)";
-                colourStrings[7] = "Green_Dark_mat (Instance) (UnityEngine.Material)";
-                colourStrings[8] = "Purple_mat (Instance) (UnityEngine.Material)";
-
-                for (int i = 0; i < colourStrings.Length;i++)
-                {
-                    if (gameManager.selectedTile.GetComponentInChildren<MeshRenderer>().material.ToString() == colourStrings[i])
-                    {
-                        buttons[i].interactable = true;
-                    }
-                }
-            Destroy(gameManager.selectedTile.gameObject);
+            SpawnHatInternal();
         }
-        
-        if (!isSelected) 
+        else
         {
-            GetComponent<Button>().interactable = false;
+            Destroy(gameManager.selectedTile.gameObject);
+            SpawnHatInternal();
+        }
+    }
+
+    private void SpawnHatInternal()
+    {
+        if (!isSelected)
+        {
             Vector3 mousePos = Input.mousePosition;
-            GameObject hatObj = Instantiate(hat, mousePos, hat.transform.rotation);
-           
+            hatObj = Instantiate(hat, mousePos, hat.transform.rotation);
+
             gameManager.tileSelected = true;
             gameManager.selectedTile = hatObj.gameObject;
-
-            /*
-            if (oppositeButton != null)
-            {
-                for (int i = 0; i < buttons.Count; i++)
-                {
-                    buttons[i].interactable = false;
-                }
-                oppositeButton.interactable = true;
-            }
-            */
         }
-        
     }
+
     HexCell GetCellUnderCursor()
     {
         Vector3 mousePos = Input.mousePosition;
@@ -104,26 +77,6 @@ public class SpawnManager : MonoBehaviour
             //return hexGrid.ColorCell(hit.point);
         }
         return null;
-    }
-
-    public void ResetHatTab()
-    {
-        /*gameManager.GetComponent<TilingHoleMaker>().HatTab.SetActive(true);
-        Debug.Log(gameManager.GetComponent<TilingHoleMaker>().HatTab);
-        foreach (Button button in gameManager.GetComponent<TilingHoleMaker>().HatTab.transform.GetChild(0).GetChild(1).GetComponentsInChildren<Button>())
-        {
-            buttons.Add(button);
-        }
-        Debug.Log(buttons.Count);
-        for (int i = 0; i < buttons.Count; i++)
-        {
-            Debug.Log(buttons[i].GetComponent<SpawnManager>().numberHats);
-            if (buttons[i].GetComponent<SpawnManager>().numberHats > 0)
-            {
-                buttons[i].interactable = true;
-            }
-        }
-        */
     }
 
     public void ResetHatrisHatTab()
@@ -140,7 +93,6 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator FlashButton(int amountTimes, float flashDuration)
     {
-        Debug.Log("Flash");
         Button button = this.GetComponent<Button>();
         for (int i = 0; i < amountTimes; i++)
         {

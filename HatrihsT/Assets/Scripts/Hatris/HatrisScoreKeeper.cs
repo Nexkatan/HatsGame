@@ -64,8 +64,10 @@ public class HatrisScoreKeeper : MonoBehaviour
 
     public HatrisHexCell[] meshCells = new HatrisHexCell[8];
 
-    private void Start()
+    public void LoadNewGame()
     {
+        score1 = 0;
+        score2 = 0;
         team1Score.text = score1.ToString();
         team2Score.text = score2.ToString();
         scores[0] = score1;
@@ -349,10 +351,9 @@ public class HatrisScoreKeeper : MonoBehaviour
         score2 = 0;
         team1Score.text = score1.ToString();
         team2Score.text = score2.ToString();
-        foreach (Button button in HatTab.transform.GetChild(0).gameObject.GetComponentsInChildren<Button>())
+        foreach (Button button in HatTab.transform.GetChild(0).GetChild(0).gameObject.GetComponentsInChildren<Button>())
         {
             button.interactable = false;
-            Debug.Log(button.tag);
             if (button.CompareTag("Start"))
             {
                 button.interactable = true;
@@ -368,9 +369,9 @@ public class HatrisScoreKeeper : MonoBehaviour
         }
         foreach (HatrisHexCell cell in cellCells)
         {
-            cell.GetComponent<MeshRenderer>().material = origin;
             if (cell.hatPieceAbove != null)
             {
+                cell.GetComponent<MeshRenderer>().material = origin;
                 Destroy (cell.hatPieceAbove.gameObject);
                 cell.hatPieceAbove = null;
             }
@@ -562,12 +563,9 @@ public class HatrisScoreKeeper : MonoBehaviour
 
     HexCell ChooseRandomMoveFromList(List<HexCell> list)
     {
-        Debug.Log(list.Count);
         int listPick = Random.Range(0, list.Count);
         AIMove = list[listPick];
-        Debug.Log("ListPick: " + listPick);
         AIMoveIntRotation = AIMove.moveIntRotation;
-        Debug.Log(AIMoveIntRotation);
         return AIMove;
     }
 
@@ -600,8 +598,6 @@ public class HatrisScoreKeeper : MonoBehaviour
 
         if (cell != null && cell.transform.GetChild(0).childCount == 6)
         {
-            Debug.Log("ChecK");
-
             if (!AIMoveIsReverse)
             {
                 for (int i = 0; i < 4; i++)
@@ -667,12 +663,10 @@ public class HatrisScoreKeeper : MonoBehaviour
 
             if (landPiecesCount > 0)
             {
-                Debug.Log("Invalid placement at: " + cell);
                 return false;
             }
             else
             {
-                Debug.Log("VALID");
                 return true;
             }
         }
@@ -684,7 +678,7 @@ public class HatrisScoreKeeper : MonoBehaviour
 
     IEnumerator PretendThinking(HatrisHatPlacer AIhat, int amountTimes)
     {
-        foreach (Button button in HatTab.transform.GetChild(0).gameObject.GetComponentsInChildren<Button>())
+        foreach (Button button in HatTab.transform.GetChild(0).GetChild(0).gameObject.GetComponentsInChildren<Button>())
         {
             button.interactable = false;
         }

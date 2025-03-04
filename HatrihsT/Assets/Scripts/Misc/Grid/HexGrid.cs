@@ -50,18 +50,8 @@ public class HexGrid : MonoBehaviour
     void Awake()
     {
         HexMetrics.materials = materials;
-        HexMapRadius = GameManager.hatrisBoardSize;
-        if (isHatris)
-        {
-            LoadHatrisHex();
-            cam.transform.position = new Vector3(100f, 0f, 50f);
-        }
-        else
         
-        {
-            CreateMap(cellCountX, cellCountZ);
-        }
-
+        cam.transform.position = new Vector3(100f, 0f, 50f);
 
         cellCountX = chunkCountX * HexMetrics.chunkSizeX;
         cellCountZ = chunkCountZ * HexMetrics.chunkSizeZ;
@@ -91,8 +81,6 @@ public class HexGrid : MonoBehaviour
         }
         return null;
     }
-
-    
 
 
     public void CreateCell(int x, int z, int i)
@@ -258,8 +246,10 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-    void LoadHatrisHex()
+    public void LoadHatrisHex()
     {
+        HexMapRadius = GameManager.hatrisBoardSize;
+
         CreateMap(12, 9);
         foreach (HexCell cell in cells) 
         {
