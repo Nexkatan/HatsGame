@@ -8,11 +8,12 @@ public class HexMapCamera : MonoBehaviour
 
     float zoom = 1f;
 
-    public float stickMinZoom, stickMaxZoom, swivelMinZoom, swivelMaxZoom, moveSpeedMinZoom, moveSpeedMaxZoom, rotationSpeed, rotationAngle, swivelSpeed, swivelAngle;
+    public float stickMinZoom, stickMaxZoom, swivelMinZoom, swivelMaxZoom, moveSpeedMinZoom, moveSpeedMaxZoom, minPitch, maxPitch, currentPitch, currentYaw, rotationSpeed, rotationAngle, swivelSpeed, swivelAngle, dragRotationSpeed;
 
     public HexGrid grid;
 
     static HexMapCamera instance;
+
 
     void Awake()
     {
@@ -36,6 +37,7 @@ public class HexMapCamera : MonoBehaviour
         }
 
         float rotationDelta = Input.GetAxis("Rotation");
+        
         if (rotationDelta != 0f)
         {
             AdjustRotation(rotationDelta);
@@ -43,15 +45,41 @@ public class HexMapCamera : MonoBehaviour
 
         float xDelta = Input.GetAxis("Horizontal");
         float zDelta = Input.GetAxis("Vertical");
+        
         if (xDelta != 0f || zDelta != 0f)
         {
             AdjustPosition(xDelta, zDelta);
         }
+        
         float sDelta = Input.GetAxis("Swivel");
+
         if (sDelta != 0f)
         {
             AdjustSwivel(sDelta);
         }
+
+        if (Input.GetMouseButton(1))
+        {
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
+
+            if (mouseX != 0f || mouseY != 0f)
+            {
+                AdjustPositionDrag(mouseX, mouseY);
+            }
+        }
+
+        if (Input.GetMouseButton(2))
+        {
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
+
+            if (mouseX != 0f || mouseY != 0f)
+            {
+                AdjustRotDrag(mouseX, mouseY);
+            }
+        }
+
     }
 
     void AdjustZoom(float delta)
@@ -81,16 +109,45 @@ public class HexMapCamera : MonoBehaviour
 
     void AdjustPosition(float xDelta, float zDelta)
     {
+        float speed = Mathf.Lerp(moveSpeedMinZoom, moveSpeedMaxZoom, zoom);
+        CalculateMovement(xDelta, zDelta,speed);
+    }
+
+
+    void AdjustRotDrag(float mouseX, float mouseY)
+    {
+
+        // Adjust yaw (left-right rotation) and pitch (up-down rotation)
+        currentYaw += mouseX * dragRotationSpeed;
+        currentPitch -= mouseY * dragRotationSpeed;
+
+        // Clamp the pitch to prevent the camera from going too far up or down
+        currentPitch = Mathf.Clamp(currentPitch, minPitch, maxPitch);
+
+        // Apply the rotation to the camera
+        transform.rotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
+    }
+
+    void AdjustPositionDrag(float mouseX, float mouseY)
+    {
+        float speed = Mathf.Lerp(moveSpeedMinZoom, moveSpeedMaxZoom, zoom) * 15f;
+        CalculateMovement(-mouseX,-mouseY,speed);
+    }
+
+    void CalculateMovement(float x, float y, float speed)
+    {
         Vector3 camRight = Camera.main.transform.right;
         Vector3 camForwards = Camera.main.transform.up;
 
-        Vector3 rightInput = xDelta * camRight;
-        Vector3 forwardInput = zDelta * camForwards;
+        Vector3 rightInput = x * camRight;
+        Vector3 forwardInput = y * camForwards;
+
 
         Vector3 direction = (rightInput + forwardInput).normalized;
         direction.y = 0f;
-        float damping = Mathf.Max(Mathf.Abs(xDelta), Mathf.Abs(zDelta));
-        float distance = Mathf.Lerp(moveSpeedMinZoom, moveSpeedMaxZoom, zoom) * damping * Time.deltaTime;
+
+        float damping = Mathf.Max(Mathf.Abs(x), Mathf.Abs(y));
+        float distance = speed * damping * Time.deltaTime;
 
         Vector3 position = transform.localPosition;
         position += direction * distance;
@@ -119,9 +176,12 @@ public class HexMapCamera : MonoBehaviour
 
         float zMax =
             (grid.cellCountZ * HexMetrics.chunkSizeZ - 1) *
-            (1.5f * HexMetrics.outerRadius);
+            (0.5f * HexMetrics.outerRadius);
         position.z = Mathf.Clamp(position.z, 0f, zMax);
 
+
+        Debug.Log("x: " + xMax);
+        Debug.Log("z: " + zMax);
         return position;
     }
 

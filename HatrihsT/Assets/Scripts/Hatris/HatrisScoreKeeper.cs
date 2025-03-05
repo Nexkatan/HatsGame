@@ -342,7 +342,7 @@ public class HatrisScoreKeeper : MonoBehaviour
         }
     }
 
-    public void Reset()
+    public void ResetGame()
     {
         GetComponent<GameManager>().gameOver = false;
         HatTab.SetActive(true);
@@ -351,7 +351,7 @@ public class HatrisScoreKeeper : MonoBehaviour
         score2 = 0;
         team1Score.text = score1.ToString();
         team2Score.text = score2.ToString();
-        foreach (Button button in HatTab.transform.GetChild(0).GetChild(0).gameObject.GetComponentsInChildren<Button>())
+        foreach (Button button in HatTab.transform.GetChild(0).GetChild(1).gameObject.GetComponentsInChildren<Button>())
         {
             button.interactable = false;
             if (button.CompareTag("Start"))

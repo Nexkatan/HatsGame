@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -37,6 +35,9 @@ public class HatrisHatPlacer : MonoBehaviour
 
     private String normalTag = "Hat";
     private String reverseTag = "Reverse Hat";
+
+    private Vector3 lastMousePosition;
+
     public enum Team
     {
         None,
@@ -54,6 +55,8 @@ public class HatrisHatPlacer : MonoBehaviour
     public HatrisScoreKeeper scoreKeeper;
 
     private SFXClips rotateClips;
+
+    private bool isCameraMoving;
     public void Start()
     {
         hexGrid = GameObject.FindObjectOfType<HexGrid>();
@@ -85,16 +88,56 @@ public class HatrisHatPlacer : MonoBehaviour
     {
         if (isSelected)
         {
-            MouseMove();
+            if (!Input.GetMouseButton(1) && !Input.GetMouseButton(2))
+            {
+                MouseMove();
+            }
         }
     }
     private void Update()
     {
         if (isSelected)
         {
-            Spin();
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
+            
+            Vector3 currentMousePosition = Input.mousePosition;
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                lastMousePosition = currentMousePosition;
+            }
+
+            if (Input.GetMouseButtonUp(1))
+            {
+                currentMousePosition = Input.mousePosition;
+
+                    if ((currentMousePosition-lastMousePosition).magnitude < 100f)
+                    {
+                        Spin(1);
+                    }
+                lastMousePosition = currentMousePosition;
+            }
+
+            if (Input.GetMouseButtonDown(2))
+            {
+                lastMousePosition = currentMousePosition;
+            }
+
+            if (Input.GetMouseButtonUp(2))
+            {
+                currentMousePosition = Input.mousePosition;
+
+                if ((currentMousePosition - lastMousePosition).magnitude < 100f)
+                {
+                    Spin(-1);
+                }
+                lastMousePosition = currentMousePosition;
+            }
+
             FlipHat();
         }
+
         if (isSelected)
         {
             if (Input.GetMouseButtonDown(0) && EventSystem.current.currentSelectedGameObject == null)
@@ -151,11 +194,10 @@ public class HatrisHatPlacer : MonoBehaviour
             }
         }
     }
-    void Spin()
+
+    void Spin(float direction)
     {
-        if (Input.GetMouseButtonDown((1)) || Input.GetKeyDown(KeyCode.S))
-        {
-            Vector3 m_EulerAngleVelocity = new Vector3(0, 60, 0);
+            Vector3 m_EulerAngleVelocity = new Vector3(0, 60 * direction, 0);
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity);
             this.transform.rotation *= deltaRotation;
             thisHatRot = transform.eulerAngles;
@@ -164,7 +206,6 @@ public class HatrisHatPlacer : MonoBehaviour
             {
                 rotateClips.PlayRandomRotateClip();
             }
-        }
     }
     public void FlipHat()
     {

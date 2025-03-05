@@ -23,6 +23,8 @@ public class SpawnManager : MonoBehaviour
 
     public int numberHats;
 
+    public HexMapCamera cam;
+
     private void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -58,9 +60,38 @@ public class SpawnManager : MonoBehaviour
     {
         if (!isSelected)
         {
-            Vector3 mousePos = Input.mousePosition;
-            hatObj = Instantiate(hat, mousePos, hat.transform.rotation);
+            // Variable for rotation adjustment
+            float rotDelta = 0f;
 
+            // Check if the object is flipped (scale.x is negative)
+            if (this.transform.localScale.x < 0)
+            {
+                // If flipped, adjust yaw to snap to the nearest 60-degree interval starting from +30 degrees
+                rotDelta = Mathf.Round((cam.currentYaw + 60f) / 60f) * 60f - 60f;
+            }
+            else
+            {
+                // If not flipped, adjust yaw to snap to the nearest 60-degree interval starting from -30 degrees
+                rotDelta = Mathf.Round((cam.currentYaw) / 60f) * 60f;
+            }
+
+            // Create the yaw rotation based on the snapped yaw
+            Quaternion yawRotation = Quaternion.Euler(0f, rotDelta, 0f);
+
+            // Get the saved rotation of the hat
+            Quaternion savedRotation = hat.transform.rotation;
+
+            // Combine the saved rotation and the calculated yaw rotation
+            Quaternion combinedRotation = savedRotation * yawRotation;
+
+            // Get the mouse position and convert it to world space
+            Vector3 mousePos = Input.mousePosition;
+            Vector3 spawnPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
+
+            // Instantiate the hat object with the calculated position and rotation
+            hatObj = Instantiate(hat, spawnPosition, combinedRotation);
+
+            // Mark the tile as selected and assign the spawned object to the selected tile
             gameManager.tileSelected = true;
             gameManager.selectedTile = hatObj.gameObject;
         }

@@ -45,13 +45,12 @@ public class HexGrid : MonoBehaviour
     public GameObject backgrounds;
     public int backgroundNumber;
 
-    private GameManager gameManager;
 
     void Awake()
     {
         HexMetrics.materials = materials;
         
-        cam.transform.position = new Vector3(100f, 0f, 50f);
+        cam.transform.position = new Vector3(170f, 0f, 110f);
 
         cellCountX = chunkCountX * HexMetrics.chunkSizeX;
         cellCountZ = chunkCountZ * HexMetrics.chunkSizeZ;
@@ -250,7 +249,7 @@ public class HexGrid : MonoBehaviour
     {
         HexMapRadius = GameManager.hatrisBoardSize;
 
-        CreateMap(12, 9);
+        CreateMap(20, 15);
         foreach (HexCell cell in cells) 
         {
             cell.GetComponent<MeshRenderer>().material = HexMetrics.materials[1];

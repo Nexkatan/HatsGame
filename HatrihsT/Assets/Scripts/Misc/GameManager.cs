@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     public void ReloadGame()
     {
-        scoreKeeper.Reset();
+        scoreKeeper.ResetGame();
         LoadGame();
      }
 
